@@ -1,2 +1,3 @@
 Data			Horas Trabalhadas, 		Tipo Tarefa, 		Descrição da Tarefa Realizada
 2018-08-16		1						estudar				Preparações gerais. Configurar o arcabouço para uso na máquina e criação do repositório git.
+2018-08-17		1						estudar				Continuação da preparação para realização do trabalho. Estudo dos módulos teste e árvore.
