@@ -87,16 +87,11 @@
 
    } tpArvore ;
 
-/*****  Dados encapsulados no módulo  *****/
-
-      static tpArvore * pArvore = NULL ;
-            /* Ponteiro para a cabe‡a da árvore */
-
 /***** Protótipos das funções encapuladas no módulo *****/
 
    static tpNoArvore * CriarNo( char ValorParm ) ;
 
-   static ARV_tpCondRet CriarNoRaiz( char ValorParm ) ;
+   static ARV_tpCondRet CriarNoRaiz( char ValorParm, tpArvore * pArvore ) ;
 
    static void DestroiArvore( tpNoArvore * pNo ) ;
 
@@ -107,22 +102,22 @@
 *  Função: ARV Criar árvore
 *  ****/
 
-   ARV_tpCondRet ARV_CriarArvore( void )
+   ARV_tpCondRet ARV_CriarArvore( tpArvore ** pArvore )
    {
 
-      if ( pArvore != NULL )
+      if ( *pArvore != NULL )
       {
-         ARV_DestruirArvore( ) ;
+         ARV_DestruirArvore( pArvore ) ;
       } /* if */
 
-      pArvore = ( tpArvore * ) malloc( sizeof( tpArvore )) ;
+      *pArvore = ( tpArvore * ) malloc( sizeof( tpArvore )) ;
       if ( pArvore == NULL )
       {
          return ARV_CondRetFaltouMemoria ;
       } /* if */
 
-      pArvore->pNoRaiz = NULL ;
-      pArvore->pNoCorr = NULL ;
+      (*pArvore)->pNoRaiz = NULL ;
+      (*pArvore)->pNoCorr = NULL ;
 
       return ARV_CondRetOK ;
 
@@ -133,17 +128,17 @@
 *  Função: ARV Destruir árvore
 *  ****/
 
-   void ARV_DestruirArvore( void )
+   void ARV_DestruirArvore( tpArvore ** pArvore )
    {
 
       if ( pArvore != NULL )
       {
-         if ( pArvore->pNoRaiz != NULL )
+         if ( (*pArvore)->pNoRaiz != NULL )
          {
-            DestroiArvore( pArvore->pNoRaiz ) ;
+            DestroiArvore( (*pArvore)->pNoRaiz ) ;
          } /* if */
-         free( pArvore ) ;
-         pArvore = NULL ;
+         free( *pArvore ) ;
+         *pArvore = NULL ;
       } /* if */
 
    } /* Fim função: ARV Destruir árvore */
@@ -153,7 +148,7 @@
 *  Função: ARV Adicionar filho à esquerda
 *  ****/
 
-   ARV_tpCondRet ARV_InserirEsquerda( char ValorParm )
+   ARV_tpCondRet ARV_InserirEsquerda( char ValorParm, tpArvore * pArvore )
    {
 
       ARV_tpCondRet CondRet ;
@@ -163,7 +158,7 @@
 
       /* Tratar vazio, esquerda */
 
-         CondRet = CriarNoRaiz( ValorParm ) ;
+         CondRet = CriarNoRaiz( ValorParm, pArvore ) ;
          if ( CondRet != ARV_CondRetNaoCriouRaiz )
          {
             return CondRet ;
@@ -202,7 +197,7 @@
 *  Função: ARV Adicionar filho à direita
 *  ****/
 
-   ARV_tpCondRet ARV_InserirDireita( char ValorParm )
+   ARV_tpCondRet ARV_InserirDireita( char ValorParm, tpArvore * pArvore )
    {
 
       ARV_tpCondRet CondRet ;
@@ -212,7 +207,7 @@
 
       /* Tratar vazio, direita */
 
-         CondRet = CriarNoRaiz( ValorParm ) ;
+         CondRet = CriarNoRaiz( ValorParm, pArvore ) ;
          if ( CondRet != ARV_CondRetNaoCriouRaiz )
          {
             return CondRet ;
@@ -251,7 +246,7 @@
 *  Função: ARV Ir para nó pai
 *  ****/
 
-   ARV_tpCondRet ARV_IrPai( void )
+   ARV_tpCondRet ARV_IrPai( tpArvore * pArvore )
    {
 
       if ( pArvore == NULL )
@@ -278,7 +273,7 @@
 *  Função: ARV Ir para nó à esquerda
 *  ****/
 
-   ARV_tpCondRet ARV_IrNoEsquerda( void )
+   ARV_tpCondRet ARV_IrNoEsquerda( tpArvore * pArvore )
    {
 
       if ( pArvore == NULL )
@@ -306,7 +301,7 @@
 *  Função: ARV Ir para nó à direita
 *  ****/
 
-   ARV_tpCondRet ARV_IrNoDireita( void )
+   ARV_tpCondRet ARV_IrNoDireita( tpArvore * pArvore )
    {
 
       if ( pArvore == NULL )
@@ -334,7 +329,7 @@
 *  Função: ARV Obter valor corrente
 *  ****/
 
-   ARV_tpCondRet ARV_ObterValorCorr( char * ValorParm )
+   ARV_tpCondRet ARV_ObterValorCorr( char * ValorParm, tpArvore * pArvore )
    {
 
       if ( pArvore == NULL )
@@ -398,7 +393,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet CriarNoRaiz( char ValorParm )
+   ARV_tpCondRet CriarNoRaiz( char ValorParm, tpArvore * pArvore )
    {
 
       ARV_tpCondRet CondRet ;
@@ -406,7 +401,7 @@
 
       if ( pArvore == NULL )
       {
-         CondRet = ARV_CriarArvore( ) ;
+         CondRet = ARV_CriarArvore( &pArvore ) ;
 
          if ( CondRet != ARV_CondRetOK )
          {

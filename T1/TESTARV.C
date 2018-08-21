@@ -65,6 +65,12 @@
 #define     OBTER_VAL_CMD       "=obter"
 #define     DESTROI_CMD         "=destruir"
 
+/*****  Dados encapsulados no módulo  *****/
+
+//static tpArvore * pArvores[] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL } ;
+static tpArvore * pArvores = NULL;
+					/* Array de ponteiros para as cabe‡as das árvores */
+
 /*****  Código das funções exportadas pelo módulo  *****/
 
 
@@ -86,7 +92,7 @@
 
    TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
    {
-
+	  
       ARV_tpCondRet CondRetObtido   = ARV_CondRetOK ;
       ARV_tpCondRet CondRetEsperada = ARV_CondRetFaltouMemoria ;
                                       /* inicializa para qualquer coisa */
@@ -111,7 +117,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_CriarArvore( ) ;
+            CondRetObtido = ARV_CriarArvore( &pArvores ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao criar árvore." );
@@ -130,7 +136,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_InserirDireita( ValorDado ) ;
+            CondRetObtido = ARV_InserirDireita( ValorDado, pArvores ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado inserir àa direita." );
@@ -149,7 +155,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_InserirEsquerda( ValorDado ) ;
+            CondRetObtido = ARV_InserirEsquerda( ValorDado, pArvores ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao inserir à esquerda." );
@@ -168,7 +174,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_IrPai( ) ;
+            CondRetObtido = ARV_IrPai( pArvores ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao ir para pai." );
@@ -187,7 +193,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_IrNoEsquerda( ) ;
+            CondRetObtido = ARV_IrNoEsquerda( pArvores ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao ir para esquerda." );
@@ -206,7 +212,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_IrNoDireita( ) ;
+            CondRetObtido = ARV_IrNoDireita( pArvores ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao ir para direita." );
@@ -225,7 +231,7 @@
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_ObterValorCorr( &ValorObtido ) ;
+            CondRetObtido = ARV_ObterValorCorr( &ValorObtido, pArvores ) ;
 
             Ret = TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                    "Retorno errado ao obter valor corrente." );
@@ -245,7 +251,7 @@
          else if ( strcmp( ComandoTeste , DESTROI_CMD ) == 0 )
          {
 
-            ARV_DestruirArvore( ) ;
+            ARV_DestruirArvore( &pArvores ) ;
 
             return TST_CondRetOK ;
 

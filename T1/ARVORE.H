@@ -79,13 +79,25 @@
 
    } ARV_tpCondRet ;
 
+/***********************************************************************
+*
+*  $TC Tipo de dados: ARV Descritor da cabeça de uma árvore
+*
+*
+***********************************************************************/
+
+   typedef struct tgArvore tpArvore;
 
 /***********************************************************************
 *
 *  $FC Função: ARV Criar árvore
 *
+*  $EP Parâmetros
+*     $P pArvore - endereço do ponteiro para a cabeça da árvore a ser manipulada.
+*
 *  $ED Descrição da função
 *     Cria uma nova árvore vazia.
+*     Recebe o endereço de um ponteiro que no final apontará a nova árvore.
 *     Caso já exista uma árvore, esta será destruída.
 *
 *  $FV Valor retornado
@@ -94,20 +106,23 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_CriarArvore( void ) ;
+   ARV_tpCondRet ARV_CriarArvore( tpArvore ** pArvore ) ;
 
 
 /***********************************************************************
 *
 *  $FC Função: ARV Destruir árvore
 *
+*  $EP Parâmetros
+*     $P pArvore - endereço do ponteiro para a cabeça da árvore a ser manipulada.
+*
 *  $ED Descrição da função
-*     Destrói o corpo e a cabeça da árvore, anulando a árvore corrente.
-*     Faz nada caso a árvore corrente não exista.
+*     Destrói o corpo e a cabeça da árvore recebida, anulando a árvore.
+*     Faz nada caso a árvore recebida não exista.
 *
 ***********************************************************************/
 
-   void ARV_DestruirArvore( void ) ;
+   void ARV_DestruirArvore( tpArvore ** pArvore ) ;
 
 
 /***********************************************************************
@@ -116,6 +131,7 @@
 *
 *  $EP Parâmetros
 *     $P ValorParm - valor a ser inserido no novo nó.
+*     $P pArvore - ponteiro para a cabeça da árvore a ser manipulada.
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -125,7 +141,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_InserirEsquerda( char ValorParm ) ;
+   ARV_tpCondRet ARV_InserirEsquerda( char ValorParm, tpArvore * pArvore ) ;
 
 
 /***********************************************************************
@@ -134,6 +150,7 @@
 *
 *  $EP Parâmetros
 *     $P ValorParm - valor a ser inserido no novo nó
+*     $P pArvore - ponteiro para a cabeça da árvore a ser manipulada.
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -143,12 +160,15 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_InserirDireita( char ValorParm ) ;
+   ARV_tpCondRet ARV_InserirDireita( char ValorParm, tpArvore * pArvore ) ;
 
 
 /***********************************************************************
 *
 *  $FC Função: ARV Ir para nó pai
+*
+*  $EP Parâmetros
+*     $P pArvore - ponteiro para a cabeça da árvore a ser manipulada.
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -158,12 +178,15 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrPai( void ) ;
+   ARV_tpCondRet ARV_IrPai( tpArvore * pArvore ) ;
 
 
 /***********************************************************************
 *
 *  $FC Função: ARV Ir para nó à esquerda
+*
+*  $EP Parâmetros
+*     $P pArvore - ponteiro para a cabeça da árvore a ser manipulada.
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -173,12 +196,15 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrNoEsquerda( void ) ;
+   ARV_tpCondRet ARV_IrNoEsquerda( tpArvore * pArvore ) ;
 
 
 /***********************************************************************
 *
 *  $FC Função: ARV Ir para nó à direita
+*
+*  $EP Parâmetros
+*     $P pArvore - ponteiro para a cabeça da árvore a ser manipulada.
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -188,7 +214,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrNoDireita( void ) ;
+   ARV_tpCondRet ARV_IrNoDireita( tpArvore * pArvore ) ;
 
 
 /***********************************************************************
@@ -198,6 +224,7 @@
 *  $EP Parâmetros
 *     $P ValorParm - é o parâmetro que receberá o valor contido no nó.
 *                    Este parâmetro é passado por referência.
+*     $P pArvore - ponteiro para a cabeça da árvore a ser manipulada.
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -206,7 +233,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_ObterValorCorr( char * ValorParm ) ;
+   ARV_tpCondRet ARV_ObterValorCorr( char * ValorParm, tpArvore * pArvore ) ;
 
 #undef ARVORE_EXT
 
