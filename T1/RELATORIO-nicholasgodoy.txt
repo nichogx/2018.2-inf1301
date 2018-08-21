@@ -5,3 +5,6 @@ Data			Horas Trabalhadas, 		Tipo Tarefa, 										Descrição da Tarefa Realiza
 2018-08-21		2						codificar módulo									Codificar a implementação de múltiplas árvores, ao invés de uma.
 										especificar os módulos								Atualizar documentação conforme codificação.
 										realizar os testes									Testar as mudanças implementadas para múltiplas árvores, ao invés de uma.
+2018-08-21		1						codificar módulo									Continuar a implementação de múltiplas árvores.
+										redigir script de teste								Script de teste para as mudanças feitas.
+										realizar os testes									Teste das mudanças feitas.
