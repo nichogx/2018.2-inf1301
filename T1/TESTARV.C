@@ -14,7 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*		3.10   ngx   21/08/2018 Múltiplas árvores, ao invés de uma.
+*       3.10   ngx   21/08/2018 Múltiplas árvores, ao invés de uma.
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
 *       2.00   avs   03/08/2002 Eliminação de código duplicado, reestruturação
