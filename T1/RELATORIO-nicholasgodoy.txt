@@ -8,3 +8,4 @@ Data			Horas Trabalhadas, 		Tipo Tarefa, 										Descrição da Tarefa Realiza
 2018-08-21		1						codificar módulo									Continuar a implementação de múltiplas árvores.
 										redigir script de teste								Script de teste para as mudanças feitas.
 										realizar os testes									Teste das mudanças feitas.
+2018-08-21		1						codificar módulo									Adicionar função MarcarVisitado.

@@ -31,6 +31,29 @@
 
 /***********************************************************************
 *
+*  $TC Tipo de dados: ARV Modos de Visita
+*
+*
+***********************************************************************/
+
+   typedef enum {
+	     
+	     ARV_ModoNenhum = 0 ,
+		       /* Não veio de nenhum outro nó */
+
+         ARV_ModoDePai = 1 ,
+               /* Veio do pai */
+
+         ARV_ModoParaEsq = 2 ,
+               /* Veio pelo nó da esquerda  */
+
+		ARV_ModoParaDir = 3
+		      /* Veio pelo nó da direita */
+
+   } ARV_tpModoVisita ;
+
+/***********************************************************************
+*
 *  $TC Tipo de dados: ARV Descritor do nó da árvore
 *
 *
@@ -64,6 +87,9 @@
          char Valor ;
                /* Valor do nó */
 
+		 ARV_tpModoVisita modo;
+		       /* Modo de visita ao nó */
+
    } tpNoArvore ;
 
 /***********************************************************************
@@ -94,6 +120,8 @@
    static tpNoArvore * CriarNo( char ValorParm ) ;
 
    static ARV_tpCondRet CriarNoRaiz( char ValorParm, tpArvore * pArvore ) ;
+
+   static ARV_tpCondRet MarcarVisitado( ARV_tpModoVisita Modo , tpArvore * pArvore ) ;
 
    static void DestroiArvore( tpNoArvore * pNo ) ;
 
@@ -183,6 +211,7 @@
             } /* if */
             pNo->pNoPai      = pCorr ;
             pCorr->pNoEsq    = pNo ;
+			MarcarVisitado ( ARV_ModoParaEsq , pArvore ) ;
             pArvore->pNoCorr = pNo ;
 
             return ARV_CondRetOK ;
@@ -232,6 +261,7 @@
             } /* if */
             pNo->pNoPai      = pCorr ;
             pCorr->pNoDir    = pNo ;
+			MarcarVisitado ( ARV_ModoParaDir , pArvore ) ;
             pArvore->pNoCorr = pNo ;
 
             return ARV_CondRetOK ;
@@ -250,7 +280,7 @@
 
    ARV_tpCondRet ARV_IrPai( tpArvore * pArvore )
    {
-
+      
       if ( pArvore == NULL )
       {
          return ARV_CondRetArvoreNaoExiste ;
@@ -261,7 +291,8 @@
       } /* if */
 
       if ( pArvore->pNoCorr->pNoPai != NULL )
-      {
+      {  
+         MarcarVisitado ( ARV_ModoDePai , pArvore ) ;
          pArvore->pNoCorr = pArvore->pNoCorr->pNoPai ;
          return ARV_CondRetOK ;
       } else {
@@ -293,6 +324,7 @@
          return ARV_CondRetNaoPossuiFilho ;
       } /* if */
 
+	  MarcarVisitado ( ARV_ModoParaEsq , pArvore ) ;
       pArvore->pNoCorr = pArvore->pNoCorr->pNoEsq ;
       return ARV_CondRetOK ;
 
@@ -321,6 +353,7 @@
          return ARV_CondRetNaoPossuiFilho ;
       } /* if */
 
+	  MarcarVisitado ( ARV_ModoParaDir , pArvore ) ;
       pArvore->pNoCorr = pArvore->pNoCorr->pNoDir ;
       return ARV_CondRetOK ;
 
@@ -379,6 +412,7 @@
       pNo->pNoEsq = NULL ;
       pNo->pNoDir = NULL ;
       pNo->Valor  = ValorParm ;
+	  pNo->modo   = ARV_ModoNenhum ;
       return pNo ;
 
    } /* Fim função: ARV Criar nó da árvore */
@@ -427,6 +461,33 @@
       return ARV_CondRetNaoCriouRaiz ;
 
    } /* Fim função: ARV Criar nó raiz da árvore */
+
+/***********************************************************************
+*
+*  $FC Função: ARV Marcar modo de visita
+*
+*  $FV Valor retornado
+*     ARV_CondRetOK
+*     ARV_CondRetArvoreNaoExiste
+*     ARV_CondRetArvoreVazia
+*
+***********************************************************************/
+
+   ARV_tpCondRet MarcarVisitado( ARV_tpModoVisita Modo , tpArvore * pArvore )
+   {   
+	  if ( pArvore == NULL )
+      {
+         return ARV_CondRetArvoreNaoExiste ;
+      } /* if */
+      if ( pArvore->pNoCorr == NULL )
+      {
+         return ARV_CondRetArvoreVazia ;
+      } /* if */
+	  pArvore->pNoCorr->modo = Modo ;
+
+      return ARV_CondRetOK ;
+
+   } /* Fim função: ARV Marcar modo de visita */
 
 
 /***********************************************************************
