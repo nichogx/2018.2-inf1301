@@ -75,7 +75,7 @@
 
 static tpArvore * pArvores[] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL } ;
 					/* Array de ponteiros para as cabe‡as das árvores */
-char arvAtual = 0; /* 0 a 9, testa até 10 árvores simultâneas */
+static char arvAtual = 0; /* 0 a 9, testa até 10 árvores simultâneas */
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
