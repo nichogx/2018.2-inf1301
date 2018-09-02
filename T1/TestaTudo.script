@@ -1,0 +1,127 @@
+// Script: TestaTudo.script
+// Autores: Guilherme Pasqualette & Nicholas Godoy
+// Data: 02/09/2018
+// Propósito: Testar todas as funções do módulo ARVORE, com múltiplas árvores
+//
+
+== Testar criação de duas árvores (0 e 1)
+=mudar 0
+=criar 0
+=mudar 1
+=criar 0
+
+== Testar árvore que não existe (usando a árvore 2)
+=mudar 2
+=irpai 4
+=iresq 4
+=irdir 4
+=obter '!' 4 // o arcabouço inicializa com '!'
+=exibir 4
+
+== Verificar que se a árvore 2 for criada, ela funciona como árvore
+=mudar 2
+=criar 0
+=insesq 'a' 0
+=obter 'a' 0
+
+== Destruir árvore 2
+=destruir
+
+== Testando inserção de valores na árvore 1
+=mudar 1
+=insdir 'a' 0
+=insesq 'b' 0
+=irpai 0
+=insdir 'c' 0
+=irpai 0
+=obter 'a' 0
+=insesq 'y' 3
+=insdir 'p' 3
+=iresq 0
+=insesq 'e' 0
+=irpai 0
+=insdir 'h' 0
+=insesq 'j' 0
+=irpai 0
+=insdir 's' 0
+=irpai 0
+=insdir 'k' 3
+
+== Testando caminhamento pelas árvores 0, 1 e 3
+=mudar 0
+=iresq 5
+=irdir 5
+=irpai 5
+=mudar 1
+=irpai 0 
+=irpai 0
+=irpai 6
+=iresq 0
+=irdir 0
+=irdir 0
+=iresq 7
+=irdir 7
+=mudar 3
+=iresq 4
+=irdir 4
+=irpai 4
+
+== Testando condições dos nós da arvore 1
+=mudar 1
+=obter 'z' 0
+=recuperar
+=obter 's' 0
+=irpai 0
+=obter 'h' 0
+
+== Testar que árvore 0 funciona separaedamente, simultaneamente à árvore 1
+=mudar 0
+=insesq '&' 0
+=insdir '*' 0
+=obter '*' 0
+=irpai 0
+=obter '&' 0
+=destruir
+
+== Testar caminhamento na árvore 1
+=mudar 1
+
+== Criar árvore n-ária representada como binária (na árvore 9)
+=mudar 9
+=irpai 4
+=criar 0
+=irpai 5
+=insesq 'R' 0
+=irpai 6
+=insesq 'a' 0
+=insdir 'i' 0
+=irpai 0
+=insesq 'b' 0
+=insesq 'c' 0
+=irpai 0
+=insdir 'd' 0
+=insesq 'e' 0
+=insesq 'g' 0
+=irpai 0
+=insdir 'f' 0
+=insesq 'h' 0
+
+== Criar árvore vazia na 8 para testar exibição
+=mudar 8
+=criar 0
+
+== Testar função exibição de árvore n-ária
+=mudar 7
+=exibir 4
+=mudar 8
+=exibir 5
+=mudar 9
+=exibir 0
+
+== Destruir árvores 8 e 9
+=mudar 8
+=destruir
+=mudar 9
+=destruir
+
+//fim

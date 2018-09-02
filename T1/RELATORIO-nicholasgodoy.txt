@@ -12,3 +12,5 @@ Data			Horas Trabalhadas, 		Tipo Tarefa, 										Descrição da Tarefa Realiza
 2018-09-02		2						codificar módulo									Adicionar função ARV_ExibirArvore.
 										redigir script de teste								Script de teste para as mudanças feitas.
 										realizar os testes									Teste das mudanças feitas.
+2018-09-02		2						redigir script de teste								Redigir com o grupo scripts de teste gerais, que testam várias funções.
+										realizar os testes									Rodar os scripts redigidos.
