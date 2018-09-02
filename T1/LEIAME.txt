@@ -1,0 +1,4 @@
+Como executar o programa TRAB1-1:
+
+1 - Extraia o .zip para uma pasta utilizando uma ferramenta como 7zip, winrar ou a própria ferramenta do Windows.
+2 - Dentro dessa pasta, rode o arquivo run.bat
