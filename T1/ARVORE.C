@@ -14,6 +14,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       3.50   ngx   02/09/2018 Adicionar função para exibir 
+*                               árvores n-arias
 *       3.20   ngx   25/08/2018 Adicionar modo de visita.
 *       3.10   ngx   21/08/2018 Múltiplas árvores, ao invés de uma.
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
@@ -127,6 +129,67 @@
    static void DestroiArvore( tpNoArvore * pNo ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
+
+/***************************************************************************
+*
+*  Função: ARV Exibir árvore
+*  ****/
+
+   ARV_tpCondRet ARV_ExibirArvore( tpArvore * pArvore)
+   {
+      int terminouArvore = 0;
+      
+	  if ( pArvore == NULL )
+      {
+         return ARV_CondRetArvoreNaoExiste ;
+      } /* if */
+
+      if ( pArvore->pNoCorr == NULL )
+      {
+         return ARV_CondRetArvoreVazia ;
+      } /* if */
+
+	  while ( MarcarVisitado( ARV_ModoNenhum , pArvore ) == ARV_CondRetOK &&
+		      ARV_IrPai( pArvore ) != ARV_CondRetNohEhRaiz ) ;                   /* ir para o pai e zerar todos os modos de visita */
+
+	  while ( !terminouArvore )
+	  {
+         char charAt = ' ' ;
+		 ARV_tpCondRet CondRet = ARV_CondRetOK ;
+
+         CondRet = ARV_ObterValorCorr( &charAt, pArvore ) ;
+		 if ( CondRet != ARV_CondRetOK ) return CondRet ;
+
+		 if ( pArvore->pNoCorr->modo == ARV_ModoNenhum ||
+			  pArvore->pNoCorr->modo == ARV_ModoDePai ) 
+         {
+            printf(" %c", charAt) ;
+		 }
+
+         if ( pArvore->pNoCorr->modo != ARV_ModoParaEsq &&
+			  pArvore->pNoCorr->modo != ARV_ModoParaDir &&
+			  pArvore->pNoCorr->pNoEsq != NULL )
+		 {
+            printf(" ("); /* inicio lista de irmaos */
+            ARV_IrNoEsquerda( pArvore ) ;
+		 }
+		 else if ( pArvore->pNoCorr->modo != ARV_ModoParaDir && pArvore->pNoCorr->pNoDir != NULL ) /* esq nao existe ou ja foi, ir direita */
+		 {
+            ARV_IrNoDireita( pArvore );
+		 }
+		 else
+		 {
+            if ( pArvore->pNoCorr->pNoDir == NULL && pArvore->pNoCorr->pNoPai != NULL) /* ultimo da lista de irmaos, sem ser o raiz */
+               printf(" )");
+
+            if ( ARV_IrPai( pArvore ) == ARV_CondRetNohEhRaiz ) /* volta pro pai e termina o while se for raíz */
+               terminouArvore = 1 ;
+		 }
+
+	  } /* while */
+
+	  return ARV_CondRetOK ;
+   } /* Fim função: ARV Exibir árvore */
 
 /***************************************************************************
 *

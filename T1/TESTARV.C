@@ -14,6 +14,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       3.50   ngx   02/09/2018 Adicionar função para exibir 
+*                               árvores n-arias
 *       3.10   ngx   21/08/2018 Múltiplas árvores, ao invés de uma.
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
@@ -46,6 +48,7 @@
 *     "=mudar" <Int>
 *                   - muda todos os comandos para executarem na árvore 
 *                     de número <Int> (opções válidas são de 0 a 9)
+*     "=exibir"     - chama a função ARV_ExibirArvore( )
 *
 ***************************************************************************/
 
@@ -70,6 +73,7 @@
 #define     OBTER_VAL_CMD       "=obter"
 #define     DESTROI_CMD         "=destruir"
 #define     MUDAR_ARV_CMD       "=mudar"
+#define     EXIBIR_ARV_CMD      "=exibir"
 
 /*****  Dados encapsulados no módulo  *****/
 
@@ -110,6 +114,25 @@ static char arvAtual = 0; /* 0 a 9, testa até 10 árvores simultâneas */
       int  NumLidos = -1 ;
 
       TST_tpCondRet Ret ;
+
+	  /* Testar ARV Exibir árvore */
+
+         if ( strcmp( ComandoTeste , EXIBIR_ARV_CMD ) == 0 )
+         {
+
+            NumLidos = LER_LerParametros( "i" ,
+                               &CondRetEsperada ) ;
+            if ( NumLidos != 1 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = ARV_ExibirArvore( pArvores[arvAtual] ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao exibir árvore n-ária." ) ;
+
+         } /* fim ativa: Testar ARV Exibir árvore */
 
       /* Testar ARV Criar árvore */
 

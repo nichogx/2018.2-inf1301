@@ -17,6 +17,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       3.50   ngx   02/09/2018 Adicionar função para exibir 
+*                               árvores n-arias
 *	    3.10   ngx   21/08/2018 Múltiplas árvores, ao invés de uma.
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
@@ -89,6 +91,26 @@
 ***********************************************************************/
 
    typedef struct tgArvore tpArvore;
+
+/***********************************************************************
+*
+*  $FC Função: ARV Exibir árvore
+*
+*  $EP Parâmetros
+*     $P pArvore - ponteiro para a cabeça da árvore a ser exibida.
+*
+*  $ED Descrição da função
+*     Exibe uma árvore n-ária que está representada em uma árvore binária.
+*     Recebe um ponteiro que aponta a árvore.
+*
+*  $FV Valor retornado
+*     ARV_CondRetOK
+*     ARV_CondRetArvoreNaoExiste
+*     ARV_CondRetArvoreVazia
+*
+***********************************************************************/
+   
+   ARV_tpCondRet ARV_ExibirArvore( tpArvore * pArvore) ;
 
 /***********************************************************************
 *

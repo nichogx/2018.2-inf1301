@@ -1,0 +1,52 @@
+// Script:    TesteCustom.script
+// Autor:     Nicholas Godoy
+// Data:      02/09/2018
+// Propósito: Testar se funciona a função exibir Árvore.
+//
+
+== Testar cond ret árvore não existe
+=exibir 4
+
+== Criar árvore, verificar vazia
+=irdir 4
+=criar 0
+=irdir 5
+
+== Testar cond ret árvore vazia
+=exibir 5
+
+== Preencher árvore com caso a ser testado
+=insesq 'R' 0
+=insesq '1' 0
+=insdir '2' 0
+=insesq '4' 0
+=insesq '5' 0
+=insdir '6' 0
+=insdir '7' 0
+=irpai 0
+=irpai 0
+=irpai 0
+=irpai 0
+=insdir '3' 0
+=insesq '8' 0
+=insesq 'f' 0
+=irpai 0
+=insdir '9' 0
+=insesq 'a' 0
+=insdir 'b' 0
+=insesq 'g' 0
+=insdir 'h' 0
+=irpai 0
+=irpai 0
+=insdir 'c' 0
+=insdir 'd' 0
+=insdir 'e' 0
+=iresq 7
+
+== Exibir a árvore n-ária
+=exibir 0
+
+== Destruir árvore
+=destruir 0
+
+// fim
