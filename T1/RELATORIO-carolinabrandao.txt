@@ -1,0 +1,5 @@
+Data		Horas Trabalhadas	Tipo Tarefa				Descrição da Tarefa Realizada
+2018-09-01	     2.5 		 Estudar	 			  Aprendendo a usar o arcabouço e fazer as configurações iniciais
+2018-09-02	     1.5		 Estudar	 			  Entender os codigos, ver o que era deveria ser implementado e a descrição do trabalho
+2018-09-04	      1			 Revisar script				  Revisando o script de teste implementado
+2018-09-05	      1			 Fazendo adições ao script de teste 	  Adicionando testes ao script de teste
