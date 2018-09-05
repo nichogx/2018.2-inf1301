@@ -124,4 +124,67 @@
 =mudar 9
 =destruir
 
+== Testando criação e utilização simultanea de 10 arvores
+=mudar 0
+=criar 0
+=insesq 'a' 0
+=mudar 1
+=criar 0
+=insesq 'b' 0
+=mudar 2
+=criar 0
+=insesq 'c' 0
+=mudar 3
+=criar 0
+=insesq 'd' 0
+=mudar 4
+=criar 0
+=insesq 'e' 0
+=mudar 5
+=criar 0
+=insesq 'f' 0
+=mudar 6
+=criar 0
+=insesq 'g' 0
+=mudar 7
+=criar 0
+=insesq 'h' 0
+=mudar 8
+=criar 0
+=insesq 'i' 0
+=mudar 9
+=criar 0
+=insesq 'j' 0
+
+== Destruir as arvores criadas
+=mudar 0
+=obter 'a' 0
+=destruir
+=mudar 1
+=obter 'b' 0
+=destruir
+=mudar 2
+=obter 'c' 0
+=destruir
+=mudar 3
+=obter 'd' 0
+=destruir
+=mudar 4
+=obter 'e' 0
+=destruir
+=mudar 5
+=obter 'f' 0
+=destruir
+=mudar 6
+=obter 'g' 0
+=destruir
+=mudar 7
+=obter 'h' 0
+=destruir
+=mudar 8
+=obter 'i' 0
+=mudar 9
+=obter 'j' 0
+=destruir
+
 //fim

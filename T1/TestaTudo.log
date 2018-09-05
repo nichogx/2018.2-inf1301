@@ -1,0 +1,38 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: TRAB1-1
+!!!      Script de teste:     TestaTudo.script
+
+!!!    0  Linha:     1  // Script: TestaTudo.script 
+!!!    0  Linha:     2  // Autores: Guilherme Pasqualette & Nicholas Godoy 
+!!!    0  Linha:     3  // Data: 02/09/2018 
+!!!    0  Linha:     4  // Propósito: Testar todas as funções do módulo ARVORE, com múltiplas árvores 
+!!!    0  Linha:     5  // 
+    7  == Testar criação de duas árvores (0 e 1)
+   13  == Testar árvore que não existe (usando a árvore 2)
+   21  == Verificar que se a árvore 2 for criada, ela funciona como árvore
+   27  == Destruir árvore 2
+   30  == Testando inserção de valores na árvore 1
+   50  == Testando caminhamento pelas árvores 0, 1 e 3
+   69  == Testando condições dos nós da arvore 1
+>>>    1  Linha:    71  Conteúdo do nó está errado. Deveria ser: 'z'  É: 's'
+<<<    0  Linha:    72  Falha esperada foi recuperada. 
+   77  == Testar que árvore 0 funciona separaedamente, simultaneamente à árvore 1
+   86  == Testar caminhamento na árvore 1
+   89  == Criar árvore n-ária representada como binária (na árvore 9)
+  109  == Criar árvore vazia na 8 para testar exibição
+  113  == Testar função exibição de árvore n-ária
+  121  == Destruir árvores 8 e 9
+  127  == Testando criação e utilização simultanea de 10 arvores
+  159  == Destruir as arvores criadas
+!!!    0  Linha:   190  //fim 
+
+!!! Número de linhas lidas:         190
+!!! Número de casos de teste:        15
+!!! Número comandos corretos:       151
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0
