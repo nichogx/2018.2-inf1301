@@ -156,7 +156,7 @@
 =criar 0
 =insesq 'j' 0
 
-== Destruir as arvores criadas
+== Obter inserido, destruindo as arvores criadas
 =mudar 0
 =obter 'a' 0
 =destruir
