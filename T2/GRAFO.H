@@ -59,7 +59,7 @@ typedef enum {
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: ARV Descritor da cabeça de uma árvore
+*  $TC Tipo de dados: GRF Descritor da cabeça de um grafo
 *
 *
 ***********************************************************************/

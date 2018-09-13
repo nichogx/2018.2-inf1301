@@ -79,7 +79,7 @@ GRF_tpCondRet GRF_CriarGrafo()
 
 /***************************************************************************
 *
-*  Função: ARV Destruir árvore
+*  Função: GRF Destruir Grafo
 *  ****/
 
 GRF_tpCondRet GRF_DestruirGrafo(void)
@@ -88,22 +88,7 @@ GRF_tpCondRet GRF_DestruirGrafo(void)
 		return GRF_CondRetGrafoNaoExiste;
 
 	// TODO continuar
-}
-
-   void ARV_DestruirArvore( void )
-   {
-
-      if ( pArvore != NULL )
-      {
-         if ( pArvore->pNoRaiz != NULL )
-         {
-            DestroiArvore( pArvore->pNoRaiz ) ;
-         } /* if */
-         free( pArvore ) ;
-         pArvore = NULL ;
-      } /* if */
-
-   } /* Fim função: ARV Destruir árvore */
+} /* fim função: GRF Destruir Grafo
 
 /*****  Código das funções encapsuladas no módulo  *****/
 
