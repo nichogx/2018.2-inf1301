@@ -15,6 +15,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "LISTA.H" /* grafo usa listas duplamente encadeadas*/
 
 #define GRAFO_OWN
 #include "GRAFO.H"
@@ -22,17 +23,34 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: GRF Descritor do nó do grafo
+*  $TC Tipo de dados: GRF Descritor do conteúdo do vértice do grafo
 *
 *
 *  $ED Descrição do tipo
-*     Descreve a organização do nó
+*     Descreve a organização do conteúdo do vértice do vértice
 *
 ***********************************************************************/
 
-typedef struct tgNoGrafo tpNoGrafo;
-struct tgNoGrafo {
-	char valor; /* valor do nó */
+typedef struct tgContVerGrafo tpContVerGrafo;
+struct tgContVerGrafo {
+	void *pValor; /* valor do vértice */
+	tpContVerGrafo *prox; /* próximo vértice */
+};
+
+/***********************************************************************
+*
+*  $TC Tipo de dados: GRF Descritor do vértice do grafo
+*
+*
+*  $ED Descrição do tipo
+*     Descreve a organização do vértice
+*
+***********************************************************************/
+
+typedef struct tgVerticeGrafo tpVerticeGrafo;
+struct tgVerticeGrafo {
+	void *pValor; /* valor do vértice */
+	tpVerticeGrafo *prox; /* próximo vértice */
 };
 
 /***********************************************************************
@@ -47,7 +65,9 @@ struct tgNoGrafo {
 
 typedef struct tgGrafo tpGrafo;
 struct tgGrafo {
-	tpNoGrafo *pNoCorr; /* ponteiro para o nó corrente do grafo */
+	tpVerticeGrafo *pNoCorr; /* ponteiro para o vértice corrente do grafo */
+	tpVerticeGrafo *pOrigem; /* ponteiro para o vértice origem do grafo */
+	tpVerticeGrafo *pVertices; /* ponteiro para a lista de vértices */
 };
 
 /*****  Dados encapsulados no módulo  *****/
@@ -87,8 +107,10 @@ GRF_tpCondRet GRF_DestruirGrafo(void)
 	if (pGrafo == NULL)
 		return GRF_CondRetGrafoNaoExiste;
 
+	return GRF_CondRetOK;
+
 	// TODO continuar
-} /* fim função: GRF Destruir Grafo
+} /* fim função: GRF Destruir Grafo */
 
 /*****  Código das funções encapsuladas no módulo  *****/
 

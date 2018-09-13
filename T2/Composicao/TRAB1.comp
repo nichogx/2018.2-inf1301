@@ -1,8 +1,11 @@
 [Diretorios]
 
 Nome        =  TRAB1-1
-PathDefault =  .
-err         =  .
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
 
 [Modulos]
 TestGrf
@@ -12,7 +15,7 @@ Analisador_Lex
 TestLex
 
 [BuildInicio]
-/OUT:TRAB1-1.exe
+/OUT:..\Produto\TRAB1-1.exe
 /INCREMENTAL:NO
 /MACHINE:IX86
 
