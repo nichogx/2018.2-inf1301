@@ -1,0 +1,20 @@
+[Diretorios]
+
+Nome        =  TRAB1-1
+PathDefault =  .
+err         =  .
+
+[Modulos]
+TestGraf
+Grafo
+Lista
+
+[BuildInicio]
+/OUT:TRAB1-1.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]
