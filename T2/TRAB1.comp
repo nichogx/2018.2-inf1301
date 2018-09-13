@@ -8,6 +8,7 @@ err         =  .
 TestGraf
 Grafo
 Lista
+Analisador_Lex
 
 [BuildInicio]
 /OUT:TRAB1-1.exe
