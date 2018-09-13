@@ -1,11 +1,8 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: Módulo de teste específico
+*  $MCI Módulo de implementação: Módulo de teste específico (analisador léxico)
 *
-*  Arquivo:                  TESTGRF.C
-*  Letras identificadoras:   TGRF
-*
-*  Nome da base de software:    Exemplo de teste automatizado
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
+*  Arquivo:                  TESTLEX.C
+*  Letras identificadoras:   TLEX
 *
 *  Projeto: Disciplina 1301
 *  Autores: ngx - Nicholas Godoy
@@ -16,12 +13,11 @@
 *
 *  $ED Descrição do módulo
 *     Este módulo contém as funções específicas para o teste do
-*     módulo grafo.
+*     módulo analisador lexico.
 *
 *  $EIU Interface com o usuário pessoa
-*     Comandos de teste específicos para testar o módulo árvore:
+*     Comandos de teste específicos para testar o módulo analisador lexico:
 *
-*     "=criar"      - chama a função GRF_CriarGrafo( )
 *
 ***************************************************************************/
 
@@ -33,22 +29,21 @@
 #include    "generico.h"
 #include    "lerparm.h"
 
-#include    "grafo.h"
+#include    "analisador_lex.h"
 
 /* Tabela dos nomes dos comandos de teste específicos */
-
-#define     CRIAR_GRF_CMD       "=criar"
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TGRF Efetuar operações de teste específicas para árvore
+*  $FC Função: TLEX Efetuar operações de teste específicas para 
+*              analisador lexico
 *
 *  $ED Descrição da função
 *     Efetua os diversos comandos de teste específicos para o módulo
-*     grafo sendo testado.
+*     analisador lexico sendo testado.
 *
 *  $EP Parâmetros
 *     $P ComandoTeste - String contendo o comando
@@ -60,33 +55,17 @@
 
 TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 {
-	GRF_tpCondRet CondRetObtido   = GRF_CondRetOK;
-	GRF_tpCondRet CondRetEsperada = GRF_CondRetFaltouMemoria;
+	LEX_tpCondRet CondRetObtido   = LEX_CondRetOK;
+	LEX_tpCondRet CondRetEsperada = LEX_CondRetFaltouMemoria;
                                       /* inicializa para qualquer coisa */
-	char ValorEsperado = '?';
-	char ValorObtido   = '!';
-	char ValorDado     = '\0';
 
 	int  NumLidos = -1;
 
 	TST_tpCondRet Ret;
 
-	/* Testar GRF Criar grafo */
-
-	if (strcmp(ComandoTeste, CRIAR_GRF_CMD) == 0) {
-		NumLidos = LER_LerParametros("i", &CondRetEsperada);
-		if (NumLidos != 1)
-			return TST_CondRetParm;
-
-		CondRetObtido = GRF_CriarGrafo();
-
-		return TST_CompararInt(CondRetEsperada, CondRetObtido, 
-				       "Retorno errado ao criar grafo.");
-	}
-
 	return TST_CondRetNaoConhec;
 
-   } /* Fim função: TGRF Efetuar operações de teste específicas para grafo */
+   } /* Fim função: TLEX Efetuar operações de teste específicas para analisador lexico */
 
 /********** Fim do módulo de implementação: Módulo de teste específico **********/
 

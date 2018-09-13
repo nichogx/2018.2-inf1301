@@ -1,1 +1,4 @@
 Data            Horas Trabalhadas,      Tipo Tarefa,                                        Descrição da Tarefa Realizada
+2018-09-13      1                       Estudar                                             Estudar sobre o funcionamento e implementação de um grafo
+                                        Projetar                                            Projeto de quais módulos serão necessários.
+2018-09-13      1.5                     Codificar Módulo                                    Início da codificação do módulo GRAFO, ANALISADOR_LEX, TESTGRF e TESTLEX

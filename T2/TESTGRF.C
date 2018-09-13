@@ -1,11 +1,8 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: Módulo de teste específico
+*  $MCI Módulo de implementação: Módulo de teste específico (grafo)
 *
 *  Arquivo:                  TESTGRF.C
 *  Letras identificadoras:   TGRF
-*
-*  Nome da base de software:    Exemplo de teste automatizado
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
 *
 *  Projeto: Disciplina 1301
 *  Autores: ngx - Nicholas Godoy
@@ -19,7 +16,7 @@
 *     módulo grafo.
 *
 *  $EIU Interface com o usuário pessoa
-*     Comandos de teste específicos para testar o módulo árvore:
+*     Comandos de teste específicos para testar o módulo grafo:
 *
 *     "=criar"      - chama a função GRF_CriarGrafo( )
 *
@@ -44,7 +41,7 @@
 
 /***********************************************************************
 *
-*  $FC Função: TGRF Efetuar operações de teste específicas para árvore
+*  $FC Função: TGRF Efetuar operações de teste específicas para grafo
 *
 *  $ED Descrição da função
 *     Efetua os diversos comandos de teste específicos para o módulo
