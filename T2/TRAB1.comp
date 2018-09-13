@@ -5,10 +5,11 @@ PathDefault =  .
 err         =  .
 
 [Modulos]
-TestGraf
+TestGrf
 Grafo
 Lista
 Analisador_Lex
+TestLex
 
 [BuildInicio]
 /OUT:TRAB1-1.exe
