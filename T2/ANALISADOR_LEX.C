@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: Módulo Analisador Léxico
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: MÃ³dulo Analisador LÃ©xico
 *
 *  Arquivo:                 ANALISADOR_LEX.C
 *  Letras identificadoras:  LEX
@@ -7,9 +7,9 @@
 *  Projeto: Disciplina INF1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*       0.10   ngx   13/09/2018 Início do desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*       0.10   ngx   13/09/2018 InÃ­cio do desenvolvimento
 *
 ***************************************************************************/
 
@@ -18,14 +18,14 @@
 
 #define ANALISADOR_LEX_OWN
 #include "ANALISADOR_LEX.H"
-#undef ANALISADOR_LEX_OWN // NÃO MEXER!! DEIXAR NO INICIO!! // TODO remover comentário
+#undef ANALISADOR_LEX_OWN // NÃƒO MEXER!! DEIXAR NO INICIO!! // TODO remover comentÃ¡rio
 
-/*****  Dados encapsulados no módulo  *****/
+/*****  Dados encapsulados no mÃ³dulo  *****/
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
-/*****  Código das funções encapsuladas no módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
 
-/********** Fim do módulo de implementação: Módulo Grafo **********/
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: MÃ³dulo Grafo **********/

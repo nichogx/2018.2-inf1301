@@ -2,7 +2,7 @@
 #define ANALISADOR_LEX_
 /***************************************************************************
 *
-*  $MCD MÛdulo de definiÁ„o: MÛdulo Analisador LÈxico
+*  $MCD M√≥dulo de defini√ß√£o: M√≥dulo Analisador L√©xico
 *
 *  Arquivo:                 ANALISADOR_LEX.H
 *  Letras identificadoras:  LEX
@@ -10,28 +10,28 @@
 *  Projeto: Disciplina INF1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*       0.10   ngx   13/09/2018 InÌcio do desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*       0.10   ngx   13/09/2018 In√≠cio do desenvolvimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     Este mÛdulo implementa um conjunto simples de funÁıes para criar e
+*  $ED Descri√ß√£o do m√≥dulo
+*     Este m√≥dulo implementa um conjunto simples de fun√ß√µes para criar e
 *     explorar grafos.
-*     O grafo possui uma cabeÁa que contÈm uma referÍncia para a raÌz da
-*     ·rvore e outra para um nÛ corrente da ·rvore. // TODO CHANGE
-*     A cada momento o mÛdulo admite no m·ximo uma ˙nica ·rvore.
-*     Ao iniciar a execuÁ„o do programa n„o existe grafo.
-*     O grafo poder· estar vazio. Neste caso o nÛ corrente
-*     ser· nulo, embora a cabeÁa esteja definida.
-*     O nÛ corrente ser· nulo se e somente se o grafo estiver vazio.
+*     O grafo possui uma cabe√ßa que cont√©m uma refer√™ncia para a ra√≠z da
+*     √°rvore e outra para um n√≥ corrente da √°rvore. // TODO CHANGE
+*     A cada momento o m√≥dulo admite no m√°ximo uma √∫nica √°rvore.
+*     Ao iniciar a execu√ß√£o do programa n√£o existe grafo.
+*     O grafo poder√° estar vazio. Neste caso o n√≥ corrente
+*     ser√° nulo, embora a cabe√ßa esteja definida.
+*     O n√≥ corrente ser√° nulo se e somente se o grafo estiver vazio.
 *
 ***************************************************************************/
- 
+
 #if defined (ANALISADOR_LEX_OWN)
-   #define ANALISADOR_LEX_EXT
+#define ANALISADOR_LEX_EXT
 #else
-   #define ANALISADOR_LEX_EXT extern
-#endif // N√O MEXER!! DEIXAR NO INICIO!! // TODO remover coment·rio
+#define ANALISADOR_LEX_EXT extern
+#endif // N√ÉO MEXER!! DEIXAR NO INICIO!! // TODO remover coment√°rio
 
 /***********************************************************************
 *
@@ -41,16 +41,16 @@
 ***********************************************************************/
 
 typedef enum {
-	LEX_CondRetOK = 0, 
-		/* executou corretamente */
+	/* executou corretamente */
+	LEX_CondRetOK = 0,
 
+	/* faltou mem√≥ria ao alocar dados */
 	LEX_CondRetFaltouMemoria = 1
-		/* faltou memÛria ao alocar dados */
 } LEX_tpCondRet;
 
-#undef ANALISADOR_LEX_EXT // N√O MEXER!! DEIXAR NO FINAL!! // TODO remover coment·rio
+#undef ANALISADOR_LEX_EXT // N√ÉO MEXER!! DEIXAR NO FINAL!! // TODO remover coment√°rio
 
-/********** Fim do mÛdulo de definiÁ„o: MÛdulo Grafo **********/
+/********** Fim do m√≥dulo de defini√ß√£o: M√≥dulo Grafo **********/
 
 #else
 #endif

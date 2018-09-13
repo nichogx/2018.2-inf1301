@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: Módulo de teste específico (analisador léxico)
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: MÃ³dulo de teste especÃ­fico (analisador lÃ©xico)
 *
 *  Arquivo:                  TESTLEX.C
 *  Letras identificadoras:   TLEX
@@ -7,16 +7,16 @@
 *  Projeto: Disciplina 1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*       0.10   ngx   13/09/2018 Início do desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*       0.10   ngx   13/09/2018 InÃ­cio do desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Este módulo contém as funções específicas para o teste do
-*     módulo analisador lexico.
+*  $ED DescriÃ§Ã£o do mÃ³dulo
+*     Este mÃ³dulo contÃ©m as funÃ§Ãµes especÃ­ficas para o teste do
+*     mÃ³dulo analisador lexico.
 *
-*  $EIU Interface com o usuário pessoa
-*     Comandos de teste específicos para testar o módulo analisador lexico:
+*  $EIU Interface com o usuÃ¡rio pessoa
+*     Comandos de teste especÃ­ficos para testar o mÃ³dulo analisador lexico:
 *
 *
 ***************************************************************************/
@@ -31,21 +31,21 @@
 
 #include    "analisador_lex.h"
 
-/* Tabela dos nomes dos comandos de teste específicos */
+/* Tabela dos nomes dos comandos de teste especÃ­ficos */
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TLEX Efetuar operações de teste específicas para 
+*  $FC FunÃ§Ã£o: TLEX Efetuar operaÃ§Ãµes de teste especÃ­ficas para
 *              analisador lexico
 *
-*  $ED Descrição da função
-*     Efetua os diversos comandos de teste específicos para o módulo
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Efetua os diversos comandos de teste especÃ­ficos para o mÃ³dulo
 *     analisador lexico sendo testado.
 *
-*  $EP Parâmetros
+*  $EP ParÃ¢metros
 *     $P ComandoTeste - String contendo o comando
 *
 *  $FV Valor retornado
@@ -53,11 +53,11 @@
 *
 ***********************************************************************/
 
-TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
+TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 {
+	/* inicializa para qualquer coisa */
 	LEX_tpCondRet CondRetObtido   = LEX_CondRetOK;
 	LEX_tpCondRet CondRetEsperada = LEX_CondRetFaltouMemoria;
-                                      /* inicializa para qualquer coisa */
 
 	int  NumLidos = -1;
 
@@ -65,7 +65,6 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 
 	return TST_CondRetNaoConhec;
 
-   } /* Fim função: TLEX Efetuar operações de teste específicas para analisador lexico */
+} /* Fim funÃ§Ã£o: TLEX Efetuar operaÃ§Ãµes de teste especÃ­ficas para analisador lexico */
 
-/********** Fim do módulo de implementação: Módulo de teste específico **********/
-
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: MÃ³dulo de teste especÃ­fico **********/

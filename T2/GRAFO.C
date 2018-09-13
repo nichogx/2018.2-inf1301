@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: Módulo Grafo
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: MÃ³dulo Grafo
 *
 *  Arquivo:                 GRAFO.C
 *  Letras identificadoras:  GRF
@@ -7,9 +7,9 @@
 *  Projeto: Disciplina INF1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*       0.10   ngx   13/09/2018 Início do desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*       0.10   ngx   13/09/2018 InÃ­cio do desenvolvimento
 *
 ***************************************************************************/
 
@@ -22,45 +22,45 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: GRF Descritor do nó do grafo
+*  $TC Tipo de dados: GRF Descritor do nÃ³ do grafo
 *
 *
-*  $ED Descrição do tipo
-*     Descreve a organização do nó
+*  $ED DescriÃ§Ã£o do tipo
+*     Descreve a organizaÃ§Ã£o do nÃ³
 *
 ***********************************************************************/
 
 typedef struct tgNoGrafo tpNoGrafo;
 struct tgNoGrafo {
-	char valor; /* valor do nó */
+	char valor; /* valor do nÃ³ */
 };
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: GRF Descritor da cabeça de um grafo
+*  $TC Tipo de dados: GRF Descritor da cabeÃ§a de um grafo
 *
 *
-*  $ED Descrição do tipo
-*     A cabeça do grafo é o ponto de acesso para um determinado grafo.
+*  $ED DescriÃ§Ã£o do tipo
+*     A cabeÃ§a do grafo Ã© o ponto de acesso para um determinado grafo.
 *
 ***********************************************************************/
 
 typedef struct tgGrafo tpGrafo;
 struct tgGrafo {
-	tpNoGrafo *pNoCorr; /* ponteiro para o nó corrente do grafo */
+	tpNoGrafo *pNoCorr; /* ponteiro para o nÃ³ corrente do grafo */
 };
 
-/*****  Dados encapsulados no módulo  *****/
+/*****  Dados encapsulados no mÃ³dulo  *****/
 
 static tpGrafo *pGrafo = NULL;
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 /***************************************************************************
 *
-*  Função: GRF Criar grafo
+*  FunÃ§Ã£o: GRF Criar grafo
 *  ****/
 
 GRF_tpCondRet GRF_CriarGrafo()
@@ -75,11 +75,11 @@ GRF_tpCondRet GRF_CriarGrafo()
 	pGrafo->pNoCorr = NULL;
 
 	return GRF_CondRetOK;
-} /* fim função: GRF Criar Grafo */
+} /* fim funÃ§Ã£o: GRF Criar Grafo */
 
 /***************************************************************************
 *
-*  Função: GRF Destruir Grafo
+*  FunÃ§Ã£o: GRF Destruir Grafo
 *  ****/
 
 GRF_tpCondRet GRF_DestruirGrafo(void)
@@ -88,8 +88,8 @@ GRF_tpCondRet GRF_DestruirGrafo(void)
 		return GRF_CondRetGrafoNaoExiste;
 
 	// TODO continuar
-} /* fim função: GRF Destruir Grafo
+} /* fim funÃ§Ã£o: GRF Destruir Grafo
 
-/*****  Código das funções encapsuladas no módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
 
-/********** Fim do módulo de implementação: Módulo Grafo **********/
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: MÃ³dulo Grafo **********/

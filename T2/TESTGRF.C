@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: Módulo de teste específico (grafo)
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: MÃ³dulo de teste especÃ­fico (grafo)
 *
 *  Arquivo:                  TESTGRF.C
 *  Letras identificadoras:   TGRF
@@ -7,18 +7,18 @@
 *  Projeto: Disciplina 1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*       0.10   ngx   13/09/2018 Início do desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*       0.10   ngx   13/09/2018 InÃ­cio do desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Este módulo contém as funções específicas para o teste do
-*     módulo grafo.
+*  $ED DescriÃ§Ã£o do mÃ³dulo
+*     Este mÃ³dulo contÃ©m as funÃ§Ãµes especÃ­ficas para o teste do
+*     mÃ³dulo grafo.
 *
-*  $EIU Interface com o usuário pessoa
-*     Comandos de teste específicos para testar o módulo grafo:
+*  $EIU Interface com o usuÃ¡rio pessoa
+*     Comandos de teste especÃ­ficos para testar o mÃ³dulo grafo:
 *
-*     "=criar"      - chama a função GRF_CriarGrafo( )
+*     "=criar"      - chama a funÃ§Ã£o GRF_CriarGrafo( )
 *
 ***************************************************************************/
 
@@ -32,22 +32,22 @@
 
 #include    "grafo.h"
 
-/* Tabela dos nomes dos comandos de teste específicos */
+/* Tabela dos nomes dos comandos de teste especÃ­ficos */
 
 #define     CRIAR_GRF_CMD       "=criar"
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TGRF Efetuar operações de teste específicas para grafo
+*  $FC FunÃ§Ã£o: TGRF Efetuar operaÃ§Ãµes de teste especÃ­ficas para grafo
 *
-*  $ED Descrição da função
-*     Efetua os diversos comandos de teste específicos para o módulo
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Efetua os diversos comandos de teste especÃ­ficos para o mÃ³dulo
 *     grafo sendo testado.
 *
-*  $EP Parâmetros
+*  $EP ParÃ¢metros
 *     $P ComandoTeste - String contendo o comando
 *
 *  $FV Valor retornado
@@ -55,11 +55,12 @@
 *
 ***********************************************************************/
 
-TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
+TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 {
+	/* inicializa para qualquer coisa */
 	GRF_tpCondRet CondRetObtido   = GRF_CondRetOK;
 	GRF_tpCondRet CondRetEsperada = GRF_CondRetFaltouMemoria;
-                                      /* inicializa para qualquer coisa */
+
 	char ValorEsperado = '?';
 	char ValorObtido   = '!';
 	char ValorDado     = '\0';
@@ -77,13 +78,12 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 
 		CondRetObtido = GRF_CriarGrafo();
 
-		return TST_CompararInt(CondRetEsperada, CondRetObtido, 
-				       "Retorno errado ao criar grafo.");
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao criar grafo.");
 	}
 
 	return TST_CondRetNaoConhec;
 
-   } /* Fim função: TGRF Efetuar operações de teste específicas para grafo */
+} /* Fim funÃ§Ã£o: TGRF Efetuar operaÃ§Ãµes de teste especÃ­ficas para grafo */
 
-/********** Fim do módulo de implementação: Módulo de teste específico **********/
-
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: MÃ³dulo de teste especÃ­fico **********/
