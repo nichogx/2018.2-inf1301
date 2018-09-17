@@ -16,42 +16,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "LISTA.H" /* grafo usa listas duplamente encadeadas*/
+#include "VERTICE.H"
 
 #define GRAFO_OWN
 #include "GRAFO.H"
 #undef GRAFO_OWN
-
-/***********************************************************************
-*
-*  $TC Tipo de dados: GRF Descritor do conteúdo do vértice do grafo
-*
-*
-*  $ED Descrição do tipo
-*     Descreve a organização do conteúdo do vértice do vértice
-*
-***********************************************************************/
-
-typedef struct tgContVerGrafo tpContVerGrafo;
-struct tgContVerGrafo {
-	void *pValor; /* valor do vértice */
-	tpContVerGrafo *prox; /* próximo vértice */
-};
-
-/***********************************************************************
-*
-*  $TC Tipo de dados: GRF Descritor do vértice do grafo
-*
-*
-*  $ED Descrição do tipo
-*     Descreve a organização do vértice
-*
-***********************************************************************/
-
-typedef struct tgVerticeGrafo tpVerticeGrafo;
-struct tgVerticeGrafo {
-	void *pValor; /* valor do vértice */
-	tpVerticeGrafo *prox; /* próximo vértice */
-};
 
 /***********************************************************************
 *
@@ -65,9 +34,9 @@ struct tgVerticeGrafo {
 
 typedef struct tgGrafo tpGrafo;
 struct tgGrafo {
-	tpVerticeGrafo *pNoCorr; /* ponteiro para o vértice corrente do grafo */
-	tpVerticeGrafo *pOrigem; /* ponteiro para o vértice origem do grafo */
-	tpVerticeGrafo *pVertices; /* ponteiro para a lista de vértices */
+	tpVertice *pNoCorr; /* ponteiro para o vértice corrente do grafo */
+	tpVertice *pOrigem; /* ponteiro para o vértice origem do grafo */
+	tpVertice *pVertices; /* ponteiro para a lista de vértices */
 };
 
 /*****  Dados encapsulados no módulo  *****/
