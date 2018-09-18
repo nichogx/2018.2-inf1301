@@ -1,8 +1,8 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: Módulo de teste específico (grafo)
+*  $MCI Módulo de implementação: Módulo de teste específico (vértice)
 *
-*  Arquivo:                  TESTGRF.C
-*  Letras identificadoras:   TGRF
+*  Arquivo:                  TESTVER.C
+*  Letras identificadoras:   TVER
 *
 *  Projeto: Disciplina 1301
 *  Autores: ngx - Nicholas Godoy
@@ -13,13 +13,14 @@
 *
 *  $ED Descrição do módulo
 *     Este módulo contém as funções específicas para o teste do
-*     módulo grafo.
+*     módulo vértice.
 *
 *  $EIU Interface com o usuário pessoa
-*     Comandos de teste específicos para testar o módulo grafo:
+*     Comandos de teste específicos para testar o módulo vértice:
 *
-*     "=criar"      - chama a função GRF_CriarGrafo( )
-*     "=destruir"   - chama a função GRF_DestruirGrafo( )
+*     "=criar"      - chama a função VER_CriarVertice e preenche com ponteiro
+*                     para uma cadeia de caracteres
+*     "=destruir"   - chama a função VER_DestruirVertice
 *
 ***************************************************************************/
 
@@ -31,23 +32,26 @@
 #include    "generico.h"
 #include    "lerparm.h"
 
-#include    "grafo.h"
+#include    "vertice.h"
 
 /* Tabela dos nomes dos comandos de teste específicos */
+#define     CRIAR_VER_CMD       "=criar"
+#define     DESTRUIR_VER_CMD    "=destruir"
 
-#define     CRIAR_GRF_CMD       "=criar"
-#define     DESTRUIR_GRF_CMD    "=destruir"
+/* Dados encapsulados no módulo */
+static VER_tpVertice *pVert = NULL;
+static char *strTeste = "eu sou uma string de teste";
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TGRF Efetuar operações de teste específicas para grafo
+*  $FC Função: TVER Efetuar operações de teste específicas para vértice
 *
 *  $ED Descrição da função
 *     Efetua os diversos comandos de teste específicos para o módulo
-*     grafo sendo testado.
+*     vértice sendo testado.
 *
 *  $EP Parâmetros
 *     $P ComandoTeste - String contendo o comando
@@ -60,37 +64,33 @@
 TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 {
 	/* inicializa para qualquer coisa */
-	GRF_tpCondRet CondRetObtido   = GRF_CondRetOK;
-	GRF_tpCondRet CondRetEsperada = GRF_CondRetFaltouMemoria;
+	VER_tpCondRet CondRetObtido   = VER_CondRetOK;
+	VER_tpCondRet CondRetEsperada = VER_CondRetFaltouMemoria;
 
 	int  NumLidos = -1;
 
 	TST_tpCondRet Ret;
 
-	/* Testar GRF Criar grafo */
+	/* Testar VER Criar vértice */
 
-	if (strcmp(ComandoTeste, CRIAR_GRF_CMD) == 0) {
+	if (strcmp(ComandoTeste, CRIAR_VER_CMD) == 0) {
 		NumLidos = LER_LerParametros("i", &CondRetEsperada);
 		if (NumLidos != 1)
 			return TST_CondRetParm;
 
-		CondRetObtido = GRF_CriarGrafo();
+		CondRetObtido = VER_CriarVertice(pVert, &strTeste, NULL);
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtido,
-		                       "Retorno errado ao criar grafo.");
-	} else if (strcmp(ComandoTeste, DESTRUIR_GRF_CMD) == 0) {
-		NumLidos = LER_LerParametros("i", &CondRetEsperada);
-		if (NumLidos != 1)
-			return TST_CondRetParm;
+		                       "Retorno errado ao criar vertice.");
+	}
+	else if (strcmp(ComandoTeste, DESTRUIR_VER_CMD) == 0) {
+		VER_DestruirVertice(pVert);
 
-		CondRetObtido = GRF_DestruirGrafo();
-
-		return TST_CompararInt(CondRetEsperada, CondRetObtido,
-			"Retorno errado ao criar grafo.");
+		return TST_CondRetOK;
 	}
 
 	return TST_CondRetNaoConhec;
 
-} /* Fim função: TGRF Efetuar operações de teste específicas para grafo */
+} /* Fim função: TVER Efetuar operações de teste específicas para vértice */
 
 /********** Fim do módulo de implementação: Módulo de teste específico **********/
