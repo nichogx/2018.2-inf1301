@@ -15,7 +15,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "LISTA.H" /* grafo usa listas duplamente encadeadas*/
+#include "LISTA.H"
 #include "VERTICE.H"
 
 #define GRAFO_OWN
@@ -32,16 +32,20 @@
 *
 ***********************************************************************/
 
-typedef struct tgGrafo tpGrafo;
-struct tgGrafo {
-	tpVertice *pNoCorr; /* ponteiro para o vértice corrente do grafo */
-	tpVertice *pOrigem; /* ponteiro para o vértice origem do grafo */
-	tpVertice *pVertices; /* ponteiro para a lista de vértices */
+struct GRF_tgGrafo {
+	/* ponteiro para o vértice corrente do grafo */
+	VER_tpVertice *pNoCorr;
+
+	/* ponteiro para a lista de origens do grafo */
+	LIS_tppLista *pOrigens;
+
+	/* ponteiro para a lista de vértices do grafo*/
+	LIS_tppLista *pVertices;
 };
 
 /*****  Dados encapsulados no módulo  *****/
 
-static tpGrafo *pGrafo = NULL;
+static GRF_tpGrafo *pGrafo = NULL;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
@@ -52,16 +56,21 @@ static tpGrafo *pGrafo = NULL;
 *  Função: GRF Criar grafo
 *  ****/
 
-GRF_tpCondRet GRF_CriarGrafo()
+GRF_tpCondRet GRF_CriarGrafo(void)
 {
 	if (pGrafo != NULL)
 		return GRF_CondRetGrafoJaExiste;
 
-	pGrafo = (tpGrafo *) malloc(sizeof(tpGrafo));
+	pGrafo = (GRF_tpGrafo *) malloc(sizeof(GRF_tpGrafo));
 	if (pGrafo == NULL)
 		return GRF_CondRetFaltouMemoria;
 
 	pGrafo->pNoCorr = NULL;
+	pGrafo->pOrigens = LIS_CriarLista(&VER_DestruirVertice);
+	pGrafo->pVertices = LIS_CriarLista(&VER_DestruirVertice);
+
+	if (pGrafo->pOrigens == NULL || pGrafo->pVertices == NULL)
+		return GRF_CondRetErroAoCriarLista;
 
 	return GRF_CondRetOK;
 } /* fim função: GRF Criar Grafo */
@@ -76,9 +85,13 @@ GRF_tpCondRet GRF_DestruirGrafo(void)
 	if (pGrafo == NULL)
 		return GRF_CondRetGrafoNaoExiste;
 
-	return GRF_CondRetOK;
+	LIS_DestruirLista(pGrafo->pVertices);
+	LIS_DestruirLista(pGrafo->pOrigens);
 
-	// TODO continuar
+	free(pGrafo);
+	pGrafo = NULL;
+
+	return GRF_CondRetOK;
 } /* fim função: GRF Destruir Grafo */
 
 /*****  Código das funções encapsuladas no módulo  *****/

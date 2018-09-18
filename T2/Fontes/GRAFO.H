@@ -19,7 +19,7 @@
 *     explorar grafos.
 *     O grafo possui uma cabeça que contém uma referência para a raíz da
 *     árvore e outra para um nó corrente da árvore. // TODO CHANGE
-*     A cada momento o módulo admite no máximo uma única árvore.
+*     A cada momento o módulo admite no máximo um único grafo.
 *     Ao iniciar a execução do programa não existe grafo.
 *     O grafo poderá estar vazio. Neste caso o nó corrente
 *     será nulo, embora a cabeça esteja definida.
@@ -50,11 +50,14 @@ typedef enum {
 	/* grafo está vazio */
 	GRF_CondRetGrafoVazio = 2,
 
-	/* grafo ja existe, não é possível criar outro */
-	GRF_CondRetGrafoJaExiste = 3,
-
 	/* não há grafo, não é possível realizar operação */
-	GRF_CondRetGrafoNaoExiste = 4
+	GRF_CondRetGrafoNaoExiste = 3,
+
+	/* erro decorrente da função do módulo lista */
+	GRF_CondRetErroAoCriarLista = 4,
+
+	/* grafo já existe, não é possível criar outro */
+	GRF_CondRetGrafoJaExiste = 5
 
 } GRF_tpCondRet;
 
@@ -65,7 +68,39 @@ typedef enum {
 *
 ***********************************************************************/
 
-typedef struct tgGrafo tpGrafo;
+typedef struct GRF_tgGrafo GRF_tpGrafo;
+
+/***********************************************************************
+*
+*  $FC Função: GRF Criar Grafo
+*
+*  $ED Descrição da função
+*     Cria um novo grafo vazio.
+*
+*  $FV Valor retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoJaExiste
+*     GRF_CondRetFaltouMemoria
+*     GRF_CondRetErroAoCriarLista
+*
+***********************************************************************/
+
+GRF_tpCondRet GRF_CriarGrafo(void);
+
+/***********************************************************************
+*
+*  $FC Função: GRF Destruir Grafo
+*
+*  $ED Descrição da função
+*     Destrói o grafo.
+*
+*  $FV Valor retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*
+***********************************************************************/
+
+GRF_tpCondRet GRF_DestruirGrafo(void);
 
 #undef GRAFO_EXT
 
