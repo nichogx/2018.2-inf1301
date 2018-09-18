@@ -86,7 +86,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		CondRetObtido = GRF_DestruirGrafo();
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtido,
-			"Retorno errado ao criar grafo.");
+		                       "Retorno errado ao criar grafo.");
 	}
 
 	return TST_CondRetNaoConhec;

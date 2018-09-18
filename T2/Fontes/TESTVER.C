@@ -82,8 +82,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtido,
 		                       "Retorno errado ao criar vertice.");
-	}
-	else if (strcmp(ComandoTeste, DESTRUIR_VER_CMD) == 0) {
+	} else if (strcmp(ComandoTeste, DESTRUIR_VER_CMD) == 0) {
 		VER_DestruirVertice(pVert);
 
 		return TST_CondRetOK;
