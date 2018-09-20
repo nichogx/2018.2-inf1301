@@ -69,8 +69,6 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 
 	int  NumLidos = -1;
 
-	TST_tpCondRet Ret;
-
 	/* Testar VER Criar vértice */
 
 	if (strcmp(ComandoTeste, CRIAR_VER_CMD) == 0) {

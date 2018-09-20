@@ -84,18 +84,16 @@ struct VER_tgAresta {
 VER_tpCondRet VER_CriarVertice(VER_tpVertice *pDest, void *pConteudo,
                                void(*ExcluirValor)(void *pConteudo))
 {
-	LIS_tppLista listaAnt = NULL;
-	LIS_tppLista listaSuc = NULL;
-
 	pDest = (VER_tpVertice *) malloc(sizeof(VER_tpVertice));
 	if (pDest == NULL)
 		return VER_CondRetFaltouMemoria;
 
 	pDest->pConteudo = pConteudo;
-	listaAnt = LIS_CriarLista(NULL);
-	listaSuc = LIS_CriarLista(NULL);
+	pDest->ExcluirValor = ExcluirValor;
+	pDest->pListaAnt = LIS_CriarLista(NULL);
+	pDest->pListaSuc = LIS_CriarLista(NULL);
 
-	if (listaAnt == NULL || listaSuc == NULL)
+	if (pDest->pListaAnt == NULL || pDest->pListaSuc == NULL)
 		return VER_CondRetErroAoCriarLista;
 
 	return VER_CondRetOK;

@@ -37,10 +37,10 @@ struct GRF_tgGrafo {
 	VER_tpVertice *pNoCorr;
 
 	/* ponteiro para a lista de origens do grafo */
-	LIS_tppLista *pOrigens;
+	LIS_tppLista pOrigens;
 
 	/* ponteiro para a lista de vértices do grafo*/
-	LIS_tppLista *pVertices;
+	LIS_tppLista pVertices;
 };
 
 /*****  Dados encapsulados no módulo  *****/
