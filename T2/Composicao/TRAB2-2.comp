@@ -1,0 +1,25 @@
+# Teste do módulo vértice
+
+[Diretorios]
+
+Nome        =  TRAB2-2
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+
+[Modulos]
+TestVer
+Vertice
+Lista
+
+[BuildInicio]
+/OUT:..\Produto\TRAB2-2.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]

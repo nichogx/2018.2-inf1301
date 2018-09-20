@@ -3,3 +3,6 @@ Data            Horas Trabalhadas,      Tipo Tarefa,                            
 2018-09-13      1.5                     Codificar Módulo                                    Início da codificação do módulo GRAFO, TESTGRF
 2018-09-18      2                       Projetar                                            Projeto inicial dos módulos
                                         Codificar Módulo                                    Codificação dos módulos GRAFO, TESTGRF, VERTICE, TESTVER
+2018-09-20      1                       Redigir script de teste                             Redigir scripts de teste inicial
+                                        Realizar os testes                                  Testar e encontrar erros
+                                        Codificar Módulo                                    Consertar erros

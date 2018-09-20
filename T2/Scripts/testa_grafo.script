@@ -1,7 +1,7 @@
-== Testa criaÃ§Ã£o de grafo
+== Testa criação de grafo
 =criar 0
 =criar 5
 
-= Testa destruir grafo
+== Testa destruir grafo
 =destruir 0
 =destruir 3

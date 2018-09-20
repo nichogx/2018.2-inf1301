@@ -1,3 +1,5 @@
+# Teste do módulo vértice
+
 [Diretorios]
 
 Nome        =  TRAB2-1
@@ -10,7 +12,6 @@ h           =  ..\Fontes
 [Modulos]
 TestGrf
 Grafo
-TestVer
 Vertice
 Lista
 
