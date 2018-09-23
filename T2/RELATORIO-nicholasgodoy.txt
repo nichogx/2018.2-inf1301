@@ -6,3 +6,4 @@ Data            Horas Trabalhadas,      Tipo Tarefa,                            
 2018-09-20      1                       Redigir script de teste                             Redigir scripts de teste inicial
                                         Realizar os testes                                  Testar e encontrar erros
                                         Codificar Módulo                                    Consertar erros
+2018-09-23      1.5                     Codificar Módulo                                    Continuar codificação do módulo VERTICE
