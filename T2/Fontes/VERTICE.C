@@ -129,6 +129,7 @@ VER_tpCondRet VER_AdicionarLigacao(VER_tpVertice *pVerticeOr,
                                    char *nome)
 {
 	LIS_tpCondRet retL = LIS_CondRetOK;
+	LIS_tpCondRet retL2 = LIS_CondRetOK;
 	VER_tpAresta *aresta;
 
 	if (pVerticeOr == NULL || pVerticeDest == NULL)
@@ -143,7 +144,8 @@ VER_tpCondRet VER_AdicionarLigacao(VER_tpVertice *pVerticeOr,
 	aresta->pApontado = pVerticeDest;
 
 	retL = LIS_InserirElementoApos(pVerticeOr->pListaSuc, aresta);
-	if (retL != LIS_CondRetOK)
+	retL2 = LIS_InserirElementoApos(pVerticeDest->pListaAnt, aresta);
+	if (retL != LIS_CondRetOK || retL2 != LIS_CondRetOK)
 		return VER_CondRetErroModuloLista;
 
 	return VER_CondRetOK;
@@ -158,12 +160,13 @@ VER_tpCondRet VER_RemoverLigacao(VER_tpVertice *pVerticeOr,
                                  char *nome)
 {
 	LIS_tpCondRet retL = LIS_CondRetOK;
-	VER_tpAresta *aresta = (VER_tpAresta *) LIS_ObterValor(pVerticeOr->pListaSuc);
+	VER_tpAresta *aresta;
 
 	if (pVerticeOr == NULL)
 		return VER_CondRetVerticeNaoExiste;
 
-	IrInicioLista(pVerticeOr->pListaSuc);
+	IrInicioLista(pVerticeOr->pListaSuc); /* encontrar na lista de sucessores */
+	aresta = (VER_tpAresta *)LIS_ObterValor(pVerticeOr->pListaSuc);
 	while (strcmp(aresta->nome, nome) && retL == LIS_CondRetOK) {
 		retL = LIS_AvancarElementoCorrente(pVerticeOr->pListaSuc, 1);
 		aresta = (VER_tpAresta *)LIS_ObterValor(pVerticeOr->pListaSuc);
