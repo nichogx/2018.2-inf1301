@@ -15,6 +15,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "LISTA.H"
 
 #define VERTICE_OWN
@@ -60,8 +61,8 @@ struct VER_tgVertice {
 
 typedef struct VER_tgAresta VER_tpAresta;
 struct VER_tgAresta {
-	/* conteúdo do vértice */
-	char nome[6];
+	/* nome da aresta */
+	char nome[11];
 
 	/* vertice apontado */
 	VER_tpVertice *pApontado;
@@ -94,7 +95,7 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice *pDest, void *pConteudo,
 	pDest->pListaSuc = LIS_CriarLista(NULL);
 
 	if (pDest->pListaAnt == NULL || pDest->pListaSuc == NULL)
-		return VER_CondRetErroAoCriarLista;
+		return VER_CondRetErroModuloLista;
 
 	return VER_CondRetOK;
 } /* fim função: VER Criar vértice */
@@ -117,6 +118,66 @@ void VER_DestruirVertice(VER_tpVertice *pVertice)
 		pVertice = NULL;
 	} /* if */
 } /* fim função: VER Destruir vértice */
+
+/***************************************************************************
+*
+*  Função: VER Adicionar ligação
+*  ****/
+
+VER_tpCondRet VER_AdicionarLigacao(VER_tpVertice *pVerticeOr,
+                                   VER_tpVertice *pVerticeDest,
+                                   char *nome)
+{
+	LIS_tpCondRet retL = LIS_CondRetOK;
+	VER_tpAresta *aresta;
+
+	if (pVerticeOr == NULL || pVerticeDest == NULL)
+		return VER_CondRetVerticeNaoExiste;
+
+	aresta = (VER_tpAresta *)malloc(sizeof(VER_tpAresta));
+	if (aresta == NULL)
+		return VER_CondRetFaltouMemoria;
+
+	strcpy(aresta->nome, nome);
+	aresta->pAnterior = pVerticeOr;
+	aresta->pApontado = pVerticeDest;
+
+	retL = LIS_InserirElementoApos(pVerticeOr->pListaSuc, aresta);
+	if (retL != LIS_CondRetOK)
+		return VER_CondRetErroModuloLista;
+
+	return VER_CondRetOK;
+} /* fim função: VER Adicionar ligação */
+
+/***************************************************************************
+*
+*  Função: VER Remover ligação
+*  ****/
+
+VER_tpCondRet VER_RemoverLigacao(VER_tpVertice *pVerticeOr,
+                                 char *nome)
+{
+	LIS_tpCondRet retL = LIS_CondRetOK;
+	VER_tpAresta *aresta = (VER_tpAresta *) LIS_ObterValor(pVerticeOr->pListaSuc);
+
+	if (pVerticeOr == NULL)
+		return VER_CondRetVerticeNaoExiste;
+
+	IrInicioLista(pVerticeOr->pListaSuc);
+	while (strcmp(aresta->nome, nome) && retL == LIS_CondRetOK) {
+		retL = LIS_AvancarElementoCorrente(pVerticeOr->pListaSuc, 1);
+		aresta = (VER_tpAresta *)LIS_ObterValor(pVerticeOr->pListaSuc);
+	}
+
+	if (retL != LIS_CondRetOK)
+		return VER_LigacaoNaoEncontrada;
+
+	retL = LIS_ExcluirElemento(pVerticeOr->pListaSuc);
+	if (retL != LIS_CondRetOK)
+		return VER_CondRetErroModuloLista;
+
+	return VER_CondRetOK;
+} /* fim função: VER Remover ligação */
 
 /*****  Código das funções encapsuladas no módulo  *****/
 
