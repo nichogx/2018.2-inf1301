@@ -52,7 +52,10 @@ typedef enum {
 	VER_CondRetErroModuloLista = 3,
 
 	/* ligacao a ser removida nao foi encontrada */
-	VER_LigacaoNaoEncontrada = 4
+	VER_LigacaoNaoEncontrada = 4,
+	
+	/*aresta nao foi encontrada */
+	VER_CondRetArestaNaoExiste = 5
 
 } VER_tpCondRet;
 
@@ -64,6 +67,9 @@ typedef enum {
 ***********************************************************************/
 
 typedef struct VER_tgVertice VER_tpVertice;
+
+
+typedef struct VER_tgAresta VER_tpAresta;
 
 /***********************************************************************
 *
