@@ -90,8 +90,8 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice *pDest, void *pConteudo,
 
 	pDest->pConteudo = pConteudo;
 	pDest->ExcluirValor = ExcluirValor;
-	pDest->pListaAnt = LIS_CriarLista(NULL);
-	pDest->pListaSuc = LIS_CriarLista(NULL);
+	pDest->pListaAnt = LIS_CriarLista(free);
+	pDest->pListaSuc = LIS_CriarLista(free);
 
 	if (pDest->pListaAnt == NULL || pDest->pListaSuc == NULL)
 		return VER_CondRetErroModuloLista;
