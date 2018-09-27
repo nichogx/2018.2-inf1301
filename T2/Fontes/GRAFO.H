@@ -63,7 +63,10 @@ typedef enum {
 	GRF_CondRetVerticeNaoExiste = 6,
 
 	/* grafo ja existente, porem nao existe uma suposta aresta */
-	GRF_CondRetArestaNaoExiste = 7
+	GRF_CondRetArestaNaoExiste = 7,
+
+	/* erro na estrutura */
+	GRF_CondRetErroEstrutura = 8
 
 } GRF_tpCondRet;
 
@@ -121,7 +124,7 @@ GRF_tpCondRet GRF_DestruirGrafo(void);
 *
 *************************************************************************/
 
-GRF_tpCondRet GRF_ObterValorCorrente(void);
+GRF_tpCondRet GRF_ObterValorCorrente(void **conteudo);
 
 /************************************************************************
 *
@@ -168,14 +171,15 @@ GRF_tpCondRet GRF_IrVertice(void *content);
 *
 *************************************************************************/
 
-GRF_tpCondRet GRF_InserirVertice(void * content);
+GRF_tpCondRet GRF_InserirVertice(void *pConteudo,
+                                 void(*ExcluirValor)(void *pConteudo));
 
 /************************************************************************
 *
 *	$FC Função: GRF Remover Corrente
 *
 *	$ED Descrição da função
-*		Remove o vertice corrente que contem o conteudo 
+*		Remove o vertice corrente
 *
 *	$FV Valor Retornado
 *		GRF_CondRetOK
@@ -184,7 +188,7 @@ GRF_tpCondRet GRF_InserirVertice(void * content);
 *
 *************************************************************************/
 
-GRF_tpCondRet GRF_RemoverVertice(void *contentDestino);
+GRF_tpCondRet GRF_RemoverVerticeCorr();
 
 /************************************************************************
 *
@@ -200,30 +204,15 @@ GRF_tpCondRet GRF_RemoverVertice(void *contentDestino);
 *
 *************************************************************************/
 
-GRF_tpCondRet GRF_AdicionarOrigem(void * contentOrigem);
-
-/************************************************************************
-*
-*	$FC Função: GRF Remover Origem
-*
-*	$ED Descrição da função
-*		Remove o vertice origem corrente que contem o conteudo do grafo 
-*
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
-*		GRF_CondRetVerticeNaoExiste
-*
-*************************************************************************/
-
-GRF_tpCondRet GRF_RemoverOrigem(void *contentOrigem, char destino);
+GRF_tpCondRet GRF_AdicionarOrigem(void *pConteudo,
+                                  void(*ExcluirValor)(void *pConteudo));
 
 /************************************************************************
 *
 *	$FC Função: GRF Adicionar Aresta
 *
 *	$ED Descrição da função
-*		Adiciona uma aresta ao vertice corrente 
+*		Adiciona uma aresta ao vertice corrente
 *
 *	$FV Valor Retornado
 *		GRF_CondRetOK
@@ -233,14 +222,15 @@ GRF_tpCondRet GRF_RemoverOrigem(void *contentOrigem, char destino);
 *
 *************************************************************************/
 
-GRF_tpCondRet GRF_AdicionarAresta(char nomeAresta);
+GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
+                                  void *contDestino);
 
 /************************************************************************
 *
 *	$FC Função: GRF Remover Aresta
 *
 *	$ED Descrição da função
-*		Remove uma aresta corrente do vertice corrente 
+*		Remove uma aresta corrente do vertice corrente
 *
 *	$FV Valor Retornado
 *		GRF_CondRetOK
@@ -257,11 +247,11 @@ GRF_tpCondRet GRF_RemoverAresta(char nomeAresta);
 *	$FC Função: GRF Esvaziar Grafo
 *
 *	$ED Descrição da função
-*		Esvazia as listas e destroi o vertice corrente do grafo 
+*		Esvazia as listas e destroi o vertice corrente do grafo
 *
 *	$FV Valor Retornado
 *		GRF_CondRetOK
-*		GRF_CondRetGrafoVazio	
+*		GRF_CondRetGrafoVazio
 *
 *************************************************************************/
 

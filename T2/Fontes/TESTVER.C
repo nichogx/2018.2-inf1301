@@ -76,7 +76,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		if (NumLidos != 1)
 			return TST_CondRetParm;
 
-		CondRetObtido = VER_CriarVertice(pVert, &strTeste, NULL);
+		CondRetObtido = VER_CriarVertice(pVert, strTeste, NULL);
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtido,
 		                       "Retorno errado ao criar vertice.");

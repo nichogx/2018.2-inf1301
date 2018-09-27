@@ -31,6 +31,8 @@
 #define VERTICE_EXT extern
 #endif
 
+#include "LISTA.H"
+
 /***********************************************************************
 *
 *  $TC Tipo de dados: VER Condicoes de retorno
@@ -67,9 +69,6 @@ typedef enum {
 ***********************************************************************/
 
 typedef struct VER_tgVertice VER_tpVertice;
-
-
-typedef struct VER_tgAresta VER_tpAresta;
 
 /***********************************************************************
 *

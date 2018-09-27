@@ -98,7 +98,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		if (NumLidos != 2)
 			return TST_CondRetParm;
 
-		CondRetObtido = GRF_ObterValorCorrente(valorObtido);
+		CondRetObtido = GRF_ObterValorCorrente(&valorObtido);
 
 		Ret = TST_CompararInt(CondRetEsperada, CondRetObtido,
 		                      "Retorno errado ao obter valor corrente do grafo.");
