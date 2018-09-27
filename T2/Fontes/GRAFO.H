@@ -2,7 +2,7 @@
 #define GRAFO_
 /***************************************************************************
 *
-*  $MCD Módulo de definição: Módulo Grafo
+*  $MCD M�dulo de defini��o: M�dulo Grafo
 *
 *  Arquivo:                 GRAFO.H
 *  Letras identificadoras:  GRF
@@ -10,20 +10,20 @@
 *  Projeto: Disciplina INF1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*       0.10   ngx   13/09/2018 Início do desenvolvimento
+*  $HA Hist�rico de evolu��o:
+*     Vers�o  Autor    Data     Observa��es
+*       0.10   ngx   13/09/2018 In�cio do desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Este módulo implementa um conjunto simples de funções para criar e
+*  $ED Descri��o do m�dulo
+*     Este m�dulo implementa um conjunto simples de fun��es para criar e
 *     explorar grafos.
-*     O grafo possui uma cabeça que contém uma referência para a raíz da
-*     árvore e outra para um nó corrente da árvore. // TODO CHANGE
-*     A cada momento o módulo admite no máximo um único grafo.
-*     Ao iniciar a execução do programa não existe grafo.
-*     O grafo poderá estar vazio. Neste caso o nó corrente
-*     será nulo, embora a cabeça esteja definida.
-*     O nó corrente será nulo se e somente se o grafo estiver vazio.
+*     O grafo possui uma cabe�a que cont�m uma refer�ncia para a ra�z da
+*     �rvore e outra para um n� corrente da �rvore. // TODO CHANGE
+*     A cada momento o m�dulo admite no m�ximo um �nico grafo.
+*     Ao iniciar a execu��o do programa n�o existe grafo.
+*     O grafo poder� estar vazio. Neste caso o n� corrente
+*     ser� nulo, embora a cabe�a esteja definida.
+*     O n� corrente ser� nulo se e somente se o grafo estiver vazio.
 *
 ***************************************************************************/
 
@@ -44,26 +44,32 @@ typedef enum {
 	/* executou corretamente */
 	GRF_CondRetOK = 0,
 
-	/* faltou memória ao alocar dados */
+	/* faltou mem�ria ao alocar dados */
 	GRF_CondRetFaltouMemoria = 1,
 
-	/* grafo está vazio */
+	/* grafo est� vazio */
 	GRF_CondRetGrafoVazio = 2,
 
-	/* não há grafo, não é possível realizar operação */
+	/* n�o h� grafo, n�o � poss�vel realizar opera��o */
 	GRF_CondRetGrafoNaoExiste = 3,
 
-	/* erro decorrente da função do módulo lista */
+	/* erro decorrente da fun��o do m�dulo lista */
 	GRF_CondRetErroAoCriarLista = 4,
 
-	/* grafo já existe, não é possível criar outro */
-	GRF_CondRetGrafoJaExiste = 5
+	/* grafo j� existe, n�o � poss�vel criar outro */
+	GRF_CondRetGrafoJaExiste = 5,
+
+	/* grafo j� existente, por�m algum vertice nao existe */
+	GRF_CondRetVerticeNaoExiste = 6,
+
+	/* grafo ja existente, porem nao existe uma suposta aresta */
+	GRF_CondRetArestaNaoExiste = 7
 
 } GRF_tpCondRet;
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: GRF Descritor da cabeça de um grafo
+*  $TC Tipo de dados: GRF Descritor da cabe�a de um grafo
 *
 *
 ***********************************************************************/
@@ -72,9 +78,9 @@ typedef struct GRF_tgGrafo GRF_tpGrafo;
 
 /***********************************************************************
 *
-*  $FC Função: GRF Criar Grafo
+*  $FC Fun��o: GRF Criar Grafo
 *
-*  $ED Descrição da função
+*  $ED Descri��o da fun��o
 *     Cria um novo grafo vazio.
 *
 *  $FV Valor retornado
@@ -89,10 +95,10 @@ GRF_tpCondRet GRF_CriarGrafo(void);
 
 /***********************************************************************
 *
-*  $FC Função: GRF Destruir Grafo
+*  $FC Fun��o: GRF Destruir Grafo
 *
-*  $ED Descrição da função
-*     Destrói o grafo.
+*  $ED Descri��o da fun��o
+*     Destr�i o grafo.
 *
 *  $FV Valor retornado
 *     GRF_CondRetOK
@@ -102,9 +108,168 @@ GRF_tpCondRet GRF_CriarGrafo(void);
 
 GRF_tpCondRet GRF_DestruirGrafo(void);
 
+/************************************************************************
+*
+*	$FC Função: GRF Obter Valor Corrente
+*
+*	$ED Descrição da função
+*		Obtem o conteudo do vertice corrente.
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_ObterValorCorrente(void);
+
+/************************************************************************
+*
+*	$FC Função: GRF Alterar Valor Corrente
+*
+*	$ED Descrição da função
+*		Altera o conteudo do vertice corrente.
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_AlterarValorCorrente(void *newContent);
+
+/************************************************************************
+*
+*	$FC Função: GRF Ir Vertice
+*
+*	$ED Descrição da função
+*		O vertice corrente vira o vertice contendo o conteudo.
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*		GRF_CondRetVerticeNaoExiste
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_IrVertice(void *content);
+
+/************************************************************************
+*
+*	$FC Função: GRF Inserir Vertice
+*
+*	$ED Descrição da função
+*		Insere um vertice na lista de vertices do grafo.
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*		GRF_CondRetFaltouMemoria
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_InserirVertice(void * content);
+
+/************************************************************************
+*
+*	$FC Função: GRF Remover Corrente
+*
+*	$ED Descrição da função
+*		Remove o vertice corrente que contem o conteudo 
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*		GRF_CondRetVerticeNaoExiste
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_RemoverVertice(void *contentDestino);
+
+/************************************************************************
+*
+*	$FC Função: GRF Adicionar Origem
+*
+*	$ED Descrição da função
+*		Adiciona um vertice origem com o conteudo void no grafo
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*		GRF_CondRetFaltouMemoria
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_AdicionarOrigem(void * contentOrigem);
+
+/************************************************************************
+*
+*	$FC Função: GRF Remover Origem
+*
+*	$ED Descrição da função
+*		Remove o vertice origem corrente que contem o conteudo do grafo 
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*		GRF_CondRetVerticeNaoExiste
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_RemoverOrigem(void *contentOrigem, char destino);
+
+/************************************************************************
+*
+*	$FC Função: GRF Adicionar Aresta
+*
+*	$ED Descrição da função
+*		Adiciona uma aresta ao vertice corrente 
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*		GRF_CondRetVerticeNaoExiste
+*		GRF_CondRetErroEstrutura
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_AdicionarAresta(char nomeAresta);
+
+/************************************************************************
+*
+*	$FC Função: GRF Remover Aresta
+*
+*	$ED Descrição da função
+*		Remove uma aresta corrente do vertice corrente 
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*		GRF_CondRetVerticeNaoExiste
+*		GRF_CondRetErroEstrutura
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_RemoverAresta(char nomeAresta);
+
+/************************************************************************
+*
+*	$FC Função: GRF Esvaziar Grafo
+*
+*	$ED Descrição da função
+*		Esvazia as listas e destroi o vertice corrente do grafo 
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoVazio	
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_EsvaziarGrafo(void);
+
 #undef GRAFO_EXT
 
-/********** Fim do módulo de definição: Módulo Grafo **********/
+/********** Fim do m�dulo de defini��o: M�dulo Grafo **********/
 
 #else
 #endif
