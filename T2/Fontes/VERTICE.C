@@ -47,29 +47,6 @@ struct VER_tgVertice {
 	LIS_tppLista pListaSuc;
 };
 
-/***********************************************************************
-*
-*  $TC Tipo de dados: VER Descritor de uma aresta
-*
-*
-*  $ED Descrição do tipo
-*     Uma aresta que liga dois vértices. É o conteúdo das listas
-*     de antecessores e sucessores no vértice. Tem um nome de até 5
-*     caracteres.
-*
-***********************************************************************/
-
-struct VER_tgAresta {
-	/* nome da aresta */
-	char id;
-
-	/* vertice apontado */
-	VER_tpVertice *pApontado;
-
-	/* vertice origem */
-	VER_tpVertice *pAnterior;
-};
-
 /*****  Dados encapsulados no módulo  *****/
 
 /***** Protótipos das funções encapuladas no módulo *****/
@@ -90,11 +67,11 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice *pDest, void *pConteudo,
 
 	pDest->pConteudo = pConteudo;
 	pDest->ExcluirValor = ExcluirValor;
-	pDest->pListaAnt = LIS_CriarLista(free);
-	pDest->pListaSuc = LIS_CriarLista(free);
+	pDest->pListaAnt = LIS_CriarLista(NULL);
+	pDest->pListaSuc = LIS_CriarLista(NULL);
 
 	if (pDest->pListaAnt == NULL || pDest->pListaSuc == NULL)
-		return VER_CondRetErroModuloLista;
+		return VER_CondRetFaltouMemoria;
 
 	return VER_CondRetOK;
 } /* fim função: VER Criar vértice */
@@ -109,7 +86,6 @@ void VER_DestruirVertice(VER_tpVertice *pVertice)
 	if (pVertice != NULL) {
 		LIS_DestruirLista(pVertice->pListaAnt);
 		LIS_DestruirLista(pVertice->pListaSuc);
-
 		if (pVertice->ExcluirValor != NULL)
 			pVertice->ExcluirValor(pVertice->pConteudo);
 
@@ -120,126 +96,57 @@ void VER_DestruirVertice(VER_tpVertice *pVertice)
 
 /***************************************************************************
 *
-*  Função: VER Adicionar ligação
+*  Função: VER Obter Conteudo Vertice
 *  ****/
 
-
-
-
-VER_tpCondRet VER_AdicionarLigacao(VER_tpVertice *pVerticeOr,
-                                   VER_tpVertice *pVerticeDest,
-                                   char id)
+VER_tpCondRet VER_ObterConteudoVertice(VER_tpVertice *pVertice, void **conteudo)
 {
-	LIS_tpCondRet retL = LIS_CondRetOK;
-	LIS_tpCondRet retL2 = LIS_CondRetOK;
-	VER_tpAresta *aresta;
-
-	if (pVerticeOr == NULL || pVerticeDest == NULL)
+	if (pVertice == NULL)
 		return VER_CondRetVerticeNaoExiste;
 
-	aresta = (VER_tpAresta *)malloc(sizeof(VER_tpAresta));
-	if (aresta == NULL)
-		return VER_CondRetFaltouMemoria;
-
-	aresta->id =  id;
-	aresta->pAnterior = pVerticeOr;
-	aresta->pApontado = pVerticeDest;
-
-	retL = LIS_InserirElementoApos(pVerticeOr->pListaSuc, aresta);
-	retL2 = LIS_InserirElementoApos(pVerticeDest->pListaAnt, aresta);
-	if (retL != LIS_CondRetOK || retL2 != LIS_CondRetOK)
-		return VER_CondRetErroModuloLista;
+	*conteudo = pVertice->pConteudo;
 
 	return VER_CondRetOK;
-} /* fim função: VER Adicionar ligação */
+} /* fim função: VER Obter Conteudo Vertice */
 
 /***************************************************************************
 *
-*  Função: VER Remover ligação
+*  Função: VER Atualizar Conteudo Vertice
 *  ****/
 
-VER_tpCondRet VER_RemoverLigacao(VER_tpVertice *pVerticeOr,
-                                 char id)
+VER_tpCondRet VER_AtualizarConteudoVertice(VER_tpVertice *pVertice,
+                void *conteudo)
 {
-	LIS_tpCondRet retL = LIS_CondRetOK;
-	LIS_tpCondRet retL2 = LIS_CondRetOK;
-	VER_tpAresta *aresta;
-	VER_tpVertice *pVerticeDest;
-
-	if (pVerticeOr == NULL)
+	if (pVertice == NULL)
 		return VER_CondRetVerticeNaoExiste;
 
-	IrInicioLista(pVerticeOr->pListaSuc); /* encontrar na lista de sucessores */
-	aresta = (VER_tpAresta *)LIS_ObterValor(pVerticeOr->pListaSuc);
-	while (aresta->id == id && retL == LIS_CondRetOK) {
-		retL = LIS_AvancarElementoCorrente(pVerticeOr->pListaSuc, 1);
-		aresta = (VER_tpAresta *)LIS_ObterValor(pVerticeOr->pListaSuc);
-	}
-	pVerticeDest = aresta->pVerticeDest;
-	
-	if (pVerticeDest == NULL)
+	if (pVertice->ExcluirValor != NULL)
+		pVertice->ExcluirValor(pVertice->pConteudo);
+	pVertice->pConteudo = conteudo;
+
+	return VER_CondRetOK;
+} /* fim função: VER Atualizar Conteudo Vertice */
+
+/***************************************************************************
+*
+*  Função: VER Obter Antecessores e Sucessores
+*  ****/
+
+VER_tpCondRet VER_ObterListasAntSuc(VER_tpVertice *pVertice,
+                                    LIS_tppLista *antecessores, LIS_tppLista *sucessores)
+{
+	if (pVertice == NULL)
 		return VER_CondRetVerticeNaoExiste;
 
-	IrInicioLista(pVerticeDest->pListaAnt); 
-	while (aresta->id == id && retL2 == LIS_CondRetOK) {
-		retL2 = LIS_AvancarElementoCorrente(pVerticeDest->pListaAnt, 1);
-		aresta = (VER_tpAresta *)LIS_ObterValor(pVerticeDest->pListaAnt);
-	}
-
-
-	if (retL != LIS_CondRetOK || retL2 !=LIS_CondRetOK)
-		return VER_LigacaoNaoEncontrada;
-
-	retL = LIS_ExcluirElemento(pVerticeOr->pListaSuc);
-	retL2 = LIS_ExcluirElemento(pVerticeDest->pListaAnt);
-	if (retL != LIS_CondRetOK || retL2 !=LIS_CondRetOK)
-		return VER_CondRetErroModuloLista;
-
-	return VER_CondRetOK;
-} /* fim função: VER Remover ligação */
-
-VER_tpCondRet VER_obtemIDaresta(VER_tgAresta *aresta, char *id)
-{
-	if (aresta == NULL){
-		return VER_CondRetArestaNaoExiste;
-	}
-	*id = aresta->id;
-	return VER_CondRetOK;
-}
-
-VER_tpCondRet VER_obtemAnteriorAresta(VER_tgAresta *aresta, *pVerticeDest sucessor)
-{
-	if (aresta == NULL){
-		return VER_CondRetArestaNaoExiste;
-	}
-	sucessor = aresta->pVerticeDest;
+	if (antecessores != NULL)
+		*antecessores = pVertice->pListaAnt;
 	
-	return VER_CondRetOK;
-}
-
-VER_tpCondRet VER_obtemSucessorAresta(VER_tpAresta *aresta, *pVerticeOr antecessor)
-{
-	if (aresta == NULL){
-		return VER_CondRetArestaNaoExiste;
-	}
-	antecessor = aresta->pVerticeOr;
+	if (sucessores != NULL)
+		*sucessores = pVertice->pListaSuc;
 
 	return VER_CondRetOK;
-}
+} /* fim função: VER Obter Antecessores e Sucessores */
 
-VER_tpCondRet VER_buscaArestaID(char id, VER_tgVertice *pVerticeOr)
-{
-	LIS_tpCondRet retL = LIS_CondRetOK;
-	VER_tpAresta *aresta;
-	IrInicioLista(pVerticeOr->pListaSuc);
-	aresta = (VER_tpAresta *)LIS_ObterValor(pVerticeOr->pListaSuc); 
-	while ( aresta->id != NULL && retL == LIS_CondRetOK) {
-		retL = LIS_AvancarElementoCorrente(pVerticeOr->pListaSuc, 1);
-		if (aresta->id == id){
-			return aresta;
-		}
-	}
-}
 /*****  Código das funções encapsuladas no módulo  *****/
 
 /********** Fim do módulo de implementação: Módulo Vértice **********/

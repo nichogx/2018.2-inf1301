@@ -53,7 +53,7 @@ typedef enum {
 
 	/* ligacao a ser removida nao foi encontrada */
 	VER_LigacaoNaoEncontrada = 4,
-	
+
 	/*aresta nao foi encontrada */
 	VER_CondRetArestaNaoExiste = 5
 
@@ -109,52 +109,66 @@ void VER_DestruirVertice(VER_tpVertice *pVertice);
 
 /***********************************************************************
 *
-*  $FC Função: VER Adicionar ligação
+*  $FC Função: VER Obter Conteudo Vertice
 *
 *  $ED Descrição da função
-*     Adiciona ligação entre os dois vértices recebidos, o primeiro
-*     é a origem e o segundo o destino (primeiro será antecessor,
-*     segundo será sucessor).
+*     O ponteiro recebido por referência passa a apontar o conteúdo do vértice recebido.
 *
 *  $EP Parâmetros
-*     pVerticeOr - ponteiro para o vértice onde será originada a ligação.
-*     pVerticeDest - ponteiro para o vértice que será o destino da ligação.
-*     nome - nome (ID) da ligação.
+*     pVertice - ponteiro para vértice a extrair conteúdo
+*     conteudo - ponteiro para ponteiro que apontará o conteúdo do vértice
 *
 *  $FV Valor retornado
-*     VER_CondRetVerticeNaoExiste - se um dos vertices recebidos for NULL
-*     VER_CondRetFaltouMemoria - se não houver memória suficiente
-*     VER_CondRetErroModuloLista - se houver um erro no módulo lista
-*     VER_CondRetOK - se ocorreu tudo como esperado
+*     VER_CondRetOK
+*     VER_CondRetVerticeNaoExiste
 *
 ***********************************************************************/
 
-VER_tpCondRet VER_AdicionarLigacao(VER_tpVertice *pVerticeOr,
-                                   VER_tpVertice *pVerticeDest,
-                                   char *nome);
+VER_tpCondRet VER_ObterConteudoVertice(VER_tpVertice *pVertice,
+                                       void **conteudo);
 
 /***********************************************************************
 *
-*  $FC Função: VER Remover ligação
+*  $FC Função: VER Atualiar Conteudo Vertice
 *
 *  $ED Descrição da função
-*     Busca ligação que o vértice tem (sendo esse a origem) pelo nome,
-*     e remove-a, se encontrada;
+*     O conteúdo recebido substituirá o conteúdo do vértice recebido.
 *
 *  $EP Parâmetros
-*     pVerticeOr - ponteiro para o vértice onde é originada a ligação.
-*     nome - nome (ID) da ligação.
+*     pVertice - ponteiro para vértice a modificar conteúdo
+*     conteudo - conteúdo que substituirá
 *
 *  $FV Valor retornado
-*     VER_CondRetVerticeNaoExiste - se o ve'rtice recebido for NULL
-*     VER_LigacaoNaoEncontrada - se não for encontrado uma ligação com esse nome
-*     VER_CondRetErroModuloLista - se houver um erro no módulo lista
-*     VER_CondRetOK - se ocorreu tudo como esperado
+*     VER_CondRetOK
+*     VER_CondRetVerticeNaoExiste
 *
 ***********************************************************************/
 
-VER_tpCondRet VER_RemoverLigacao(VER_tpVertice *pVerticeOr,
-                                 char *nome);
+VER_tpCondRet VER_AtualizarConteudoVertice(VER_tpVertice *pVertice,
+                                           void *conteudo);
+
+/***********************************************************************
+*
+*  $FC Função: VER Atualiar Conteudo Vertice
+*
+*  $ED Descrição da função
+*     Os ponteiros recebidos por referência apontarão as listas de antecessores
+*     e sucessores do vértice recebido. Esses ponteiros podem ser nulos caso
+*     não seja desejada uma das listas.
+*
+*  $EP Parâmetros
+*     pVertice - ponteiro para vértice a modificar conteúdo
+*     antecessores - endereço do ponteiro que apontará a lista de antecessores
+*     sucessores - endereço do ponteiro que apontará a lista de sucessores
+*
+*  $FV Valor retornado
+*     VER_CondRetOK
+*     VER_CondRetVerticeNaoExiste
+*
+***********************************************************************/
+
+VER_tpCondRet VER_ObterListasAntSuc(VER_tpVertice *pVertice,
+                                    LIS_tppLista *antecessores, LIS_tppLista *sucessores);
 
 #undef VERTICE_EXT
 

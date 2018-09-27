@@ -37,6 +37,8 @@
 
 #define     CRIAR_GRF_CMD       "=criar"
 #define     DESTRUIR_GRF_CMD    "=destruir"
+#define     OBTER_GRF_CMD       "=obter"
+#define     ALTERAR_GRF_CMD     "=alterar"
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -63,6 +65,9 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 	GRF_tpCondRet CondRetObtido   = GRF_CondRetOK;
 	GRF_tpCondRet CondRetEsperada = GRF_CondRetFaltouMemoria;
 
+	char *valorObtido = "ALO";
+	char *valorEsperado = "ALO2";
+
 	int  NumLidos = -1;
 
 	TST_tpCondRet Ret;
@@ -87,6 +92,32 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtido,
 		                       "Retorno errado ao criar grafo.");
+	} else if (strcmp(ComandoTeste, OBTER_GRF_CMD) == 0) {
+		NumLidos = LER_LerParametros("si", valorEsperado, &CondRetEsperada);
+
+		if (NumLidos != 2)
+			return TST_CondRetParm;
+
+		CondRetObtido = GRF_ObterValorCorrente(valorObtido);
+
+		Ret = TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                      "Retorno errado ao obter valor corrente do grafo.");
+
+		if (Ret != TST_CondRetOK)
+			return Ret;
+
+		return TST_CompararString(valorEsperado, valorObtido,
+		                          "Valor esperado difere do obtido ao obter valor corrente do grafo.");
+	} else if (strcmp(ComandoTeste, ALTERAR_GRF_CMD) == 0) {
+		NumLidos = LER_LerParametros("si", valorEsperado, &CondRetEsperada);
+
+		if (NumLidos != 2)
+			return TST_CondRetParm;
+
+		CondRetObtido = GRF_AlterarValorCorrente(valorEsperado);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao alterar valor corrente do grafo.");
 	}
 
 	return TST_CondRetNaoConhec;
