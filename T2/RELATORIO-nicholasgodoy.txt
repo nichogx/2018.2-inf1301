@@ -7,3 +7,4 @@ Data            Horas Trabalhadas,      Tipo Tarefa,                            
                                         Realizar os testes                                  Testar e encontrar erros
                                         Codificar Módulo                                    Consertar erros
 2018-09-23      1.5                     Codificar Módulo                                    Continuar codificação do módulo VERTICE
+2018-09-27      5                       Codificar Módulo                                    Recodificação dos módulos, correção de erros de compilação.
