@@ -9,6 +9,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.20   ngx   28/09/2018 Adição de mais comandos de teste.
 *       0.10   ngx   13/09/2018 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
@@ -48,8 +49,14 @@
 #define     ESVAZIAR_GRF_CMD     "=esvaziar"
 
 /* Dados encapsulados no módulo */
-static char *strTeste = "eu sou uma string de teste";
-static char *strTeste2 = "segunda string de teste";
+#define MAX_STRGS 5
+static char *strTestes[MAX_STRGS] = {
+	"primeira string de teste",
+	"segunda string de teste",
+	"terceira string de teste",
+	"quarta string de teste",
+	"quinta string de teste"
+};
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -76,7 +83,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 	GRF_tpCondRet CondRetObtido   = GRF_CondRetOK;
 	GRF_tpCondRet CondRetEsperada = GRF_CondRetFaltouMemoria;
 
-	char *valorObtido = "ALO";
+	char *valorObtido = strTestes[0];
 
 	int  NumLidos = -1;
 
@@ -108,7 +115,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		int strTesteEsperada = 0;
 		NumLidos = LER_LerParametros("ii", &strTesteEsperada, &CondRetEsperada);
 
-		if (NumLidos != 2 || strTesteEsperada < 1 || strTesteEsperada > 2) {
+		if (NumLidos != 2 || strTesteEsperada < 1 || strTesteEsperada > MAX_STRGS) {
 			return TST_CondRetParm;
 		}
 
@@ -122,29 +129,107 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 			return Ret;
 		}
 
-		if (strTesteEsperada == 1) {
-			return TST_CompararString(strTeste, valorObtido,
-			                          "Valor esperado difere do obtido ao obter valor corrente do grafo.");
-		} else {
-			return TST_CompararString(strTeste2, valorObtido,
-			                          "Valor esperado difere do obtido ao obter valor corrente do grafo.");
-		}
+		return TST_CompararString(strTestes[strTesteEsperada - 1], valorObtido,
+		                          "Valor esperado difere do obtido ao obter valor corrente do grafo.");
 	} else if (strcmp(ComandoTeste, ALTERAR_GRF_CMD) == 0) {
 		int strAColocar = 0;
 		NumLidos = LER_LerParametros("ii", &strAColocar, &CondRetEsperada);
 
-		if (NumLidos != 2 || strAColocar < 1 || strAColocar > 2) {
+		if (NumLidos != 2 || strAColocar < 1 || strAColocar > MAX_STRGS) {
 			return TST_CondRetParm;
 		}
 
-		if (strAColocar == 1) {
-			CondRetObtido = GRF_AlterarValorCorrente(strTeste);
-		} else {
-			CondRetObtido = GRF_AlterarValorCorrente(strTeste2);
-		}
+		CondRetObtido = GRF_AlterarValorCorrente(strTestes[strAColocar - 1]);
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtido,
 		                       "Retorno errado ao alterar valor corrente do grafo.");
+	} else if (strcmp(ComandoTeste, IR_VERT_GRF_CMD) == 0) {
+		int strVer = 0;
+		NumLidos = LER_LerParametros("ii", &strVer, &CondRetEsperada);
+
+		if (NumLidos != 2 || strVer < 1 || strVer > MAX_STRGS) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = GRF_IrVertice(strTestes[strVer - 1]);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao ir para o vertice do grafo.");
+	} else if (strcmp(ComandoTeste, INSERIR_GRF_CMD) == 0) {
+		int strVer = 0;
+		NumLidos = LER_LerParametros("ii", &strVer, &CondRetEsperada);
+
+		if (NumLidos != 2 || strVer < 1 || strVer > MAX_STRGS) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = GRF_InserirVertice(strTestes[strVer - 1], NULL);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao inserir vertice no grafo.");
+	} else if (strcmp(ComandoTeste, REMOVER_GRF_CMD) == 0) {
+		NumLidos = LER_LerParametros("i", &CondRetEsperada);
+
+		if (NumLidos != 1) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = GRF_RemoverVerticeCorr();
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao remover vertice corrente.");
+	} else if (strcmp(ComandoTeste, ADICIONAR_OR_GRF_CMD) == 0) {
+		int strVer = 0;
+		NumLidos = LER_LerParametros("ii", &strVer, &CondRetEsperada);
+
+		if (NumLidos != 2 || strVer < 1 || strVer > MAX_STRGS) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = GRF_AdicionarOrigem(strTestes[strVer - 1], NULL);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao adicionar vertice origem no grafo.");
+	} else if (strcmp(ComandoTeste, ADICIONAR_AR_GRF_CMD) == 0) {
+		char id = 0;
+		int contVerOrigem = 0;
+		int contVerDestino = 0;
+		NumLidos = LER_LerParametros("ciii", &id, &contVerOrigem, &contVerDestino,
+		                             &CondRetEsperada);
+
+		if (NumLidos != 4 || contVerOrigem < 1 || contVerOrigem > MAX_STRGS
+		    || contVerDestino < 1 || contVerDestino > MAX_STRGS) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = GRF_AdicionarAresta(id, strTestes[contVerOrigem - 1],
+		                                    strTestes[contVerDestino - 1]);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao adicionar aresta no grafo.");
+	} else if (strcmp(ComandoTeste, REMOVER_AR_GRF_CMD) == 0) {
+		char id = 0;
+		NumLidos = LER_LerParametros("ci", &id, &CondRetEsperada);
+
+		if (NumLidos != 2) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = GRF_RemoverAresta(id);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao remover aresta do grafo.");
+	} else if (strcmp(ComandoTeste, ESVAZIAR_GRF_CMD) == 0) {
+		NumLidos = LER_LerParametros("i", &CondRetEsperada);
+
+		if (NumLidos != 1) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = GRF_EsvaziarGrafo();
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao esvaziar grafo.");
 	}
 
 	return TST_CondRetNaoConhec;

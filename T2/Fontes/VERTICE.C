@@ -9,6 +9,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.55   ngx   28/09/2018 Separar liberação e destruição do vértice
 *       0.50   ngx   28/09/2018 Módulo funciona como esperado
 *       0.40   ngx   27/09/2018 Continuação da codificação do módulo.
 *                               Modificações na estrutura.
@@ -88,17 +89,26 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
 
 void VER_DestruirVertice(VER_tpVertice **pVertice)
 {
-	if ((*pVertice) != NULL) {
-		LIS_DestruirLista((*pVertice)->pListaAnt);
-		LIS_DestruirLista((*pVertice)->pListaSuc);
-		if ((*pVertice)->ExcluirValor != NULL) {
-			(*pVertice)->ExcluirValor((*pVertice)->pConteudo);
+	(*pVertice) = NULL;
+} /* fim função: VER Destruir vértice */
+
+/***************************************************************************
+*
+*  Função: VER Liberar vértice
+*  ****/
+
+void VER_LiberarVertice(VER_tpVertice *pVertice)
+{
+	if (pVertice != NULL) {
+		LIS_DestruirLista(pVertice->pListaAnt);
+		LIS_DestruirLista(pVertice->pListaSuc);
+		if (pVertice->ExcluirValor != NULL) {
+			pVertice->ExcluirValor(pVertice->pConteudo);
 		}
 
-		free((*pVertice));
-		(*pVertice) = NULL;
+		free(pVertice);
 	} /* if */
-} /* fim função: VER Destruir vértice */
+} /* fim função: VER Liberar vértice */
 
 /***************************************************************************
 *

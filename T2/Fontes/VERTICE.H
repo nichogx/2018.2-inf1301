@@ -12,6 +12,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.55   ngx   28/09/2018 Separar liberação e destruição do vértice
 *       0.50   ngx   28/09/2018 Módulo funciona como esperado
 *       0.40   ngx   27/09/2018 Continuação da codificação do módulo.
 *                               Modificações na estrutura.
@@ -102,12 +103,23 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
 *  $FC Função: VER Destruir vértice
 *
 *  $ED Descrição da função
-*     Destroi vértice recebido, liberando espaço de memória e anulando
-*     o ponteiro recebido.
+*     Destroi vértice recebido, anulando o ponteiro recebido.
+*     O espaço de memória deve ser liberado antes com VER_LiberarVertice
 *
 ***********************************************************************/
 
 void VER_DestruirVertice(VER_tpVertice **pVertice);
+
+/***********************************************************************
+*
+*  $FC Função: VER Liberar vértice
+*
+*  $ED Descrição da função
+*     Libera espaço de memória do vértice recebido, porém não o anula.
+*
+***********************************************************************/
+
+void VER_LiberarVertice(VER_tpVertice *pVertice);
 
 /***********************************************************************
 *

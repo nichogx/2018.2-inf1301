@@ -93,7 +93,7 @@ GRF_tpCondRet GRF_CriarGrafo(void)
 
 	pGrafo->pVerCorr = NULL;
 	pGrafo->pListaOr = LIS_CriarLista(NULL);
-	pGrafo->pListaVer = LIS_CriarLista(&VER_DestruirVertice);
+	pGrafo->pListaVer = LIS_CriarLista(VER_LiberarVertice);
 
 	if (pGrafo->pListaOr == NULL || pGrafo->pListaVer == NULL) {
 		return GRF_CondRetErroAoCriarLista;
@@ -318,6 +318,7 @@ GRF_tpCondRet GRF_RemoverVerticeCorr()
 		LIS_AvancarElementoCorrente(ListaSuc, 1);
 	}
 
+	VER_LiberarVertice(pGrafo->pVerCorr);
 	VER_DestruirVertice(&pGrafo->pVerCorr);
 	IrInicioLista(pGrafo->pListaOr);
 	if (LIS_ObterValor(pGrafo->pListaOr) != NULL) { /* lista vazia */
@@ -377,6 +378,10 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 	VER_tpVertice *origem;
 	VER_tpVertice *destino;
 	int flag = 0;
+	
+	if (pGrafo == NULL) {
+		return GRF_CondRetGrafoNaoExiste;
+	}
 
 	IrInicioLista(pGrafo->pListaVer);
 	if (LIS_ObterValor(pGrafo->pListaVer) == 0) {
@@ -517,6 +522,7 @@ GRF_tpCondRet GRF_EsvaziarGrafo(void)
 
 	LIS_EsvaziarLista(pGrafo->pListaOr);
 	LIS_EsvaziarLista(pGrafo->pListaVer);
+	VER_LiberarVertice(pGrafo->pVerCorr);
 	VER_DestruirVertice(&pGrafo->pVerCorr);
 
 	return GRF_CondRetOK;

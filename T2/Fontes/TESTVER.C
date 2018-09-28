@@ -9,6 +9,9 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.31   ngx   28/09/2018 Pequena alteração para refletir mudança em vertice.c/.h
+*       0.30   ngx   28/09/2018 Finalização do módulo te teste
+*       0.20   ngx   27/09/2018 Adição de mais comandos de teste
 *       0.10   ngx   13/09/2018 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
@@ -37,6 +40,7 @@
 /* Tabela dos nomes dos comandos de teste específicos */
 #define     CRIAR_VER_CMD        "=criar"
 #define     DESTRUIR_VER_CMD     "=destruir"
+#define     LIBERAR_VER_CMD      "=free"
 #define     OBTER_VER_CMD        "=obter"
 #define     ATUALIZAR_VER_CMD    "=atualizar"
 #define     OBTER_LISTAS_VER_CMD "=obterlistas"
@@ -91,6 +95,10 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		                       "Retorno errado ao criar vertice.");
 	} else if (strcmp(ComandoTeste, DESTRUIR_VER_CMD) == 0) {
 		VER_DestruirVertice(&pVert);
+
+		return TST_CondRetOK;
+	} else if (strcmp(ComandoTeste, LIBERAR_VER_CMD) == 0) {
+		VER_LiberarVertice(pVert);
 
 		return TST_CondRetOK;
 	} else if (strcmp(ComandoTeste, OBTER_VER_CMD) == 0) {
