@@ -91,7 +91,7 @@ typedef struct VER_tgVertice VER_tpVertice;
 *
 ***********************************************************************/
 
-VER_tpCondRet VER_CriarVertice(VER_tpVertice *pDest, void *pConteudo,
+VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
                                void(*ExcluirValor)(void *pConteudo));
 
 /***********************************************************************
@@ -104,7 +104,7 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice *pDest, void *pConteudo,
 *
 ***********************************************************************/
 
-void VER_DestruirVertice(VER_tpVertice *pVertice);
+void VER_DestruirVertice(VER_tpVertice **pVertice);
 
 /***********************************************************************
 *
@@ -144,7 +144,7 @@ VER_tpCondRet VER_ObterConteudoVertice(VER_tpVertice *pVertice,
 ***********************************************************************/
 
 VER_tpCondRet VER_AtualizarConteudoVertice(VER_tpVertice *pVertice,
-                                           void *conteudo);
+                void *conteudo);
 
 /***********************************************************************
 *

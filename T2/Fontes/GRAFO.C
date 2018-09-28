@@ -78,19 +78,22 @@ static GRF_tpGrafo *pGrafo = NULL;
 
 GRF_tpCondRet GRF_CriarGrafo(void)
 {
-	if (pGrafo != NULL)
+	if (pGrafo != NULL) {
 		return GRF_CondRetGrafoJaExiste;
+	}
 
 	pGrafo = (GRF_tpGrafo *) malloc(sizeof(GRF_tpGrafo));
-	if (pGrafo == NULL)
+	if (pGrafo == NULL) {
 		return GRF_CondRetFaltouMemoria;
+	}
 
 	pGrafo->pVerCorr = NULL;
 	pGrafo->pListaOr = LIS_CriarLista(NULL);
 	pGrafo->pListaVer = LIS_CriarLista(&VER_DestruirVertice);
 
-	if (pGrafo->pListaOr == NULL || pGrafo->pListaVer == NULL)
+	if (pGrafo->pListaOr == NULL || pGrafo->pListaVer == NULL) {
 		return GRF_CondRetErroAoCriarLista;
+	}
 
 	return GRF_CondRetOK;
 } /* fim função: GRF Criar Grafo */
@@ -102,8 +105,9 @@ GRF_tpCondRet GRF_CriarGrafo(void)
 
 GRF_tpCondRet GRF_DestruirGrafo(void)
 {
-	if (pGrafo == NULL)
+	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
+	}
 
 	LIS_DestruirLista(pGrafo->pListaOr);
 	LIS_DestruirLista(pGrafo->pListaVer);
@@ -122,12 +126,14 @@ GRF_tpCondRet GRF_DestruirGrafo(void)
 GRF_tpCondRet GRF_ObterValorCorrente(void **conteudo)
 {
 	VER_tpCondRet retVer = VER_CondRetOK;
-	if (pGrafo == NULL)
+	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
+	}
 
 	retVer = VER_ObterConteudoVertice(pGrafo->pVerCorr, conteudo);
-	if (retVer == VER_CondRetVerticeNaoExiste)
+	if (retVer == VER_CondRetVerticeNaoExiste) {
 		return GRF_CondRetVerticeNaoExiste;
+	}
 
 	return GRF_CondRetOK;
 }/* Fim da Função: GRF Obter Valor Corrente */
@@ -140,12 +146,14 @@ GRF_tpCondRet GRF_ObterValorCorrente(void **conteudo)
 GRF_tpCondRet GRF_AlterarValorCorrente(void *novoConteudo)
 {
 	VER_tpCondRet retVer = VER_CondRetOK;
-	if (pGrafo == NULL)
+	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
+	}
 
 	retVer = VER_AtualizarConteudoVertice(pGrafo->pVerCorr, novoConteudo);
-	if (retVer == VER_CondRetVerticeNaoExiste)
+	if (retVer == VER_CondRetVerticeNaoExiste) {
 		return GRF_CondRetVerticeNaoExiste;
+	}
 
 	return GRF_CondRetOK;
 }/* Fim da função: GRF Alterar Valor Corrente */
@@ -155,9 +163,26 @@ GRF_tpCondRet GRF_AlterarValorCorrente(void *novoConteudo)
 *	Função: GRF Ir Vertice
 *	****/
 
-GRF_tpCondRet GRF_IrVertice(void *content)
+GRF_tpCondRet GRF_IrVertice(void *conteudoBuscado)
 {
-	// TODO implementar
+	if (pGrafo == NULL) {
+		return GRF_CondRetGrafoNaoExiste;
+	}
+
+	IrInicioLista(pGrafo->pListaVer);
+	do {
+		void *conteudo;
+
+		if (VER_ObterConteudoVertice(LIS_ObterValor(pGrafo->pListaVer),
+		                             &conteudo) != GRF_CondRetOK) {
+			return GRF_CondRetGrafoVazio;
+		}
+
+		if (conteudo == conteudoBuscado) {
+			return GRF_CondRetOK;
+		}
+	} while (LIS_AvancarElementoCorrente(pGrafo->pListaVer,
+	                                     1) != LIS_CondRetFimLista);
 	return GRF_CondRetVerticeNaoExiste;
 }/* Fim da Função: GRF Ir Vertice */
 
@@ -171,21 +196,25 @@ GRF_tpCondRet GRF_InserirVertice(void *pConteudo,
 {
 	VER_tpVertice *insVert = NULL;
 	VER_tpCondRet Ret;
-	if (pGrafo == NULL)
+	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
+	}
 
-	Ret = VER_CriarVertice(insVert, pConteudo, ExcluirValor);
+	Ret = VER_CriarVertice(&insVert, pConteudo, ExcluirValor);
 
-	if (Ret == VER_CondRetFaltouMemoria)
+	if (Ret == VER_CondRetFaltouMemoria) {
 		return GRF_CondRetFaltouMemoria;
+	}
 
-	if (Ret == VER_CondRetErroModuloLista)
+	if (Ret == VER_CondRetErroModuloLista) {
 		return GRF_CondRetErroAoCriarLista;
+	}
 
-	if (LIS_InserirElementoApos(pGrafo->pListaVer, insVert) == LIS_CondRetOK)
+	if (LIS_InserirElementoApos(pGrafo->pListaVer, insVert) == LIS_CondRetOK) {
 		return GRF_CondRetOK;
-	else
+	} else {
 		return GRF_CondRetFaltouMemoria;
+	}
 }/* Fim da Função: GRF Inserir Vertice */
 
 /**************************************************************************
@@ -201,23 +230,27 @@ GRF_tpCondRet GRF_RemoverVerticeCorr()
 
 	GRF_tpAresta *aresta;
 
-	if (pGrafo == NULL)
+	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
+	}
 
 	Ret = LIS_ProcurarValor(pGrafo->pListaVer,
 	                        pGrafo->pVerCorr); /* remover da lista de vertices */
-	if (Ret == LIS_CondRetOK)
+	if (Ret == LIS_CondRetOK) {
 		LIS_ExcluirElemento(pGrafo->pListaVer);
-	else
+	} else {
 		return GRF_CondRetErroEstrutura;
+	}
 
 	if (LIS_ProcurarValor(pGrafo->pListaOr,
-	                      pGrafo->pVerCorr) == LIS_CondRetOK) /* remover da lista de origens */
+	                      pGrafo->pVerCorr) == LIS_CondRetOK) { /* remover da lista de origens */
 		LIS_ExcluirElemento(pGrafo->pListaOr);
+	}
 
 	if (VER_ObterListasAntSuc(pGrafo->pVerCorr, &ListaAnt,
-	                          &ListaSuc) == VER_CondRetVerticeNaoExiste)
+	                          &ListaSuc) == VER_CondRetVerticeNaoExiste) {
 		return GRF_CondRetErroEstrutura;
+	}
 
 	IrInicioLista(ListaAnt);
 	IrInicioLista(ListaSuc);
@@ -227,8 +260,9 @@ GRF_tpCondRet GRF_RemoverVerticeCorr()
 		VER_ObterListasAntSuc(aresta->vertAp, NULL, &ListaAux);
 		IrInicioLista(ListaAux);
 		while (((GRF_tpAresta *)LIS_ObterValor(ListaAux))->vertAp != pGrafo->pVerCorr) {
-			if (LIS_ObterValor(ListaAux) == NULL)
+			if (LIS_ObterValor(ListaAux) == NULL) {
 				return GRF_CondRetErroEstrutura;
+			}
 
 			LIS_AvancarElementoCorrente(ListaAux, 1);
 		}
@@ -237,8 +271,9 @@ GRF_tpCondRet GRF_RemoverVerticeCorr()
 		VER_ObterListasAntSuc(aresta->vertAp, &ListaAux, NULL);
 		IrInicioLista(ListaAux);
 		while (((GRF_tpAresta *)LIS_ObterValor(ListaAux))->vertAp != pGrafo->pVerCorr) {
-			if (LIS_ObterValor(ListaAux) == NULL)
+			if (LIS_ObterValor(ListaAux) == NULL) {
 				return GRF_CondRetErroEstrutura;
+			}
 
 			LIS_AvancarElementoCorrente(ListaAux, 1);
 		}
@@ -259,16 +294,18 @@ GRF_tpCondRet GRF_RemoverVerticeCorr()
 				return GRF_CondRetErroEstrutura;
 
 			LIS_AvancarElementoCorrente(ListaAux, 1);*/
-			if (LIS_AvancarElementoCorrente(ListaAux, 1) != GRF_CondRetOK)
+			if (LIS_AvancarElementoCorrente(ListaAux, 1) != GRF_CondRetOK) {
 				return GRF_CondRetErroEstrutura;
+			}
 		}
 		LIS_ExcluirElemento(ListaAux);
 
 		VER_ObterListasAntSuc(aresta->vertAp, &ListaAux, NULL);
 		IrInicioLista(ListaAux);
 		while (((GRF_tpAresta *)LIS_ObterValor(ListaAux))->vertAp != pGrafo->pVerCorr) {
-			if (LIS_AvancarElementoCorrente(ListaAux, 1) != GRF_CondRetOK)
+			if (LIS_AvancarElementoCorrente(ListaAux, 1) != GRF_CondRetOK) {
 				return GRF_CondRetErroEstrutura;
+			}
 		}
 		LIS_ExcluirElemento(ListaAux);
 
@@ -277,10 +314,11 @@ GRF_tpCondRet GRF_RemoverVerticeCorr()
 		LIS_AvancarElementoCorrente(ListaSuc, 1);
 	}
 
-	VER_DestruirVertice(pGrafo->pVerCorr);
+	VER_DestruirVertice(&pGrafo->pVerCorr);
 	IrInicioLista(pGrafo->pListaOr);
-	if (LIS_ObterValor(pGrafo->pListaOr) != NULL) /* lista vazia */
+	if (LIS_ObterValor(pGrafo->pListaOr) != NULL) { /* lista vazia */
 		pGrafo->pVerCorr = LIS_ObterValor(pGrafo->pListaOr);
+	}
 
 
 	return GRF_CondRetOK;
@@ -296,21 +334,25 @@ GRF_tpCondRet GRF_AdicionarOrigem(void *pConteudo,
 {
 	VER_tpVertice *insVert = NULL;
 	VER_tpCondRet Ret;
-	if (pGrafo == NULL)
+	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
+	}
 
-	Ret = VER_CriarVertice(insVert, pConteudo, ExcluirValor);
+	Ret = VER_CriarVertice(&insVert, pConteudo, ExcluirValor);
 
-	if (Ret == VER_CondRetFaltouMemoria)
+	if (Ret == VER_CondRetFaltouMemoria) {
 		return GRF_CondRetFaltouMemoria;
+	}
 
-	if (Ret == VER_CondRetErroModuloLista)
+	if (Ret == VER_CondRetErroModuloLista) {
 		return GRF_CondRetErroAoCriarLista;
+	}
 
-	if (LIS_InserirElementoApos(pGrafo->pListaVer, insVert) == LIS_CondRetOK)
+	if (LIS_InserirElementoApos(pGrafo->pListaVer, insVert) == LIS_CondRetOK) {
 		return GRF_CondRetOK;
-	else
+	} else {
 		return GRF_CondRetFaltouMemoria;
+	}
 }/* Fim da Função: GRF Adicionar Origem */
 
 /**************************************************************************
@@ -333,13 +375,14 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 	int flag = 0;
 
 	IrInicioLista(pGrafo->pListaVer);
-	if (LIS_ObterValor(pGrafo->pListaVer) == 0)
+	if (LIS_ObterValor(pGrafo->pListaVer) == 0) {
 		return GRF_CondRetGrafoVazio;
+	}
 
 	do {
 		void *conteudo;
 		if (VER_ObterConteudoVertice(LIS_ObterValor(pGrafo->pListaVer),
-			&conteudo) != GRF_CondRetOK) {
+		                             &conteudo) != GRF_CondRetOK) {
 			return GRF_CondRetErroEstrutura;
 		}
 		if (conteudo == contOrigem) {
@@ -348,15 +391,16 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 		}
 	} while (LIS_AvancarElementoCorrente(pGrafo->pListaVer,
 	                                     1) != LIS_CondRetFimLista);
-	if (!flag)
+	if (!flag) {
 		return GRF_CondRetErroEstrutura;
+	}
 	origem = LIS_ObterValor(pGrafo->pListaVer);
 
 	flag = 0;
 	do {
 		void *conteudo;
 		if (VER_ObterConteudoVertice(LIS_ObterValor(pGrafo->pListaVer),
-			&conteudo) != GRF_CondRetOK) {
+		                             &conteudo) != GRF_CondRetOK) {
 			return GRF_CondRetErroEstrutura;
 		}
 		if (conteudo == contDestino) {
@@ -364,17 +408,19 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 			break;
 		}
 	} while (LIS_AvancarElementoCorrente(pGrafo->pListaVer,
-		1) != LIS_CondRetFimLista);
+	                                     1) != LIS_CondRetFimLista);
 
-	if (!flag)
+	if (!flag) {
 		return GRF_CondRetErroEstrutura;
+	}
 	destino = LIS_ObterValor(pGrafo->pListaVer);
-	
+
 	apOrigem = (GRF_tpAresta *)malloc(sizeof(GRF_tpAresta));
 	apDestino = (GRF_tpAresta *)malloc(sizeof(GRF_tpAresta));
 
-	if (apOrigem == NULL || apDestino == NULL)
+	if (apOrigem == NULL || apDestino == NULL) {
 		return GRF_CondRetFaltouMemoria;
+	}
 
 	apOrigem->id = idAresta;
 	apOrigem->vertAp = origem;
@@ -384,12 +430,16 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 	if (VER_ObterListasAntSuc(origem, NULL, &sucOrigem) != VER_CondRetOK
 	    || VER_ObterListasAntSuc(destino, &antDestino, NULL) != VER_CondRetOK)
 
+	{
 		return GRF_CondRetVerticeNaoExiste;
+	}
 
-	if (LIS_InserirElementoApos(sucOrigem, apDestino) != LIS_CondRetOK)
+	if (LIS_InserirElementoApos(sucOrigem, apDestino) != LIS_CondRetOK) {
 		return GRF_CondRetFaltouMemoria;
-	if (LIS_InserirElementoApos(antDestino, apOrigem) != LIS_CondRetOK)
+	}
+	if (LIS_InserirElementoApos(antDestino, apOrigem) != LIS_CondRetOK) {
 		return GRF_CondRetFaltouMemoria;
+	}
 
 	return GRF_CondRetOK;
 }/* Fim da Função: GRF Adicionar Aresta */
@@ -404,13 +454,15 @@ GRF_tpCondRet GRF_RemoverAresta(char idProc)
 	/* existem duas arestas com mesmo id: a que vai de um vértice para o outro
 	   e a que volta */
 
-	if (pGrafo == NULL)
+	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
+	}
 
 	IrInicioLista(pGrafo->pListaVer);
 
-	if (LIS_ObterValor(pGrafo->pListaVer) == NULL)
+	if (LIS_ObterValor(pGrafo->pListaVer) == NULL) {
 		return GRF_CondRetGrafoVazio;
+	}
 
 	do {
 		VER_tpVertice *vertAtual = LIS_ObterValor(
@@ -420,16 +472,18 @@ GRF_tpCondRet GRF_RemoverAresta(char idProc)
 		VER_ObterListasAntSuc(vertAtual, NULL, &ListaAux);
 		IrInicioLista(ListaAux);
 		while (((GRF_tpAresta *)LIS_ObterValor(ListaAux))->id != idProc) {
-			if (LIS_AvancarElementoCorrente(ListaAux, 1) != GRF_CondRetOK)
+			if (LIS_AvancarElementoCorrente(ListaAux, 1) != GRF_CondRetOK) {
 				break;
+			}
 		}
 
 		VER_ObterListasAntSuc(((GRF_tpAresta *)LIS_ObterValor(ListaAux))->vertAp, NULL,
 		                      &ListaAux2);
 		IrInicioLista(ListaAux2);
 		while (((GRF_tpAresta *)LIS_ObterValor(ListaAux2))->id != idProc) {
-			if (LIS_AvancarElementoCorrente(ListaAux2, 1) != GRF_CondRetOK)
+			if (LIS_AvancarElementoCorrente(ListaAux2, 1) != GRF_CondRetOK) {
 				break;
+			}
 		}
 
 		if (((GRF_tpAresta *)LIS_ObterValor(ListaAux2))->id == idProc
@@ -453,12 +507,13 @@ GRF_tpCondRet GRF_RemoverAresta(char idProc)
 
 GRF_tpCondRet GRF_EsvaziarGrafo(void)
 {
-	if (pGrafo == NULL)
-		return GRF_CondRetGrafoVazio;
+	if (pGrafo == NULL) {
+		return GRF_CondRetGrafoNaoExiste;
+	}
 
 	LIS_EsvaziarLista(pGrafo->pListaOr);
 	LIS_EsvaziarLista(pGrafo->pListaVer);
-	VER_DestruirVertice(pGrafo->pVerCorr);
+	VER_DestruirVertice(&pGrafo->pVerCorr);
 
 	return GRF_CondRetOK;
 }/* Fim da função: GRF Esvaziar Grafo */

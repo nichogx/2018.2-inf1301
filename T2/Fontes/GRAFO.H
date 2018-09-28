@@ -155,7 +155,7 @@ GRF_tpCondRet GRF_AlterarValorCorrente(void *newContent);
 *
 *************************************************************************/
 
-GRF_tpCondRet GRF_IrVertice(void *content);
+GRF_tpCondRet GRF_IrVertice(void *conteudoBuscado);
 
 /************************************************************************
 *

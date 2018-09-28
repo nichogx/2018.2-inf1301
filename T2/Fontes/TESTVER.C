@@ -35,12 +35,16 @@
 #include    "vertice.h"
 
 /* Tabela dos nomes dos comandos de teste específicos */
-#define     CRIAR_VER_CMD       "=criar"
-#define     DESTRUIR_VER_CMD    "=destruir"
+#define     CRIAR_VER_CMD        "=criar"
+#define     DESTRUIR_VER_CMD     "=destruir"
+#define     OBTER_VER_CMD        "=obter"
+#define     ATUALIZAR_VER_CMD    "=atualizar"
+#define     OBTER_LISTAS_VER_CMD "=obterlistas"
 
 /* Dados encapsulados no módulo */
 static VER_tpVertice *pVert = NULL;
 static char *strTeste = "eu sou uma string de teste";
+static char *strTeste2 = "segunda string de teste";
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -67,23 +71,80 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 	VER_tpCondRet CondRetObtido   = VER_CondRetOK;
 	VER_tpCondRet CondRetEsperada = VER_CondRetFaltouMemoria;
 
+	TST_tpCondRet Ret = TST_CondRetOK;
+
 	int  NumLidos = -1;
+
+	char *strObtida = strTeste;
 
 	/* Testar VER Criar vértice */
 
 	if (strcmp(ComandoTeste, CRIAR_VER_CMD) == 0) {
 		NumLidos = LER_LerParametros("i", &CondRetEsperada);
-		if (NumLidos != 1)
+		if (NumLidos != 1) {
 			return TST_CondRetParm;
+		}
 
-		CondRetObtido = VER_CriarVertice(pVert, strTeste, NULL);
+		CondRetObtido = VER_CriarVertice(&pVert, strTeste, NULL);
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtido,
 		                       "Retorno errado ao criar vertice.");
 	} else if (strcmp(ComandoTeste, DESTRUIR_VER_CMD) == 0) {
-		VER_DestruirVertice(pVert);
+		VER_DestruirVertice(&pVert);
 
 		return TST_CondRetOK;
+	} else if (strcmp(ComandoTeste, OBTER_VER_CMD) == 0) {
+		int strTesteEsperada = 0;
+		NumLidos = LER_LerParametros("ii", &strTesteEsperada, &CondRetEsperada);
+		if (NumLidos != 2) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = VER_ObterConteudoVertice(pVert, &strObtida);
+
+		Ret = TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                      "Retorno errado ao obter conteudo do vertice.");
+
+		if (Ret != TST_CondRetOK) {
+			return Ret;
+		}
+
+		if (strTesteEsperada == 1)
+			return TST_CompararString(strTeste, strObtida,
+			                          "Conteudo obtido difere do esperado ao obter conteudo do vertice.");
+		else if (strTesteEsperada == 2)
+			return TST_CompararString(strTeste2, strObtida,
+			                          "Conteudo obtido difere do esperado ao obter conteudo do vertice.");
+		else {
+			return TST_CondRetParm;
+		}
+
+
+	} else if (strcmp(ComandoTeste, ATUALIZAR_VER_CMD) == 0) {
+		int strAColocar = 0;
+		NumLidos = LER_LerParametros("ii", &strAColocar, &CondRetEsperada);
+		if (NumLidos != 2 || strAColocar < 1 || strAColocar > 2) {
+			return TST_CondRetParm;
+		}
+
+		if (strAColocar == 1) {
+			CondRetObtido = VER_AtualizarConteudoVertice(pVert, strTeste);
+		} else if (strAColocar == 2) {
+			CondRetObtido = VER_AtualizarConteudoVertice(pVert, strTeste2);
+		}
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao atualizar conteudo do vertice.");
+	} else if (strcmp(ComandoTeste, OBTER_LISTAS_VER_CMD) == 0) {
+		NumLidos = LER_LerParametros("i", &CondRetEsperada);
+		if (NumLidos != 1) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = VER_ObterListasAntSuc(pVert, NULL, NULL);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao obter listas do vertice.");
 	}
 
 	return TST_CondRetNaoConhec;

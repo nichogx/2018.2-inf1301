@@ -58,20 +58,22 @@ struct VER_tgVertice {
 *  Função: VER Criar vértice
 *  ****/
 
-VER_tpCondRet VER_CriarVertice(VER_tpVertice *pDest, void *pConteudo,
+VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
                                void(*ExcluirValor)(void *pConteudo))
 {
-	pDest = (VER_tpVertice *) malloc(sizeof(VER_tpVertice));
-	if (pDest == NULL)
+	(*pDest) = (VER_tpVertice *) malloc(sizeof(VER_tpVertice));
+	if ((*pDest) == NULL) {
 		return VER_CondRetFaltouMemoria;
+	}
 
-	pDest->pConteudo = pConteudo;
-	pDest->ExcluirValor = ExcluirValor;
-	pDest->pListaAnt = LIS_CriarLista(NULL);
-	pDest->pListaSuc = LIS_CriarLista(NULL);
+	(*pDest)->pConteudo = pConteudo;
+	(*pDest)->ExcluirValor = ExcluirValor;
+	(*pDest)->pListaAnt = LIS_CriarLista(NULL);
+	(*pDest)->pListaSuc = LIS_CriarLista(NULL);
 
-	if (pDest->pListaAnt == NULL || pDest->pListaSuc == NULL)
+	if ((*pDest)->pListaAnt == NULL || (*pDest)->pListaSuc == NULL) {
 		return VER_CondRetFaltouMemoria;
+	}
 
 	return VER_CondRetOK;
 } /* fim função: VER Criar vértice */
@@ -81,16 +83,17 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice *pDest, void *pConteudo,
 *  Função: VER Destruir vértice
 *  ****/
 
-void VER_DestruirVertice(VER_tpVertice *pVertice)
+void VER_DestruirVertice(VER_tpVertice **pVertice)
 {
-	if (pVertice != NULL) {
-		LIS_DestruirLista(pVertice->pListaAnt);
-		LIS_DestruirLista(pVertice->pListaSuc);
-		if (pVertice->ExcluirValor != NULL)
-			pVertice->ExcluirValor(pVertice->pConteudo);
+	if ((*pVertice) != NULL) {
+		LIS_DestruirLista((*pVertice)->pListaAnt);
+		LIS_DestruirLista((*pVertice)->pListaSuc);
+		if ((*pVertice)->ExcluirValor != NULL) {
+			(*pVertice)->ExcluirValor((*pVertice)->pConteudo);
+		}
 
-		free(pVertice);
-		pVertice = NULL;
+		free((*pVertice));
+		(*pVertice) = NULL;
 	} /* if */
 } /* fim função: VER Destruir vértice */
 
@@ -101,8 +104,9 @@ void VER_DestruirVertice(VER_tpVertice *pVertice)
 
 VER_tpCondRet VER_ObterConteudoVertice(VER_tpVertice *pVertice, void **conteudo)
 {
-	if (pVertice == NULL)
+	if (pVertice == NULL) {
 		return VER_CondRetVerticeNaoExiste;
+	}
 
 	*conteudo = pVertice->pConteudo;
 
@@ -117,11 +121,13 @@ VER_tpCondRet VER_ObterConteudoVertice(VER_tpVertice *pVertice, void **conteudo)
 VER_tpCondRet VER_AtualizarConteudoVertice(VER_tpVertice *pVertice,
                 void *conteudo)
 {
-	if (pVertice == NULL)
+	if (pVertice == NULL) {
 		return VER_CondRetVerticeNaoExiste;
+	}
 
-	if (pVertice->ExcluirValor != NULL)
+	if (pVertice->ExcluirValor != NULL) {
 		pVertice->ExcluirValor(pVertice->pConteudo);
+	}
 	pVertice->pConteudo = conteudo;
 
 	return VER_CondRetOK;
@@ -135,14 +141,17 @@ VER_tpCondRet VER_AtualizarConteudoVertice(VER_tpVertice *pVertice,
 VER_tpCondRet VER_ObterListasAntSuc(VER_tpVertice *pVertice,
                                     LIS_tppLista *antecessores, LIS_tppLista *sucessores)
 {
-	if (pVertice == NULL)
+	if (pVertice == NULL) {
 		return VER_CondRetVerticeNaoExiste;
+	}
 
-	if (antecessores != NULL)
+	if (antecessores != NULL) {
 		*antecessores = pVertice->pListaAnt;
-	
-	if (sucessores != NULL)
+	}
+
+	if (sucessores != NULL) {
 		*sucessores = pVertice->pListaSuc;
+	}
 
 	return VER_CondRetOK;
 } /* fim função: VER Obter Antecessores e Sucessores */
