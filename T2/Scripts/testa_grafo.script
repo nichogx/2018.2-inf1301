@@ -1,7 +1,26 @@
-== Testa criação de grafo
+== Testa criaÃ§Ã£o de grafo
 =criar 0
 =criar 5
 
 == Testa destruir grafo
 =destruir 0
 =destruir 3
+
+== Testa todas com grafo inexistente
+=obter 1 3
+=alterar 1 3
+=ir 1 3
+=inserir 1 3
+=remover 3
+=addorigem 1 3
+=addaresta 'a' 1 2 3
+=remaresta 'a' 3
+=esvaziar 3
+
+== Cria grafo para testar e adiciona uma origem
+=criar 0
+=addorigem 1 0
+
+== Destroi grafo usado para testar
+=destruir 0
+=destruir 3 // verifica destruÃ­do
