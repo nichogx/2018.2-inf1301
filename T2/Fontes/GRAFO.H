@@ -2,7 +2,7 @@
 #define GRAFO_
 /***************************************************************************
 *
-*  $MCD M�dulo de defini��o: M�dulo Grafo
+*  $MCD Módulo de definição: Módulo Grafo
 *
 *  Arquivo:                 GRAFO.H
 *  Letras identificadoras:  GRF
@@ -10,20 +10,24 @@
 *  Projeto: Disciplina INF1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA Hist�rico de evolu��o:
-*     Vers�o  Autor    Data     Observa��es
-*       0.10   ngx   13/09/2018 In�cio do desenvolvimento
+*  $HA Histórico de evolução:
+*     Versão  Autor    Data     Observações
+*       0.42   ngx   28/09/2018 Pequenas modificações nos parâmetros das funções
+*                               de acesso.
+*       0.40   ngx   27/09/2018 Continuação e recodificação do módulo e suas funções.
+*                               Modificações na estrutura.
+*       0.10   ngx   13/09/2018 Início do desenvolvimento
 *
-*  $ED Descri��o do m�dulo
-*     Este m�dulo implementa um conjunto simples de fun��es para criar e
+*  $ED Descrição do módulo
+*     Este módulo implementa um conjunto simples de funções para criar e
 *     explorar grafos.
-*     O grafo possui uma cabe�a que cont�m uma refer�ncia para a ra�z da
-*     �rvore e outra para um n� corrente da �rvore. // TODO CHANGE
-*     A cada momento o m�dulo admite no m�ximo um �nico grafo.
-*     Ao iniciar a execu��o do programa n�o existe grafo.
-*     O grafo poder� estar vazio. Neste caso o n� corrente
-*     ser� nulo, embora a cabe�a esteja definida.
-*     O n� corrente ser� nulo se e somente se o grafo estiver vazio.
+*     O grafo possui uma cabeça que contém uma referência para a raíz da
+*     Árvore e outra para um nó corrente da Árvore. // TODO CHANGE
+*     A cada momento o módulo admite no máximo um único grafo.
+*     Ao iniciar a execução do programa não existe grafo.
+*     O grafo poderá estar vazio. Neste caso o nó corrente
+*     será nulo, embora a cabeça esteja definida.
+*     O nó corrente será nulo se e somente se o grafo estiver vazio.
 *
 ***************************************************************************/
 

@@ -10,6 +10,10 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.42   ngx   28/09/2018 Pequenas modificações nos parâmetros das funções
+*                               de acesso.
+*       0.40   ngx   27/09/2018 Continuação e recodificação do módulo e suas funções.
+*                               Modificações na estrutura.
 *       0.30   gpa   23/09/2018 Implementação de funções
 *       0.10   ngx   13/09/2018 Início do desenvolvimento
 *

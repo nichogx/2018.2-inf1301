@@ -9,6 +9,9 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.50   ngx   28/09/2018 Módulo funciona como esperado
+*       0.40   ngx   27/09/2018 Continuação da codificação do módulo.
+*                               Modificações na estrutura.
 *       0.10   ngx   13/09/2018 Início do desenvolvimento
 *
 ***************************************************************************/
