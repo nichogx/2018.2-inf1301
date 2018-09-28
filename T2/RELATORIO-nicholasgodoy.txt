@@ -8,3 +8,9 @@ Data            Horas Trabalhadas,      Tipo Tarefa,                            
                                         Codificar Módulo                                    Consertar erros
 2018-09-23      1.5                     Codificar Módulo                                    Continuar codificação do módulo VERTICE
 2018-09-27      5                       Codificar Módulo                                    Recodificação dos módulos, correção de erros de compilação.
+                                        Corrigir os erros encontrados                       Recodificação dos módulos, correção de erros de compilação.
+2018-09-28      2                       Codificar Módulo                                    Continuar recodificação das funções de acesso do módulo grafo,
+                                                                                            atualização da documentação dos módulos grafo e vértice.
+2018-09-28      2                       Redigir Scripts de Teste                            Redigir scripts de teste para os módulos grafo e vértice
+                                        Realizar os testes                                  Realizar testes nos dois módulos
+                                        Corrigir os erros encontrados                       Corrigir erros encontrados no módulo grafo

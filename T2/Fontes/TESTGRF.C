@@ -231,7 +231,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 			return TST_CondRetParm;
 		}
 
-		CondRetObtido = GRF_Andar(id);
+		CondRetObtido = GRF_Voltar(id);
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtido,
 		                       "Retorno errado ao voltar pelas arestas do grafo.");

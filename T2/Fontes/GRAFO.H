@@ -12,6 +12,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.51   ngx   28/09/2018 Erros corrigidos.
+*                               Atualização da documentação e nomeação de parâmetros.
 *       0.50   ngx   28/09/2018 Novas funções de acesso para caminhar sobre as arestas.
 *       0.42   ngx   28/09/2018 Pequenas modificações nos parâmetros das funções
 *                               de acesso.
@@ -86,9 +88,9 @@ typedef struct GRF_tgGrafo GRF_tpGrafo;
 
 /***********************************************************************
 *
-*  $FC Fun��o: GRF Criar Grafo
+*  $FC Função: GRF Criar Grafo
 *
-*  $ED Descri��o da fun��o
+*  $ED Descrição da função
 *     Cria um novo grafo vazio.
 *
 *  $FV Valor retornado
@@ -103,10 +105,10 @@ GRF_tpCondRet GRF_CriarGrafo(void);
 
 /***********************************************************************
 *
-*  $FC Fun��o: GRF Destruir Grafo
+*  $FC Fuñção: GRF Destruir Grafo
 *
-*  $ED Descri��o da fun��o
-*     Destr�i o grafo.
+*  $ED Descrição da função
+*     Destrói o grafo.
 *
 *  $FV Valor retornado
 *     GRF_CondRetOK
@@ -118,14 +120,18 @@ GRF_tpCondRet GRF_DestruirGrafo(void);
 
 /************************************************************************
 *
-*	$FC Função: GRF Obter Valor Corrente
+*  $FC Função: GRF Obter Valor Corrente
 *
-*	$ED Descrição da função
-*		Obtem o conteudo do vertice corrente.
+*  $ED Descrição da função
+*     Obtem o conteudo do vertice corrente.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
+*  $EP Parâmetros
+*     conteudo - endereço do ponteiro que apontará o valor corrente
+*
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetGrafoVazio
 *
 *************************************************************************/
 
@@ -133,30 +139,39 @@ GRF_tpCondRet GRF_ObterValorCorrente(void **conteudo);
 
 /************************************************************************
 *
-*	$FC Função: GRF Alterar Valor Corrente
+*  $FC Função: GRF Alterar Valor Corrente
 *
-*	$ED Descrição da função
-*		Altera o conteudo do vertice corrente.
+*  $ED Descrição da função
+*     Altera o conteudo do vertice corrente.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
+*  $EP Parâmetros
+*     novoConteudo - conteúdo que será o novo do corrente
+*
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetGrafoVazio
 *
 *************************************************************************/
 
-GRF_tpCondRet GRF_AlterarValorCorrente(void *newContent);
+GRF_tpCondRet GRF_AlterarValorCorrente(void *novoConteudo);
 
 /************************************************************************
 *
-*	$FC Função: GRF Ir Vertice
+*  $FC Função: GRF Ir Vertice
 *
-*	$ED Descrição da função
-*		O vertice corrente vira o vertice contendo o conteudo.
+*  $ED Descrição da função
+*     O vertice corrente vira o vertice que contém o conteudo.
+*     A função compara ponteiros, não conteúdo apontado.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
-*		GRF_CondRetVerticeNaoExiste
+*  $EP Parâmetros
+*     conteudoBuscado - conteúdo que será comparado
+*
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetGrafoVazio
+*     GRF_CondRetVerticeNaoExiste
 *
 *************************************************************************/
 
@@ -164,15 +179,24 @@ GRF_tpCondRet GRF_IrVertice(void *conteudoBuscado);
 
 /************************************************************************
 *
-*	$FC Função: GRF Inserir Vertice
+*  $FC Função: GRF Inserir Vertice
 *
-*	$ED Descrição da função
-*		Insere um vertice na lista de vertices do grafo.
+*  $ED Descrição da função
+*     Insere um vertice na lista de vertices do grafo.
+*     O vértice inserido passa a ser o corrente.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
-*		GRF_CondRetFaltouMemoria
+*  $EP Parâmetros
+*     pConteudo - conteudo do novo vértice a ser inserido
+*     ExcluirValor - ponteiro para função que destrói (libera espaço de memória)
+*                    o conteúdo.
+*                    pode ser NULL caso não seja necessário liberar
+*
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetFaltouMemoria
+*     GRF_CondRetErroAoCriarLista
+*     GRF_CondRetErroEstrutura
 *
 *************************************************************************/
 
@@ -181,31 +205,39 @@ GRF_tpCondRet GRF_InserirVertice(void *pConteudo,
 
 /************************************************************************
 *
-*	$FC Função: GRF Remover Corrente
+*  $FC Função: GRF Remover Corrente
 *
-*	$ED Descrição da função
-*		Remove o vertice corrente
+*  $ED Descrição da função
+*     Remove o vertice corrente
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
-*		GRF_CondRetVerticeNaoExiste
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetGrafoVazio
 *
 *************************************************************************/
 
-GRF_tpCondRet GRF_RemoverVerticeCorr();
+GRF_tpCondRet GRF_RemoverVerticeCorr(void);
 
 /************************************************************************
 *
-*	$FC Função: GRF Adicionar Origem
+*  $FC Função: GRF Adicionar Origem
 *
-*	$ED Descrição da função
-*		Adiciona um vertice origem com o conteudo void no grafo
+*  $ED Descrição da função
+*     Adiciona um vertice e também torna-o origem.
+*     O vértice inserido passa a ser o corrente.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
-*		GRF_CondRetFaltouMemoria
+*  $EP Parâmetros
+*     pConteudo - conteudo do novo vértice a ser inserido
+*     ExcluirValor - ponteiro para função que destrói (libera espaço de memória)
+*                    o conteúdo.
+*                    pode ser NULL caso não seja necessário liberar
+*
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetFaltouMemoria
+*     GRF_CondRetErroEstrutura
 *
 *************************************************************************/
 
@@ -214,16 +246,27 @@ GRF_tpCondRet GRF_AdicionarOrigem(void *pConteudo,
 
 /************************************************************************
 *
-*	$FC Função: GRF Adicionar Aresta
+*  $FC Função: GRF Adicionar Aresta
 *
-*	$ED Descrição da função
-*		Adiciona uma aresta ao vertice corrente
+*  $ED Descrição da função
+*     Adiciona uma aresta ao vertice corrente.
+*     Não é feita verificação se já existe uma aresta com esse ID.
+*     Recomenda-se manter os IDs de aresta únicos.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
-*		GRF_CondRetVerticeNaoExiste
-*		GRF_CondRetErroEstrutura
+*     Os conteúdos recebidos serão comparados com todos os vértices do grafo.
+*     Caso eles sejam encontrados, adiciona-se uma aresta.
+*     O conteúdo de cada vértice é comparado por ponteiros, não conteúdo apontado.
+*
+*  $EP Parâmetros
+*     idAresta - caractere que será o ID da aresta
+*     contOrigem - conteúdo do vértice que será a origem da aresta (esse será buscado)
+*     contOrigem - conteúdo do vértice que será o destino da aresta (esse será buscado)
+*
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetVerticeNaoExiste
+*     GRF_CondRetErroEstrutura
 *
 *************************************************************************/
 
@@ -232,17 +275,25 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 
 /************************************************************************
 *
-*	$FC Função: GRF Andar
+*  $FC Função: GRF Voltar
 *
-*	$ED Descrição da função
-*		Avança o vértice corrente pela aresta com ID recebido.
-*               A aresta precisa estar na lista de sucessores do vértice corrente.
+*  $ED Descrição da função
+*     Avança o vértice corrente pela aresta com ID recebido.
+*     A aresta precisa estar na lista de sucessores do vértice corrente.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
-*		GRF_CondRetVerticeNaoExiste
-*		GRF_CondRetErroEstrutura
+*     Caso haja mais de uma aresta com o mesmo ID, opera na primeira
+*     encontrada com esse ID.
+*     Recomenda-se manter os IDs de aresta únicos.
+*
+*  $EP Parâmetros
+*     idAresta - caractere que é o ID da aresta
+*
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetGrafoVazio
+*     GRF_CondRetArestaNaoExiste
+*     GRF_CondRetErroEstrutura
 *
 *************************************************************************/
 
@@ -250,17 +301,25 @@ GRF_tpCondRet GRF_Andar(char idAresta);
 
 /************************************************************************
 *
-*	$FC Função: GRF Voltar
+*  $FC Função: GRF Voltar
 *
-*	$ED Descrição da função
-*		Volta o vértice corrente pela aresta com ID recebido.
-*               A aresta precisa estar na lista de antecessores do vértice corrente.
+*  $ED Descrição da função
+*     Volta o vértice corrente pela aresta com ID recebido.
+*     A aresta precisa estar na lista de antecessores do vértice corrente.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
-*		GRF_CondRetVerticeNaoExiste
-*		GRF_CondRetErroEstrutura
+*     Caso haja mais de uma aresta com o mesmo ID, opera na primeira
+*     encontrada com esse ID.
+*     Recomenda-se manter os IDs de aresta únicos.
+*
+*  $EP Parâmetros
+*     idAresta - caractere que é o ID da aresta
+*
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetGrafoVazio
+*     GRF_CondRetArestaNaoExiste
+*     GRF_CondRetErroEstrutura
 *
 *************************************************************************/
 
@@ -268,16 +327,24 @@ GRF_tpCondRet GRF_Voltar(char idAresta);
 
 /************************************************************************
 *
-*	$FC Função: GRF Remover Aresta
+*  $FC Função: GRF Remover Aresta
 *
-*	$ED Descrição da função
-*		Remove uma aresta corrente do vertice corrente
+*  $ED Descrição da função
+*     Remove aresta com o ID recebido
+*     Não importa se essa aresta está ligada ao vértice corrente ou não.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoNaoExiste
-*		GRF_CondRetVerticeNaoExiste
-*		GRF_CondRetErroEstrutura
+*     Caso haja mais de uma aresta com o mesmo ID, opera na primeira
+*     encontrada com esse ID.
+*     Recomenda-se manter os IDs de aresta únicos.
+*
+*  $EP Parâmetros
+*     idAresta - caractere que é o ID da aresta
+*
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetVerticeNaoExiste
+*     GRF_CondRetErroEstrutura
 *
 *************************************************************************/
 
@@ -285,14 +352,16 @@ GRF_tpCondRet GRF_RemoverAresta(char nomeAresta);
 
 /************************************************************************
 *
-*	$FC Função: GRF Esvaziar Grafo
+*  $FC Função: GRF Esvaziar Grafo
 *
-*	$ED Descrição da função
-*		Esvazia as listas e destroi o vertice corrente do grafo
+*  $ED Descrição da função
+*     Esvazia o grafo, liberando espaços de memória e deixando-o
+*     como se tivesse acabado de ser criado.
 *
-*	$FV Valor Retornado
-*		GRF_CondRetOK
-*		GRF_CondRetGrafoVazio
+*  $FV Valor Retornado
+*     GRF_CondRetOK
+*     GRF_CondRetGrafoVazio
+*     GRF_CondRetGrafoNaoExiste
 *
 *************************************************************************/
 

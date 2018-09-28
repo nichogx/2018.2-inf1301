@@ -14,13 +14,68 @@
 =remover 3
 =addorigem 1 3
 =addaresta 'a' 1 2 3
+=andar 'a' 3
+=voltar 'a' 3
 =remaresta 'a' 3
 =esvaziar 3
 
-== Cria grafo para testar e adiciona uma origem
+== Cria grafo e testa todas com grafo vazio (que retornam essa condição de retorno)
 =criar 0
+=obter 1 2
+=alterar 1 2
+=ir 1 2
+=remover 2
+=addaresta 'a' 1 2 2
+=andar 'a' 2
+=voltar 'a' 2
+=remaresta 'a' 2
+=esvaziar 2
+
+== Adiciona uma origem
 =addorigem 1 0
+
+== Verifica conteudo da origem, muda e verifica de novo
+=obter 1 0
+=alterar 2 0
+=obter 1 0 // não é mais o mesmo
+=recuperar
+=obter 2 0
+=alterar 1 0
+=obter 1 0
+
+== Adiciona mais um vertice
+=inserir 2 0
+=obter 2 0
+
+== Adiciona uma aresta entre os dois vertices existentes
+=addaresta 'a' 1 2 0
+
+== Caminha por essa aresta (volta e depois vai)
+=voltar 'c' 7 // nao existe
+=voltar 'a' 0 // existe
+=obter 1 0
+=voltar 'a' 7 // nao é vértice de volta, é de ída (não existe)
+=andar 'b' 7  // não existe
+=andar 'a' 0  // existe
+=obter 2 0
+
+== Adiciona mais um vértice e uma aresta entre a origem e ele
+=inserir 3 0
+=obter 3 0
+=addaresta 'b' 1 3 0
+
+== Volta para a origem e tenta ir para o novo vértice (e volta)
+=ir 1 0
+=obter 1 0
+=andar 'b' 0
+=obter 3 0
+=voltar 'b' 0
+=obter 1 0
+
+== Testa função Ir
+=ir 3 0 // vertice existe
+=ir 4 6 // vertice não existe
 
 == Destroi grafo usado para testar
 =destruir 0
-=destruir 3 // verifica destruído
+=destruir 3 // verifica destruido

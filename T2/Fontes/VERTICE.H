@@ -12,6 +12,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.56   ngx   28/09/2018 Atualização da documentação
 *       0.55   ngx   28/09/2018 Separar liberação e destruição do vértice
 *       0.50   ngx   28/09/2018 Módulo funciona como esperado
 *       0.40   ngx   27/09/2018 Continuação da codificação do módulo.
@@ -83,15 +84,14 @@ typedef struct VER_tgVertice VER_tpVertice;
 *     O endereço que esse ponteiro guardava anteriormente será perdido.
 *
 *  $EP Parâmetros
-*     pDest - ponteiro onde será guardado o vértice criado.
+*     pDest - endereço do ponteiro onde será guardado o vértice criado.
 *     pConteudo - conteúdo a colocar no vértice.
-*     ExcluirValor - função que libera pConteudo. Pode ser NULL se
+*     ExcluirValor - ponteiro para função que libera pConteudo. Pode ser NULL se
 *                    não for necessário liberar.
 *
 *  $FV Valor retornado
 *     VER_CondRetOK
 *     VER_CondRetFaltouMemoria
-*     VER_CondRetErroAoCriarLista
 *
 ***********************************************************************/
 
@@ -102,9 +102,14 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
 *
 *  $FC Função: VER Destruir vértice
 *
+*  $EP Parâmetros
+*     pVertice - endereço do ponteiro que contém o vértice
+*
 *  $ED Descrição da função
-*     Destroi vértice recebido, anulando o ponteiro recebido.
-*     O espaço de memória deve ser liberado antes com VER_LiberarVertice
+*     Anula o ponteiro para vértice recebido, destruindo-o.
+*     As outras funções reconhecerão esse ponteiro como um vértice que não existe.
+*     Não libera o espaço de memória.
+*     O espaço de memória deve ser liberado antes com VER_LiberarVertice.
 *
 ***********************************************************************/
 
@@ -113,6 +118,9 @@ void VER_DestruirVertice(VER_tpVertice **pVertice);
 /***********************************************************************
 *
 *  $FC Função: VER Liberar vértice
+*
+*  $EP Parâmetros
+*     pVertice - ponteiro que contém o vértice
 *
 *  $ED Descrição da função
 *     Libera espaço de memória do vértice recebido, porém não o anula.
@@ -130,7 +138,7 @@ void VER_LiberarVertice(VER_tpVertice *pVertice);
 *
 *  $EP Parâmetros
 *     pVertice - ponteiro para vértice a extrair conteúdo
-*     conteudo - ponteiro para ponteiro que apontará o conteúdo do vértice
+*     conteudo - endereço do ponteiro que apontará o conteúdo do vértice
 *
 *  $FV Valor retornado
 *     VER_CondRetOK
