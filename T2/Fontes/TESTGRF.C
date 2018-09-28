@@ -9,6 +9,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.30   ngx   28/09/2018 Adicionar comandos de teste para as novas
+*                               funções de acesso codificadas.
 *       0.20   ngx   28/09/2018 Adição de mais comandos de teste.
 *       0.10   ngx   13/09/2018 Início do desenvolvimento
 *
@@ -45,6 +47,8 @@
 #define     REMOVER_GRF_CMD      "=remover"
 #define     ADICIONAR_OR_GRF_CMD "=addorigem"
 #define     ADICIONAR_AR_GRF_CMD "=addaresta"
+#define     ANDAR_GRF_CMD        "=andar"
+#define     VOLTAR_GRF_CMD       "=voltar"
 #define     REMOVER_AR_GRF_CMD   "=remaresta"
 #define     ESVAZIAR_GRF_CMD     "=esvaziar"
 
@@ -207,6 +211,30 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtido,
 		                       "Retorno errado ao adicionar aresta no grafo.");
+	} else if (strcmp(ComandoTeste, ANDAR_GRF_CMD) == 0) {
+		char id = 0;
+		NumLidos = LER_LerParametros("ci", &id, &CondRetEsperada);
+
+		if (NumLidos != 2) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = GRF_Andar(id);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao andar pelas arestas do grafo.");
+	} else if (strcmp(ComandoTeste, VOLTAR_GRF_CMD) == 0) {
+		char id = 0;
+		NumLidos = LER_LerParametros("ci", &id, &CondRetEsperada);
+
+		if (NumLidos != 2) {
+			return TST_CondRetParm;
+		}
+
+		CondRetObtido = GRF_Andar(id);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtido,
+		                       "Retorno errado ao voltar pelas arestas do grafo.");
 	} else if (strcmp(ComandoTeste, REMOVER_AR_GRF_CMD) == 0) {
 		char id = 0;
 		NumLidos = LER_LerParametros("ci", &id, &CondRetEsperada);

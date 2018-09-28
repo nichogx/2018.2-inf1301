@@ -10,6 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.50   ngx   28/09/2018 Novas funções de acesso para caminhar sobre as arestas.
 *       0.42   ngx   28/09/2018 Pequenas modificações nos parâmetros das funções
 *                               de acesso.
 *       0.40   ngx   27/09/2018 Continuação e recodificação do módulo e suas funções.
@@ -378,7 +379,7 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 	VER_tpVertice *origem;
 	VER_tpVertice *destino;
 	int flag = 0;
-	
+
 	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
 	}
@@ -452,6 +453,74 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 
 	return GRF_CondRetOK;
 }/* Fim da Função: GRF Adicionar Aresta */
+
+/**************************************************************************
+*
+*	Função: GRF Andar
+*	****/
+
+GRF_tpCondRet GRF_Andar(char idAresta)
+{
+	LIS_tppLista ListaSucessores;
+	int encontrou = 1;
+
+	if (pGrafo == NULL) {
+		return GRF_CondRetGrafoNaoExiste;
+	}
+
+	if (VER_ObterListasAntSuc(pGrafo->pVerCorr, NULL,
+	                          &ListaSucessores) != VER_CondRetOK) {
+		return GRF_CondRetErroEstrutura;
+	}
+
+	IrInicioLista(ListaSucessores);
+	while (((GRF_tpAresta *)LIS_ObterValor(ListaSucessores))->id != idAresta && encontrou != 0) {
+		if (LIS_AvancarElementoCorrente(ListaSucessores, 1) != GRF_CondRetOK) {
+			encontrou = 0;
+		}
+	}
+
+	if (!encontrou) {
+		return GRF_CondRetArestaNaoExiste;
+	}
+
+	pGrafo->pVerCorr = ((GRF_tpAresta *)LIS_ObterValor(ListaSucessores))->vertAp;
+	return GRF_CondRetOK;
+} /*Fim Função: GRF Andar */
+
+  /**************************************************************************
+  *
+  *	Função: GRF Voltar
+  *	****/
+
+GRF_tpCondRet GRF_Voltar(char idAresta)
+{
+	LIS_tppLista ListaAntecessores;
+	int encontrou = 1;
+
+	if (pGrafo == NULL) {
+		return GRF_CondRetGrafoNaoExiste;
+	}
+
+	if (VER_ObterListasAntSuc(pGrafo->pVerCorr, &ListaAntecessores,
+		NULL) != VER_CondRetOK) {
+		return GRF_CondRetErroEstrutura;
+	}
+
+	IrInicioLista(ListaAntecessores);
+	while (((GRF_tpAresta *)LIS_ObterValor(ListaAntecessores))->id != idAresta && encontrou != 0) {
+		if (LIS_AvancarElementoCorrente(ListaAntecessores, 1) != GRF_CondRetOK) {
+			encontrou = 0;
+		}
+	}
+
+	if (!encontrou) {
+		return GRF_CondRetArestaNaoExiste;
+	}
+
+	pGrafo->pVerCorr = ((GRF_tpAresta *)LIS_ObterValor(ListaAntecessores))->vertAp;
+	return GRF_CondRetOK;
+} /*Fim Função: GRF Voltar */
 
 /**************************************************************************
 *

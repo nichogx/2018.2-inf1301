@@ -12,6 +12,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.50   ngx   28/09/2018 Novas funções de acesso para caminhar sobre as arestas.
 *       0.42   ngx   28/09/2018 Pequenas modificações nos parâmetros das funções
 *                               de acesso.
 *       0.40   ngx   27/09/2018 Continuação e recodificação do módulo e suas funções.
@@ -228,6 +229,42 @@ GRF_tpCondRet GRF_AdicionarOrigem(void *pConteudo,
 
 GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
                                   void *contDestino);
+
+/************************************************************************
+*
+*	$FC Função: GRF Andar
+*
+*	$ED Descrição da função
+*		Avança o vértice corrente pela aresta com ID recebido.
+*               A aresta precisa estar na lista de sucessores do vértice corrente.
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*		GRF_CondRetVerticeNaoExiste
+*		GRF_CondRetErroEstrutura
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_Andar(char idAresta);
+
+/************************************************************************
+*
+*	$FC Função: GRF Voltar
+*
+*	$ED Descrição da função
+*		Volta o vértice corrente pela aresta com ID recebido.
+*               A aresta precisa estar na lista de antecessores do vértice corrente.
+*
+*	$FV Valor Retornado
+*		GRF_CondRetOK
+*		GRF_CondRetGrafoNaoExiste
+*		GRF_CondRetVerticeNaoExiste
+*		GRF_CondRetErroEstrutura
+*
+*************************************************************************/
+
+GRF_tpCondRet GRF_Voltar(char idAresta);
 
 /************************************************************************
 *
