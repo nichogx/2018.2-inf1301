@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI MÃ³dulo de implementaÃ§Ã£o: MÃ³dulo Grafo
+*  $MCI Módulo de implementação: Módulo Grafo
 *
 *  Arquivo:                 GRAFO.C
 *  Letras identificadoras:  GRF
@@ -8,21 +8,23 @@
 *  Autores: ngx - Nicholas Godoy
 *           gpa - Guilherme Pasqualette
 *
-*  $HA HistÃ³rico de evoluÃ§Ã£o:
-*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*  $HA Histórico de evolução:
+*     Versão  Autor    Data     Observações
+*       0.60   ngx   29/09/2018 Corrigir funções remover aresta e esvaziar grafo.
 *       0.51   ngx   28/09/2018 Erros corrigidos.
-*       0.50   ngx   28/09/2018 Novas funÃ§Ãµes de acesso para caminhar sobre as arestas.
-*       0.42   ngx   28/09/2018 Pequenas modificaÃ§Ãµes nos parÃ¢metros das funÃ§Ãµes
+*       0.50   ngx   28/09/2018 Novas funções de acesso para caminhar sobre as arestas.
+*       0.42   ngx   28/09/2018 Pequenas modificações nos parâmetros das funções
 *                               de acesso.
-*       0.40   ngx   27/09/2018 ContinuaÃ§Ã£o e recodificaÃ§Ã£o do mÃ³dulo e suas funÃ§Ãµes.
-*                               ModificaÃ§Ãµes na estrutura.
-*       0.30   gpa   23/09/2018 ImplementaÃ§Ã£o de funÃ§Ãµes
-*       0.10   ngx   13/09/2018 InÃ­cio do desenvolvimento
+*       0.40   ngx   27/09/2018 Continuação e recodificação do módulo e suas funções.
+*                               Modificações na estrutura.
+*       0.30   gpa   23/09/2018 Implementação de funções
+*       0.10   ngx   13/09/2018 Início do desenvolvimento
 *
 ***************************************************************************/
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <limits.h>
 #include "LISTA.H"
 #include "VERTICE.H"
 
@@ -32,32 +34,32 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: GRF Descritor da cabeÃ§a de um grafo
+*  $TC Tipo de dados: GRF Descritor da cabeça de um grafo
 *
 *
-*  $ED DescriÃ§Ã£o do tipo
-*     A cabeÃ§a do grafo Ã© o ponto de acesso para um determinado grafo.
+*  $ED Descrição do tipo
+*     A cabeça do grafo é o ponto de acesso para um determinado grafo.
 *
 ***********************************************************************/
 
 struct GRF_tgGrafo {
-	/* ponteiro para o vÃ©rtice corrente do grafo */
+	/* ponteiro para o vértice corrente do grafo */
 	VER_tpVertice *pVerCorr;
 
 	/* ponteiro para a lista de origens do grafo */
 	LIS_tppLista pListaOr;
 
-	/* ponteiro para a lista de vÃ©rtices do grafo*/
+	/* ponteiro para a lista de vértices do grafo*/
 	LIS_tppLista pListaVer;
 };
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: GRF Descritor de uma aresta entre vÃ©rtices
+*  $TC Tipo de dados: GRF Descritor de uma aresta entre vértices
 *
 *
-*  $ED DescriÃ§Ã£o do tipo
-*     Uma aresta liga um vÃ©rtice ao outro e tem um ID.
+*  $ED Descrição do tipo
+*     Uma aresta liga um vértice ao outro e tem um ID.
 *
 ***********************************************************************/
 
@@ -65,21 +67,21 @@ typedef struct GRF_tgAresta {
 	/* id da aresta */
 	char id;
 
-	/* vÃ©rtice apontado */
+	/* vértice apontado */
 	VER_tpVertice *vertAp;
 } GRF_tpAresta;
 
-/*****  Dados encapsulados no mÃ³dulo  *****/
+/*****  Dados encapsulados no módulo  *****/
 
 static GRF_tpGrafo *pGrafo = NULL;
 
-/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
+/***** Protótipos das funções encapuladas no módulo *****/
 
-/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
+/*****  Código das funções exportadas pelo módulo  *****/
 
 /***************************************************************************
 *
-*  FunÃ§Ã£o: GRF Criar grafo
+*  Função: GRF Criar grafo
 *  ****/
 
 GRF_tpCondRet GRF_CriarGrafo(void)
@@ -102,11 +104,11 @@ GRF_tpCondRet GRF_CriarGrafo(void)
 	}
 
 	return GRF_CondRetOK;
-} /* fim funÃ§Ã£o: GRF Criar Grafo */
+} /* fim função: GRF Criar Grafo */
 
 /***************************************************************************
 *
-*  FunÃ§Ã£o: GRF Destruir Grafo
+*  Função: GRF Destruir Grafo
 *  ****/
 
 GRF_tpCondRet GRF_DestruirGrafo(void)
@@ -114,19 +116,19 @@ GRF_tpCondRet GRF_DestruirGrafo(void)
 	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
 	}
-
-	LIS_DestruirLista(pGrafo->pListaOr);
-	LIS_DestruirLista(pGrafo->pListaVer);
+	if (pGrafo->pVerCorr != NULL) {
+		GRF_EsvaziarGrafo();
+	}
 
 	free(pGrafo);
 	pGrafo = NULL;
 
 	return GRF_CondRetOK;
-} /* fim funÃ§Ã£o: GRF Destruir Grafo */
+} /* fim função: GRF Destruir Grafo */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Obter Valor Corrente
+*	Função: GRF Obter Valor Corrente
 *	****/
 
 GRF_tpCondRet GRF_ObterValorCorrente(void **conteudo)
@@ -142,11 +144,11 @@ GRF_tpCondRet GRF_ObterValorCorrente(void **conteudo)
 	}
 
 	return GRF_CondRetOK;
-}/* Fim da FunÃ§Ã£o: GRF Obter Valor Corrente */
+}/* Fim da Função: GRF Obter Valor Corrente */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Alterar Valor Corrente
+*	Função: GRF Alterar Valor Corrente
 *	****/
 
 GRF_tpCondRet GRF_AlterarValorCorrente(void *novoConteudo)
@@ -155,18 +157,18 @@ GRF_tpCondRet GRF_AlterarValorCorrente(void *novoConteudo)
 	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
 	}
-	
+
 	retVer = VER_AtualizarConteudoVertice(pGrafo->pVerCorr, novoConteudo);
 	if (retVer == VER_CondRetVerticeNaoExiste) {
 		return GRF_CondRetGrafoVazio;
 	}
 
 	return GRF_CondRetOK;
-}/* Fim da funÃ§Ã£o: GRF Alterar Valor Corrente */
+}/* Fim da função: GRF Alterar Valor Corrente */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Ir Vertice
+*	Função: GRF Ir Vertice
 *	****/
 
 GRF_tpCondRet GRF_IrVertice(void *conteudoBuscado)
@@ -195,11 +197,11 @@ GRF_tpCondRet GRF_IrVertice(void *conteudoBuscado)
 	} while (LIS_AvancarElementoCorrente(pGrafo->pListaVer,
 	                                     1) != LIS_CondRetFimLista);
 	return GRF_CondRetVerticeNaoExiste;
-}/* Fim da FunÃ§Ã£o: GRF Ir Vertice */
+}/* Fim da Função: GRF Ir Vertice */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Inserir Vertice
+*	Função: GRF Inserir Vertice
 *	****/
 
 GRF_tpCondRet GRF_InserirVertice(void *pConteudo,
@@ -227,11 +229,11 @@ GRF_tpCondRet GRF_InserirVertice(void *pConteudo,
 	} else {
 		return GRF_CondRetFaltouMemoria;
 	}
-}/* Fim da FunÃ§Ã£o: GRF Inserir Vertice */
+}/* Fim da Função: GRF Inserir Vertice */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Remover Vertice Corrente
+*	Função: GRF Remover Vertice Corrente
 *	****/
 
 GRF_tpCondRet GRF_RemoverVerticeCorr(void)
@@ -338,11 +340,11 @@ GRF_tpCondRet GRF_RemoverVerticeCorr(void)
 
 
 	return GRF_CondRetOK;
-} /* Fim da funÃ§Ã£o: GRF Remover Vertice Corrente */
+} /* Fim da função: GRF Remover Vertice Corrente */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Adicionar Origem
+*	Função: GRF Adicionar Origem
 *	****/
 
 GRF_tpCondRet GRF_AdicionarOrigem(void *pConteudo,
@@ -360,23 +362,23 @@ GRF_tpCondRet GRF_AdicionarOrigem(void *pConteudo,
 		return Ret;
 	}
 
-	if (LIS_InserirElementoApos(pGrafo->pListaVer,
+	if (LIS_InserirElementoApos(pGrafo->pListaOr,
 	                            pGrafo->pVerCorr) == LIS_CondRetOK) {
 		return GRF_CondRetOK;
 	} else {
 		return GRF_CondRetFaltouMemoria;
 	}
-}/* Fim da FunÃ§Ã£o: GRF Adicionar Origem */
+}/* Fim da Função: GRF Adicionar Origem */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Adicionar Aresta
+*	Função: GRF Adicionar Aresta
 *	****/
 
 GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
                                   void *contDestino)
 {
-	/* existem duas arestas com mesmo id: a que vai de um vÃ©rtice para o outro
+	/* existem duas arestas com mesmo id: a que vai de um vértice para o outro
 	e a que volta */
 
 	LIS_tppLista sucOrigem;
@@ -412,7 +414,7 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 	} while (LIS_AvancarElementoCorrente(pGrafo->pListaVer,
 	                                     1) != LIS_CondRetFimLista);
 	if (!flag) {
-		return GRF_CondRetErroEstrutura;
+		return GRF_CondRetVerticeNaoExiste;
 	}
 	origem = LIS_ObterValor(pGrafo->pListaVer);
 
@@ -431,7 +433,7 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 	                                     1) != LIS_CondRetFimLista);
 
 	if (!flag) {
-		return GRF_CondRetErroEstrutura;
+		return GRF_CondRetVerticeNaoExiste;
 	}
 	destino = LIS_ObterValor(pGrafo->pListaVer);
 
@@ -462,11 +464,11 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 	}
 
 	return GRF_CondRetOK;
-}/* Fim da FunÃ§Ã£o: GRF Adicionar Aresta */
+}/* Fim da Função: GRF Adicionar Aresta */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Andar
+*	Função: GRF Andar
 *	****/
 
 GRF_tpCondRet GRF_Andar(char idAresta)
@@ -506,11 +508,11 @@ GRF_tpCondRet GRF_Andar(char idAresta)
 
 	pGrafo->pVerCorr = ((GRF_tpAresta *)LIS_ObterValor(ListaSucessores))->vertAp;
 	return GRF_CondRetOK;
-} /*Fim FunÃ§Ã£o: GRF Andar */
+} /*Fim Função: GRF Andar */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Voltar
+*	Função: GRF Voltar
 *	****/
 
 GRF_tpCondRet GRF_Voltar(char idAresta)
@@ -550,71 +552,94 @@ GRF_tpCondRet GRF_Voltar(char idAresta)
 
 	pGrafo->pVerCorr = ((GRF_tpAresta *)LIS_ObterValor(ListaAntecessores))->vertAp;
 	return GRF_CondRetOK;
-} /*Fim FunÃ§Ã£o: GRF Voltar */
+} /*Fim Função: GRF Voltar */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Remover Aresta
+*	Função: GRF Remover Aresta
 *	****/
 
 GRF_tpCondRet GRF_RemoverAresta(char idProc)
 {
-	/* existem duas arestas com mesmo id: a que vai de um vÃ©rtice para o outro
+	/* existem duas arestas com mesmo id: a que vai de um vértice para o outro
 	   e a que volta */
-
 	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
 	}
-
-	IrInicioLista(pGrafo->pListaVer);
 
 	if (LIS_ObterValor(pGrafo->pListaVer) == NULL) {
 		return GRF_CondRetGrafoVazio;
 	}
 
+	IrInicioLista(pGrafo->pListaVer);
+
 	do {
-		VER_tpVertice *vertAtual = LIS_ObterValor(
-		                                   pGrafo->pListaVer); /* nunca vai ser null pois foi testado acima e no while */
-		LIS_tppLista ListaAux, ListaAux2;
+		/* andar pela lista de vertices do grafo */
 
-		VER_ObterListasAntSuc(vertAtual, NULL, &ListaAux);
-		IrInicioLista(ListaAux);
-		while (((GRF_tpAresta *)LIS_ObterValor(ListaAux))->id != idProc) {
-			if (LIS_AvancarElementoCorrente(ListaAux, 1) != GRF_CondRetOK) {
-				break;
+		VER_tpVertice *vertAt;
+		GRF_tpAresta *arestaSuc;
+		LIS_tppLista ListaSucs;
+
+		vertAt = LIS_ObterValor(pGrafo->pListaVer);
+		if (vertAt == NULL) {
+			return GRF_CondRetErroEstrutura;
+		}
+
+		VER_ObterListasAntSuc(vertAt, NULL, &ListaSucs);
+
+		if (ListaSucs == NULL) {
+			return GRF_CondRetErroEstrutura;
+		}
+
+		IrInicioLista(ListaSucs);
+		arestaSuc = LIS_ObterValor(ListaSucs);
+		if (arestaSuc == NULL) {
+			continue;
+		}
+
+		do {
+			/* andar pela lista de sucessores */
+
+			arestaSuc = LIS_ObterValor(ListaSucs);
+			if (arestaSuc->id == idProc) {
+				/* achou sucessor, ir para ele e deletar dos antecessores */
+
+				LIS_tppLista ListaAnts;
+
+				GRF_tpAresta *arestaAnt;
+
+				VER_ObterListasAntSuc(arestaSuc->vertAp, &ListaAnts, NULL);
+				do {
+					arestaAnt = LIS_ObterValor(ListaAnts);
+					if (arestaAnt->id == idProc) {
+						free(arestaAnt);
+						free(arestaSuc);
+						LIS_ExcluirElemento(ListaAnts);
+						LIS_ExcluirElemento(ListaSucs);
+						return GRF_CondRetOK;
+					}
+
+				} while ((LIS_AvancarElementoCorrente(ListaAnts, 1) == LIS_CondRetOK));
+
+				/* nao achou na lista de antecessores do apontado */
+				return GRF_CondRetErroEstrutura;
 			}
-		}
 
-		VER_ObterListasAntSuc(((GRF_tpAresta *)LIS_ObterValor(ListaAux))->vertAp, NULL,
-		                      &ListaAux2);
-		IrInicioLista(ListaAux2);
-		while (((GRF_tpAresta *)LIS_ObterValor(ListaAux2))->id != idProc) {
-			if (LIS_AvancarElementoCorrente(ListaAux2, 1) != GRF_CondRetOK) {
-				break;
-			}
-		}
+		} while ((LIS_AvancarElementoCorrente(ListaSucs, 1) == LIS_CondRetOK));
 
-		if (((GRF_tpAresta *)LIS_ObterValor(ListaAux2))->id == idProc
-		    && ((GRF_tpAresta *)LIS_ObterValor(ListaAux))->id == idProc) {
-			LIS_ExcluirElemento(ListaAux2);
-			LIS_ExcluirElemento(ListaAux);
-			break;
-		}
+	} while (LIS_AvancarElementoCorrente(pGrafo->pListaVer, 1) == LIS_CondRetOK);
 
-
-	} while (LIS_AvancarElementoCorrente(pGrafo->pListaVer,
-	                                     1) != LIS_CondRetFimLista);
-
-	return GRF_CondRetOK;
-}/* Fim da funÃ§Ã£o: GRF Remover Aresta */
+	return GRF_CondRetArestaNaoExiste;
+}/* Fim da função: GRF Remover Aresta */
 
 /**************************************************************************
 *
-*	FunÃ§Ã£o: GRF Esvaziar Grafo
+*	Função: GRF Esvaziar Grafo
 *	****/
 
 GRF_tpCondRet GRF_EsvaziarGrafo(void)
 {
+	unsigned char i;
 	if (pGrafo == NULL) {
 		return GRF_CondRetGrafoNaoExiste;
 	}
@@ -622,14 +647,17 @@ GRF_tpCondRet GRF_EsvaziarGrafo(void)
 		return GRF_CondRetGrafoVazio;
 	}
 
-	LIS_EsvaziarLista(pGrafo->pListaOr);
-	LIS_EsvaziarLista(pGrafo->pListaVer);
-	VER_LiberarVertice(pGrafo->pVerCorr);
-	VER_DestruirVertice(&pGrafo->pVerCorr);
+	for (i = CHAR_MIN; i < CHAR_MAX; i++) {
+		GRF_RemoverAresta(i);
+	}
+
+	LIS_DestruirLista(pGrafo->pListaOr);
+	LIS_DestruirLista(pGrafo->pListaVer);
+	VER_DestruirVertice(&pGrafo->pVerCorr); /* já liberado quando destruiu lista */
 
 	return GRF_CondRetOK;
-}/* Fim da funÃ§Ã£o: GRF Esvaziar Grafo */
+}/* Fim da função: GRF Esvaziar Grafo */
 
-/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
+/*****  Código das funções encapsuladas no módulo  *****/
 
-/********** Fim do mÃ³dulo de implementaÃ§Ã£o: MÃ³dulo Grafo **********/
+/********** Fim do módulo de implementação: Módulo Grafo **********/

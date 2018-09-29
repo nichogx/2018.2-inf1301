@@ -2,7 +2,7 @@
 #define VERTICE_
 /***************************************************************************
 *
-*  $MCD M√≥dulo de defini√ß√£o: M√≥dulo V√©rtice
+*  $MCD MÛdulo de definiÁ„o: MÛdulo VÈrtice
 *
 *  Arquivo:                 VERTICE.H
 *  Letras identificadoras:  VER
@@ -10,23 +10,23 @@
 *  Projeto: Disciplina INF1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA Hist√≥rico de evolu√ß√£o:
-*     Vers√£o  Autor    Data     Observa√ß√µes
-*       0.56   ngx   28/09/2018 Atualiza√ß√£o da documenta√ß√£o
-*       0.55   ngx   28/09/2018 Separar libera√ß√£o e destrui√ß√£o do v√©rtice
-*       0.50   ngx   28/09/2018 M√≥dulo funciona como esperado
-*       0.40   ngx   27/09/2018 Continua√ß√£o da codifica√ß√£o do m√≥dulo.
-*                               Modifica√ß√µes na estrutura.
-*       0.10   ngx   13/09/2018 In√≠cio do desenvolvimento
+*  $HA HistÛrico de evoluÁ„o:
+*     Vers„o  Autor    Data     ObservaÁıes
+*       0.56   ngx   28/09/2018 AtualizaÁ„o da documentaÁ„o
+*       0.55   ngx   28/09/2018 Separar liberaÁ„o e destruiÁ„o do vÈrtice
+*       0.50   ngx   28/09/2018 MÛdulo funciona como esperado
+*       0.40   ngx   27/09/2018 ContinuaÁ„o da codificaÁ„o do mÛdulo.
+*                               ModificaÁıes na estrutura.
+*       0.10   ngx   13/09/2018 InÌcio do desenvolvimento
 *
-*  $ED Descri√ß√£o do m√≥dulo
-*     Este m√≥dulo implementa um conjunto simples de fun√ß√µes para criar e
+*  $ED DescriÁ„o do mÛdulo
+*     Este mÛdulo implementa um conjunto simples de funÁıes para criar e
 *     modificar vertices.
-*     Um v√©rtice possui conte√∫do, uma lista de antecessores e uma lista de
+*     Um vÈrtice possui conte˙do, uma lista de antecessores e uma lista de
 *     sucessores.
-*     O grafo poder√° estar vazio. Neste caso o n√≥ corrente
-*     ser√° nulo, embora a cabe√ßa esteja definida.
-*     O n√≥ corrente ser√° nulo se e somente se o grafo estiver vazio. // TODO change
+*     O grafo poder· estar vazio. Neste caso o nÛ corrente
+*     ser· nulo, embora a cabeÁa esteja definida.
+*     O nÛ corrente ser· nulo se e somente se o grafo estiver vazio. // TODO change
 *
 ***************************************************************************/
 
@@ -49,13 +49,13 @@ typedef enum {
 	/* executou corretamente */
 	VER_CondRetOK = 0,
 
-	/* faltou mem√≥ria ao alocar dados */
+	/* faltou memÛria ao alocar dados */
 	VER_CondRetFaltouMemoria = 1,
 
-	/* n√£o h√° v√©rtice, n√£o √© poss√≠vel realizar opera√ß√£o */
+	/* n„o h· vÈrtice, n„o È possÌvel realizar operaÁ„o */
 	VER_CondRetVerticeNaoExiste = 2,
 
-	/* erro decorrente da fun√ß√£o do m√≥dulo lista */
+	/* erro decorrente da funÁ„o do mÛdulo lista */
 	VER_CondRetErroModuloLista = 3,
 
 	/* ligacao a ser removida nao foi encontrada */
@@ -68,7 +68,7 @@ typedef enum {
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: VER Descritor de um v√©rtice
+*  $TC Tipo de dados: VER Descritor de um vÈrtice
 *
 *
 ***********************************************************************/
@@ -77,17 +77,17 @@ typedef struct VER_tgVertice VER_tpVertice;
 
 /***********************************************************************
 *
-*  $FC Fun√ß√£o: VER Criar v√©rtice
+*  $FC FunÁ„o: VER Criar vÈrtice
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Cria um novo v√©rtice vazio e guarda em um ponteiro recebido.
-*     O endere√ßo que esse ponteiro guardava anteriormente ser√° perdido.
+*  $ED DescriÁ„o da funÁ„o
+*     Cria um novo vÈrtice vazio e guarda em um ponteiro recebido.
+*     O endereÁo que esse ponteiro guardava anteriormente ser· perdido.
 *
-*  $EP Par√¢metros
-*     pDest - endere√ßo do ponteiro onde ser√° guardado o v√©rtice criado.
-*     pConteudo - conte√∫do a colocar no v√©rtice.
-*     ExcluirValor - ponteiro para fun√ß√£o que libera pConteudo. Pode ser NULL se
-*                    n√£o for necess√°rio liberar.
+*  $EP Par‚metros
+*     pDest - endereÁo do ponteiro onde ser· guardado o vÈrtice criado.
+*     pConteudo - conte˙do a colocar no vÈrtice.
+*     ExcluirValor - ponteiro para funÁ„o que libera pConteudo. Pode ser NULL se
+*                    n„o for necess·rio liberar.
 *
 *  $FV Valor retornado
 *     VER_CondRetOK
@@ -100,16 +100,16 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
 
 /***********************************************************************
 *
-*  $FC Fun√ß√£o: VER Destruir v√©rtice
+*  $FC FunÁ„o: VER Destruir vÈrtice
 *
-*  $EP Par√¢metros
-*     pVertice - endere√ßo do ponteiro que cont√©m o v√©rtice
+*  $EP Par‚metros
+*     pVertice - endereÁo do ponteiro que contÈm o vÈrtice
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Anula o ponteiro para v√©rtice recebido, destruindo-o.
-*     As outras fun√ß√µes reconhecer√£o esse ponteiro como um v√©rtice que n√£o existe.
-*     N√£o libera o espa√ßo de mem√≥ria.
-*     O espa√ßo de mem√≥ria deve ser liberado antes com VER_LiberarVertice.
+*  $ED DescriÁ„o da funÁ„o
+*     Anula o ponteiro para vÈrtice recebido, destruindo-o.
+*     As outras funÁıes reconhecer„o esse ponteiro como um vÈrtice que n„o existe.
+*     N„o libera o espaÁo de memÛria.
+*     O espaÁo de memÛria deve ser liberado antes com VER_LiberarVertice.
 *
 ***********************************************************************/
 
@@ -117,13 +117,13 @@ void VER_DestruirVertice(VER_tpVertice **pVertice);
 
 /***********************************************************************
 *
-*  $FC Fun√ß√£o: VER Liberar v√©rtice
+*  $FC FunÁ„o: VER Liberar vÈrtice
 *
-*  $EP Par√¢metros
-*     pVertice - ponteiro que cont√©m o v√©rtice
+*  $EP Par‚metros
+*     pVertice - ponteiro que contÈm o vÈrtice
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Libera espa√ßo de mem√≥ria do v√©rtice recebido, por√©m n√£o o anula.
+*  $ED DescriÁ„o da funÁ„o
+*     Libera espaÁo de memÛria do vÈrtice recebido, porÈm n„o o anula.
 *
 ***********************************************************************/
 
@@ -131,14 +131,14 @@ void VER_LiberarVertice(VER_tpVertice *pVertice);
 
 /***********************************************************************
 *
-*  $FC Fun√ß√£o: VER Obter Conteudo Vertice
+*  $FC FunÁ„o: VER Obter Conteudo Vertice
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     O ponteiro recebido por refer√™ncia passa a apontar o conte√∫do do v√©rtice recebido.
+*  $ED DescriÁ„o da funÁ„o
+*     O ponteiro recebido por referÍncia passa a apontar o conte˙do do vÈrtice recebido.
 *
-*  $EP Par√¢metros
-*     pVertice - ponteiro para v√©rtice a extrair conte√∫do
-*     conteudo - endere√ßo do ponteiro que apontar√° o conte√∫do do v√©rtice
+*  $EP Par‚metros
+*     pVertice - ponteiro para vÈrtice a extrair conte˙do
+*     conteudo - endereÁo do ponteiro que apontar· o conte˙do do vÈrtice
 *
 *  $FV Valor retornado
 *     VER_CondRetOK
@@ -151,14 +151,14 @@ VER_tpCondRet VER_ObterConteudoVertice(VER_tpVertice *pVertice,
 
 /***********************************************************************
 *
-*  $FC Fun√ß√£o: VER Atualiar Conteudo Vertice
+*  $FC FunÁ„o: VER Atualiar Conteudo Vertice
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     O conte√∫do recebido substituir√° o conte√∫do do v√©rtice recebido.
+*  $ED DescriÁ„o da funÁ„o
+*     O conte˙do recebido substituir· o conte˙do do vÈrtice recebido.
 *
-*  $EP Par√¢metros
-*     pVertice - ponteiro para v√©rtice a modificar conte√∫do
-*     conteudo - conte√∫do que substituir√°
+*  $EP Par‚metros
+*     pVertice - ponteiro para vÈrtice a modificar conte˙do
+*     conteudo - conte˙do que substituir·
 *
 *  $FV Valor retornado
 *     VER_CondRetOK
@@ -171,17 +171,17 @@ VER_tpCondRet VER_AtualizarConteudoVertice(VER_tpVertice *pVertice,
 
 /***********************************************************************
 *
-*  $FC Fun√ß√£o: VER Atualiar Conteudo Vertice
+*  $FC FunÁ„o: VER Atualiar Conteudo Vertice
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Os ponteiros recebidos por refer√™ncia apontar√£o as listas de antecessores
-*     e sucessores do v√©rtice recebido. Esses ponteiros podem ser nulos caso
-*     n√£o seja desejada uma das listas.
+*  $ED DescriÁ„o da funÁ„o
+*     Os ponteiros recebidos por referÍncia apontar„o as listas de antecessores
+*     e sucessores do vÈrtice recebido. Esses ponteiros podem ser nulos caso
+*     n„o seja desejada uma das listas.
 *
-*  $EP Par√¢metros
-*     pVertice - ponteiro para v√©rtice a modificar conte√∫do
-*     antecessores - endere√ßo do ponteiro que apontar√° a lista de antecessores
-*     sucessores - endere√ßo do ponteiro que apontar√° a lista de sucessores
+*  $EP Par‚metros
+*     pVertice - ponteiro para vÈrtice a modificar conte˙do
+*     antecessores - endereÁo do ponteiro que apontar· a lista de antecessores
+*     sucessores - endereÁo do ponteiro que apontar· a lista de sucessores
 *
 *  $FV Valor retornado
 *     VER_CondRetOK
@@ -194,7 +194,7 @@ VER_tpCondRet VER_ObterListasAntSuc(VER_tpVertice *pVertice,
 
 #undef VERTICE_EXT
 
-/********** Fim do m√≥dulo de defini√ß√£o: M√≥dulo V√©rtice **********/
+/********** Fim do mÛdulo de definiÁ„o: MÛdulo VÈrtice **********/
 
 #else
 #endif

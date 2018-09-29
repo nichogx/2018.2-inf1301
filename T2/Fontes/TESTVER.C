@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI MÃ³dulo de implementaÃ§Ã£o: MÃ³dulo de teste especÃ­fico (vÃ©rtice)
+*  $MCI Módulo de implementação: Módulo de teste específico (vértice)
 *
 *  Arquivo:                  TESTVER.C
 *  Letras identificadoras:   TVER
@@ -7,23 +7,23 @@
 *  Projeto: Disciplina 1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA HistÃ³rico de evoluÃ§Ã£o:
-*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
-*       0.31   ngx   28/09/2018 Pequena alteraÃ§Ã£o para refletir mudanÃ§a em vertice.c/.h
-*       0.30   ngx   28/09/2018 FinalizaÃ§Ã£o do mÃ³dulo te teste
-*       0.20   ngx   27/09/2018 AdiÃ§Ã£o de mais comandos de teste
-*       0.10   ngx   13/09/2018 InÃ­cio do desenvolvimento
+*  $HA Histórico de evolução:
+*     Versão  Autor    Data     Observações
+*       0.31   ngx   28/09/2018 Pequena alteração para refletir mudança em vertice.c/.h
+*       0.30   ngx   28/09/2018 Finalização do módulo te teste
+*       0.20   ngx   27/09/2018 Adição de mais comandos de teste
+*       0.10   ngx   13/09/2018 Início do desenvolvimento
 *
-*  $ED DescriÃ§Ã£o do mÃ³dulo
-*     Este mÃ³dulo contÃ©m as funÃ§Ãµes especÃ­ficas para o teste do
-*     mÃ³dulo vÃ©rtice.
+*  $ED Descrição do módulo
+*     Este módulo contém as funções específicas para o teste do
+*     módulo vértice.
 *
-*  $EIU Interface com o usuÃ¡rio pessoa
-*     Comandos de teste especÃ­ficos para testar o mÃ³dulo vÃ©rtice:
+*  $EIU Interface com o usuário pessoa
+*     Comandos de teste específicos para testar o módulo vértice:
 *
-*     "=criar"      - chama a funÃ§Ã£o VER_CriarVertice e preenche com ponteiro
+*     "=criar"      - chama a função VER_CriarVertice e preenche com ponteiro
 *                     para uma cadeia de caracteres
-*     "=destruir"   - chama a funÃ§Ã£o VER_DestruirVertice
+*     "=destruir"   - chama a função VER_DestruirVertice
 *
 ***************************************************************************/
 
@@ -37,7 +37,7 @@
 
 #include    "vertice.h"
 
-/* Tabela dos nomes dos comandos de teste especÃ­ficos */
+/* Tabela dos nomes dos comandos de teste específicos */
 #define     CRIAR_VER_CMD        "=criar"
 #define     DESTRUIR_VER_CMD     "=destruir"
 #define     LIBERAR_VER_CMD      "=free"
@@ -45,23 +45,23 @@
 #define     ATUALIZAR_VER_CMD    "=atualizar"
 #define     OBTER_LISTAS_VER_CMD "=obterlistas"
 
-/* Dados encapsulados no mÃ³dulo */
+/* Dados encapsulados no módulo */
 static VER_tpVertice *pVert = NULL;
 static char *strTeste = "eu sou uma string de teste";
 static char *strTeste2 = "segunda string de teste";
 
-/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
+/*****  Código das funções exportadas pelo módulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÃ§Ã£o: TVER Efetuar operaÃ§Ãµes de teste especÃ­ficas para vÃ©rtice
+*  $FC Função: TVER Efetuar operações de teste específicas para vértice
 *
-*  $ED DescriÃ§Ã£o da funÃ§Ã£o
-*     Efetua os diversos comandos de teste especÃ­ficos para o mÃ³dulo
-*     vÃ©rtice sendo testado.
+*  $ED Descrição da função
+*     Efetua os diversos comandos de teste específicos para o módulo
+*     vértice sendo testado.
 *
-*  $EP ParÃ¢metros
+*  $EP Parâmetros
 *     $P ComandoTeste - String contendo o comando
 *
 *  $FV Valor retornado
@@ -81,7 +81,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 
 	char *strObtida = strTeste;
 
-	/* Testar VER Criar vÃ©rtice */
+	/* Testar VER Criar vértice */
 
 	if (strcmp(ComandoTeste, CRIAR_VER_CMD) == 0) {
 		NumLidos = LER_LerParametros("i", &CondRetEsperada);
@@ -157,6 +157,6 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 
 	return TST_CondRetNaoConhec;
 
-} /* Fim funÃ§Ã£o: TVER Efetuar operaÃ§Ãµes de teste especÃ­ficas para vÃ©rtice */
+} /* Fim função: TVER Efetuar operações de teste específicas para vértice */
 
-/********** Fim do mÃ³dulo de implementaÃ§Ã£o: MÃ³dulo de teste especÃ­fico **********/
+/********** Fim do módulo de implementação: Módulo de teste específico **********/

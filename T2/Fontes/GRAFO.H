@@ -2,7 +2,7 @@
 #define GRAFO_
 /***************************************************************************
 *
-*  $MCD M√≥dulo de defini√ß√£o: M√≥dulo Grafo
+*  $MCD MÛdulo de definiÁ„o: MÛdulo Grafo
 *
 *  Arquivo:                 GRAFO.H
 *  Letras identificadoras:  GRF
@@ -10,27 +10,27 @@
 *  Projeto: Disciplina INF1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA Hist√≥rico de evolu√ß√£o:
-*     Vers√£o  Autor    Data     Observa√ß√µes
+*  $HA HistÛrico de evoluÁ„o:
+*     Vers„o  Autor    Data     ObservaÁıes
 *       0.51   ngx   28/09/2018 Erros corrigidos.
-*                               Atualiza√ß√£o da documenta√ß√£o e nomea√ß√£o de par√¢metros.
-*       0.50   ngx   28/09/2018 Novas fun√ß√µes de acesso para caminhar sobre as arestas.
-*       0.42   ngx   28/09/2018 Pequenas modifica√ß√µes nos par√¢metros das fun√ß√µes
+*                               AtualizaÁ„o da documentaÁ„o e nomeaÁ„o de par‚metros.
+*       0.50   ngx   28/09/2018 Novas funÁıes de acesso para caminhar sobre as arestas.
+*       0.42   ngx   28/09/2018 Pequenas modificaÁıes nos par‚metros das funÁıes
 *                               de acesso.
-*       0.40   ngx   27/09/2018 Continua√ß√£o e recodifica√ß√£o do m√≥dulo e suas fun√ß√µes.
-*                               Modifica√ß√µes na estrutura.
-*       0.10   ngx   13/09/2018 In√≠cio do desenvolvimento
+*       0.40   ngx   27/09/2018 ContinuaÁ„o e recodificaÁ„o do mÛdulo e suas funÁıes.
+*                               ModificaÁıes na estrutura.
+*       0.10   ngx   13/09/2018 InÌcio do desenvolvimento
 *
-*  $ED Descri√ß√£o do m√≥dulo
-*     Este m√≥dulo implementa um conjunto simples de fun√ß√µes para criar e
+*  $ED DescriÁ„o do mÛdulo
+*     Este mÛdulo implementa um conjunto simples de funÁıes para criar e
 *     explorar grafos.
-*     O grafo possui uma cabe√ßa que cont√©m uma refer√™ncia para a ra√≠z da
-*     √Årvore e outra para um n√≥ corrente da √Årvore. // TODO CHANGE
-*     A cada momento o m√≥dulo admite no m√°ximo um √∫nico grafo.
-*     Ao iniciar a execu√ß√£o do programa n√£o existe grafo.
-*     O grafo poder√° estar vazio. Neste caso o n√≥ corrente
-*     ser√° nulo, embora a cabe√ßa esteja definida.
-*     O n√≥ corrente ser√° nulo se e somente se o grafo estiver vazio.
+*     O grafo possui uma cabeÁa que contÈm uma referÍncia para a raÌz da
+*     ¡rvore e outra para um nÛ corrente da ¡rvore. // TODO CHANGE
+*     A cada momento o mÛdulo admite no m·ximo um ˙nico grafo.
+*     Ao iniciar a execuÁ„o do programa n„o existe grafo.
+*     O grafo poder· estar vazio. Neste caso o nÛ corrente
+*     ser· nulo, embora a cabeÁa esteja definida.
+*     O nÛ corrente ser· nulo se e somente se o grafo estiver vazio.
 *
 ***************************************************************************/
 
@@ -51,22 +51,22 @@ typedef enum {
 	/* executou corretamente */
 	GRF_CondRetOK = 0,
 
-	/* faltou memÔøΩria ao alocar dados */
+	/* faltou mem?ria ao alocar dados */
 	GRF_CondRetFaltouMemoria = 1,
 
-	/* grafo estÔøΩ vazio */
+	/* grafo est? vazio */
 	GRF_CondRetGrafoVazio = 2,
 
-	/* nÔøΩo hÔøΩ grafo, nÔøΩo ÔøΩ possÔøΩvel realizar operaÔøΩÔøΩo */
+	/* n?o h? grafo, n?o ? poss?vel realizar opera??o */
 	GRF_CondRetGrafoNaoExiste = 3,
 
-	/* erro decorrente da funÔøΩÔøΩo do mÔøΩdulo lista */
+	/* erro decorrente da fun??o do m?dulo lista */
 	GRF_CondRetErroAoCriarLista = 4,
 
-	/* grafo jÔøΩ existe, nÔøΩo ÔøΩ possÔøΩvel criar outro */
+	/* grafo j? existe, n?o ? poss?vel criar outro */
 	GRF_CondRetGrafoJaExiste = 5,
 
-	/* grafo jÔøΩ existente, porÔøΩm algum vertice nao existe */
+	/* grafo j? existente, por?m algum vertice nao existe */
 	GRF_CondRetVerticeNaoExiste = 6,
 
 	/* grafo ja existente, porem nao existe uma suposta aresta */
@@ -79,7 +79,7 @@ typedef enum {
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: GRF Descritor da cabeÔøΩa de um grafo
+*  $TC Tipo de dados: GRF Descritor da cabe?a de um grafo
 *
 *
 ***********************************************************************/
@@ -88,9 +88,9 @@ typedef struct GRF_tgGrafo GRF_tpGrafo;
 
 /***********************************************************************
 *
-*  $FC Fun√ß√£o: GRF Criar Grafo
+*  $FC FunÁ„o: GRF Criar Grafo
 *
-*  $ED Descri√ß√£o da fun√ß√£o
+*  $ED DescriÁ„o da funÁ„o
 *     Cria um novo grafo vazio.
 *
 *  $FV Valor retornado
@@ -105,10 +105,10 @@ GRF_tpCondRet GRF_CriarGrafo(void);
 
 /***********************************************************************
 *
-*  $FC Fu√±√ß√£o: GRF Destruir Grafo
+*  $FC FuÒÁ„o: GRF Destruir Grafo
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Destr√≥i o grafo.
+*  $ED DescriÁ„o da funÁ„o
+*     DestrÛi o grafo.
 *
 *  $FV Valor retornado
 *     GRF_CondRetOK
@@ -120,13 +120,13 @@ GRF_tpCondRet GRF_DestruirGrafo(void);
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Obter Valor Corrente
+*  $FC FunÁ„o: GRF Obter Valor Corrente
 *
-*  $ED Descri√ß√£o da fun√ß√£o
+*  $ED DescriÁ„o da funÁ„o
 *     Obtem o conteudo do vertice corrente.
 *
-*  $EP Par√¢metros
-*     conteudo - endere√ßo do ponteiro que apontar√° o valor corrente
+*  $EP Par‚metros
+*     conteudo - endereÁo do ponteiro que apontar· o valor corrente
 *
 *  $FV Valor Retornado
 *     GRF_CondRetOK
@@ -139,13 +139,13 @@ GRF_tpCondRet GRF_ObterValorCorrente(void **conteudo);
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Alterar Valor Corrente
+*  $FC FunÁ„o: GRF Alterar Valor Corrente
 *
-*  $ED Descri√ß√£o da fun√ß√£o
+*  $ED DescriÁ„o da funÁ„o
 *     Altera o conteudo do vertice corrente.
 *
-*  $EP Par√¢metros
-*     novoConteudo - conte√∫do que ser√° o novo do corrente
+*  $EP Par‚metros
+*     novoConteudo - conte˙do que ser· o novo do corrente
 *
 *  $FV Valor Retornado
 *     GRF_CondRetOK
@@ -158,14 +158,14 @@ GRF_tpCondRet GRF_AlterarValorCorrente(void *novoConteudo);
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Ir Vertice
+*  $FC FunÁ„o: GRF Ir Vertice
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     O vertice corrente vira o vertice que cont√©m o conteudo.
-*     A fun√ß√£o compara ponteiros, n√£o conte√∫do apontado.
+*  $ED DescriÁ„o da funÁ„o
+*     O vertice corrente vira o vertice que contÈm o conteudo.
+*     A funÁ„o compara ponteiros, n„o conte˙do apontado.
 *
-*  $EP Par√¢metros
-*     conteudoBuscado - conte√∫do que ser√° comparado
+*  $EP Par‚metros
+*     conteudoBuscado - conte˙do que ser· comparado
 *
 *  $FV Valor Retornado
 *     GRF_CondRetOK
@@ -179,17 +179,17 @@ GRF_tpCondRet GRF_IrVertice(void *conteudoBuscado);
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Inserir Vertice
+*  $FC FunÁ„o: GRF Inserir Vertice
 *
-*  $ED Descri√ß√£o da fun√ß√£o
+*  $ED DescriÁ„o da funÁ„o
 *     Insere um vertice na lista de vertices do grafo.
-*     O v√©rtice inserido passa a ser o corrente.
+*     O vÈrtice inserido passa a ser o corrente.
 *
-*  $EP Par√¢metros
-*     pConteudo - conteudo do novo v√©rtice a ser inserido
-*     ExcluirValor - ponteiro para fun√ß√£o que destr√≥i (libera espa√ßo de mem√≥ria)
-*                    o conte√∫do.
-*                    pode ser NULL caso n√£o seja necess√°rio liberar
+*  $EP Par‚metros
+*     pConteudo - conteudo do novo vÈrtice a ser inserido
+*     ExcluirValor - ponteiro para funÁ„o que destrÛi (libera espaÁo de memÛria)
+*                    o conte˙do.
+*                    pode ser NULL caso n„o seja necess·rio liberar
 *
 *  $FV Valor Retornado
 *     GRF_CondRetOK
@@ -205,9 +205,9 @@ GRF_tpCondRet GRF_InserirVertice(void *pConteudo,
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Remover Corrente
+*  $FC FunÁ„o: GRF Remover Corrente
 *
-*  $ED Descri√ß√£o da fun√ß√£o
+*  $ED DescriÁ„o da funÁ„o
 *     Remove o vertice corrente
 *
 *  $FV Valor Retornado
@@ -221,17 +221,17 @@ GRF_tpCondRet GRF_RemoverVerticeCorr(void);
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Adicionar Origem
+*  $FC FunÁ„o: GRF Adicionar Origem
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Adiciona um vertice e tamb√©m torna-o origem.
-*     O v√©rtice inserido passa a ser o corrente.
+*  $ED DescriÁ„o da funÁ„o
+*     Adiciona um vertice e tambÈm torna-o origem.
+*     O vÈrtice inserido passa a ser o corrente.
 *
-*  $EP Par√¢metros
-*     pConteudo - conteudo do novo v√©rtice a ser inserido
-*     ExcluirValor - ponteiro para fun√ß√£o que destr√≥i (libera espa√ßo de mem√≥ria)
-*                    o conte√∫do.
-*                    pode ser NULL caso n√£o seja necess√°rio liberar
+*  $EP Par‚metros
+*     pConteudo - conteudo do novo vÈrtice a ser inserido
+*     ExcluirValor - ponteiro para funÁ„o que destrÛi (libera espaÁo de memÛria)
+*                    o conte˙do.
+*                    pode ser NULL caso n„o seja necess·rio liberar
 *
 *  $FV Valor Retornado
 *     GRF_CondRetOK
@@ -246,25 +246,26 @@ GRF_tpCondRet GRF_AdicionarOrigem(void *pConteudo,
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Adicionar Aresta
+*  $FC FunÁ„o: GRF Adicionar Aresta
 *
-*  $ED Descri√ß√£o da fun√ß√£o
+*  $ED DescriÁ„o da funÁ„o
 *     Adiciona uma aresta ao vertice corrente.
-*     N√£o √© feita verifica√ß√£o se j√° existe uma aresta com esse ID.
-*     Recomenda-se manter os IDs de aresta √∫nicos.
+*     N„o È feita verificaÁ„o se j· existe uma aresta com esse ID.
+*     Recomenda-se manter os IDs de aresta ˙nicos.
 *
-*     Os conte√∫dos recebidos ser√£o comparados com todos os v√©rtices do grafo.
+*     Os conte˙dos recebidos ser„o comparados com todos os vÈrtices do grafo.
 *     Caso eles sejam encontrados, adiciona-se uma aresta.
-*     O conte√∫do de cada v√©rtice √© comparado por ponteiros, n√£o conte√∫do apontado.
+*     O conte˙do de cada vÈrtice È comparado por ponteiros, n„o conte˙do apontado.
 *
-*  $EP Par√¢metros
-*     idAresta - caractere que ser√° o ID da aresta
-*     contOrigem - conte√∫do do v√©rtice que ser√° a origem da aresta (esse ser√° buscado)
-*     contOrigem - conte√∫do do v√©rtice que ser√° o destino da aresta (esse ser√° buscado)
+*  $EP Par‚metros
+*     idAresta - caractere que ser· o ID da aresta
+*     contOrigem - conte˙do do vÈrtice que ser· a origem da aresta (esse ser· buscado)
+*     contOrigem - conte˙do do vÈrtice que ser· o destino da aresta (esse ser· buscado)
 *
 *  $FV Valor Retornado
 *     GRF_CondRetOK
 *     GRF_CondRetGrafoNaoExiste
+*     GRF_CondRetGrafoVazio
 *     GRF_CondRetVerticeNaoExiste
 *     GRF_CondRetErroEstrutura
 *
@@ -275,18 +276,18 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Voltar
+*  $FC FunÁ„o: GRF Andar
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Avan√ßa o v√©rtice corrente pela aresta com ID recebido.
-*     A aresta precisa estar na lista de sucessores do v√©rtice corrente.
+*  $ED DescriÁ„o da funÁ„o
+*     AvanÁa o vÈrtice corrente pela aresta com ID recebido.
+*     A aresta precisa estar na lista de sucessores do vÈrtice corrente.
 *
 *     Caso haja mais de uma aresta com o mesmo ID, opera na primeira
 *     encontrada com esse ID.
-*     Recomenda-se manter os IDs de aresta √∫nicos.
+*     Recomenda-se manter os IDs de aresta ˙nicos.
 *
-*  $EP Par√¢metros
-*     idAresta - caractere que √© o ID da aresta
+*  $EP Par‚metros
+*     idAresta - caractere que È o ID da aresta
 *
 *  $FV Valor Retornado
 *     GRF_CondRetOK
@@ -301,18 +302,18 @@ GRF_tpCondRet GRF_Andar(char idAresta);
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Voltar
+*  $FC FunÁ„o: GRF Voltar
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Volta o v√©rtice corrente pela aresta com ID recebido.
-*     A aresta precisa estar na lista de antecessores do v√©rtice corrente.
+*  $ED DescriÁ„o da funÁ„o
+*     Volta o vÈrtice corrente pela aresta com ID recebido.
+*     A aresta precisa estar na lista de antecessores do vÈrtice corrente.
 *
 *     Caso haja mais de uma aresta com o mesmo ID, opera na primeira
 *     encontrada com esse ID.
-*     Recomenda-se manter os IDs de aresta √∫nicos.
+*     Recomenda-se manter os IDs de aresta ˙nicos.
 *
-*  $EP Par√¢metros
-*     idAresta - caractere que √© o ID da aresta
+*  $EP Par‚metros
+*     idAresta - caractere que È o ID da aresta
 *
 *  $FV Valor Retornado
 *     GRF_CondRetOK
@@ -327,18 +328,18 @@ GRF_tpCondRet GRF_Voltar(char idAresta);
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Remover Aresta
+*  $FC FunÁ„o: GRF Remover Aresta
 *
-*  $ED Descri√ß√£o da fun√ß√£o
+*  $ED DescriÁ„o da funÁ„o
 *     Remove aresta com o ID recebido
-*     N√£o importa se essa aresta est√° ligada ao v√©rtice corrente ou n√£o.
+*     N„o importa se essa aresta est· ligada ao vÈrtice corrente ou n„o.
 *
 *     Caso haja mais de uma aresta com o mesmo ID, opera na primeira
 *     encontrada com esse ID.
-*     Recomenda-se manter os IDs de aresta √∫nicos.
+*     Recomenda-se manter os IDs de aresta ˙nicos.
 *
-*  $EP Par√¢metros
-*     idAresta - caractere que √© o ID da aresta
+*  $EP Par‚metros
+*     idAresta - caractere que È o ID da aresta
 *
 *  $FV Valor Retornado
 *     GRF_CondRetOK
@@ -352,10 +353,10 @@ GRF_tpCondRet GRF_RemoverAresta(char nomeAresta);
 
 /************************************************************************
 *
-*  $FC Fun√ß√£o: GRF Esvaziar Grafo
+*  $FC FunÁ„o: GRF Esvaziar Grafo
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Esvazia o grafo, liberando espa√ßos de mem√≥ria e deixando-o
+*  $ED DescriÁ„o da funÁ„o
+*     Esvazia o grafo, liberando espaÁos de memÛria e deixando-o
 *     como se tivesse acabado de ser criado.
 *
 *  $FV Valor Retornado
@@ -369,7 +370,7 @@ GRF_tpCondRet GRF_EsvaziarGrafo(void);
 
 #undef GRAFO_EXT
 
-/********** Fim do mÔøΩdulo de definiÔøΩÔøΩo: MÔøΩdulo Grafo **********/
+/********** Fim do m?dulo de defini??o: M?dulo Grafo **********/
 
 #else
 #endif
