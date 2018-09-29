@@ -1,16 +1,16 @@
-Data            Horas Trabalhadas,      Tipo Tarefa,                                        DescriÃ§Ã£o da Tarefa Realizada
-2018-09-13      1                       Estudar                                             Estudar sobre o funcionamento e implementaÃ§Ã£o de um grafo
-2018-09-13      1.5                     Codificar MÃ³dulo                                    InÃ­cio da codificaÃ§Ã£o do mÃ³dulo GRAFO, TESTGRF
-2018-09-18      2                       Projetar                                            Projeto inicial dos mÃ³dulos
-                                        Codificar MÃ³dulo                                    CodificaÃ§Ã£o dos mÃ³dulos GRAFO, TESTGRF, VERTICE, TESTVER
+Data            Horas Trabalhadas,      Tipo Tarefa,                                        Descrição da Tarefa Realizada
+2018-09-13      1                       Estudar                                             Estudar sobre o funcionamento e implementação de um grafo
+2018-09-13      1.5                     Codificar Módulo                                    Início da codificação do módulo GRAFO, TESTGRF
+2018-09-18      2                       Projetar                                            Projeto inicial dos módulos
+                                        Codificar Módulo                                    Codificação dos módulos GRAFO, TESTGRF, VERTICE, TESTVER
 2018-09-20      1                       Redigir script de teste                             Redigir scripts de teste inicial
                                         Realizar os testes                                  Testar e encontrar erros
-                                        Codificar MÃ³dulo                                    Consertar erros
-2018-09-23      1.5                     Codificar MÃ³dulo                                    Continuar codificaÃ§Ã£o do mÃ³dulo VERTICE
-2018-09-27      5                       Codificar MÃ³dulo                                    RecodificaÃ§Ã£o dos mÃ³dulos, correÃ§Ã£o de erros de compilaÃ§Ã£o.
-                                        Corrigir os erros encontrados                       RecodificaÃ§Ã£o dos mÃ³dulos, correÃ§Ã£o de erros de compilaÃ§Ã£o.
-2018-09-28      2                       Codificar MÃ³dulo                                    Continuar recodificaÃ§Ã£o das funÃ§Ãµes de acesso do mÃ³dulo grafo,
-                                                                                            atualizaÃ§Ã£o da documentaÃ§Ã£o dos mÃ³dulos grafo e vÃ©rtice.
-2018-09-28      2                       Redigir Scripts de Teste                            Redigir scripts de teste para os mÃ³dulos grafo e vÃ©rtice
-                                        Realizar os testes                                  Realizar testes nos dois mÃ³dulos
-                                        Corrigir os erros encontrados                       Corrigir erros encontrados no mÃ³dulo grafo
+                                        Codificar Módulo                                    Consertar erros
+2018-09-23      1.5                     Codificar Módulo                                    Continuar codificação do módulo VERTICE
+2018-09-27      5                       Codificar Módulo                                    Recodificação dos módulos, correção de erros de compilação.
+                                        Corrigir os erros encontrados                       Recodificação dos módulos, correção de erros de compilação.
+2018-09-28      2                       Codificar Módulo                                    Continuar recodificação das funções de acesso do módulo grafo,
+                                                                                            atualização da documentação dos módulos grafo e vértice.
+2018-09-28/29   4                       Redigir Scripts de Teste                            Redigir scripts de teste para os módulos grafo e vértice
+                                        Realizar os testes                                  Realizar testes nos dois módulos
+                                        Corrigir os erros encontrados                       Corrigir erros encontrados no módulo grafo
