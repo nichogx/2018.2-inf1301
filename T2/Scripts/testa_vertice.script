@@ -1,16 +1,16 @@
-== Testa criaÃ§Ã£o de vÃ©rtice
+== Testa criação de vértice
 =criar 0
 
-== DestrÃ³i vÃ©rtice
+== Destrói vértice
 =free
 =destruir
 
-== Testar operaÃ§Ãµes sobre vÃ©rtice inexistente
-=obter 1 2 // str esperada Ã© inicializada para a de teste 1
+== Testar operações sobre vértice inexistente
+=obter 1 2 // str esperada é inicializada para a de teste 1
 =atualizar 1 2
 =obterlistas 2
 
-== Cria outro vÃ©rtice e obtÃ©m conteÃºdo
+== Cria outro vértice e obtém conteúdo
 =criar 0
 =obter 1 0
 
@@ -30,7 +30,7 @@
 == Destruir
 =destruir
 
-== Criar outro vÃ©rtice e somente liberÃ¡-lo, sem anular
+== Criar outro vértice e somente liberá-lo, sem anular
 =criar 0
 =free
 
