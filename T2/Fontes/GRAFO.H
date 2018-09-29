@@ -12,6 +12,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       0.52   ngx   29/09/2018 Atualização da documentação.
 *       0.51   ngx   28/09/2018 Erros corrigidos.
 *                               Atualização da documentação e nomeação de parâmetros.
 *       0.50   ngx   28/09/2018 Novas funções de acesso para caminhar sobre as arestas.
@@ -23,14 +24,12 @@
 *
 *  $ED Descrição do módulo
 *     Este módulo implementa um conjunto simples de funções para criar e
-*     explorar grafos.
-*     O grafo possui uma cabeça que contém uma referência para a raíz da
-*     Árvore e outra para um nó corrente da Árvore. // TODO CHANGE
+*     explorar um grafo.
 *     A cada momento o módulo admite no máximo um único grafo.
 *     Ao iniciar a execução do programa não existe grafo.
-*     O grafo poderá estar vazio. Neste caso o nó corrente
+*     O grafo poderá estar vazio. Neste caso o vértice corrente
 *     será nulo, embora a cabeça esteja definida.
-*     O nó corrente será nulo se e somente se o grafo estiver vazio.
+*     O vértice corrente será nulo se e somente se o grafo estiver vazio.
 *
 ***************************************************************************/
 
