@@ -12,7 +12,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*       0.56   ngx   28/09/2018 Atualização da documentação
+*       0.58   ngx   29/09/2018 Atualização da documentação e adição de
+*                               assertivas de entrada e saída.
 *       0.55   ngx   28/09/2018 Separar liberação e destruição do vértice
 *       0.50   ngx   28/09/2018 Módulo funciona como esperado
 *       0.40   ngx   27/09/2018 Continuação da codificação do módulo.
@@ -24,9 +25,7 @@
 *     modificar vertices.
 *     Um vértice possui conteúdo, uma lista de antecessores e uma lista de
 *     sucessores.
-*     O grafo poderá estar vazio. Neste caso o nó corrente
-*     será nulo, embora a cabeça esteja definida.
-*     O nó corrente será nulo se e somente se o grafo estiver vazio. // TODO change
+*     Um vértice tem seu conteúdo e listas adicionados na criação.
 *
 ***************************************************************************/
 
@@ -93,6 +92,15 @@ typedef struct VER_tgVertice VER_tpVertice;
 *     VER_CondRetOK
 *     VER_CondRetFaltouMemoria
 *
+*  $AE Assertivas de Entrada
+*     O ponteiro pVertice recebido não aponta outro vértice já criado.
+*     A função ExcluirValor recebida libera a memória de pConteudo.
+*     O ponteiro pConteudo é um ponteiro para o conteúdo que será inserido.
+*
+*  $AS Assertivas de Saída
+*     O vértice foi criado e preenchido com o conteúdo recebido.
+*     As listas de antecessores e sucessores foram criadas e estão vazias.
+*
 ***********************************************************************/
 
 VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
@@ -111,6 +119,13 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
 *     Não libera o espaço de memória.
 *     O espaço de memória deve ser liberado antes com VER_LiberarVertice.
 *
+*  $AE Assertivas de Entrada
+*     O ponteiro pVertice recebido aponta um vértice já liberado.
+*
+*  $AS Assertivas de Saída
+*     O ponteiro recebido agora é NULO.
+*     As outras funções reconhecerão esse ponteiro como um vértice inexistente.
+*
 ***********************************************************************/
 
 void VER_DestruirVertice(VER_tpVertice **pVertice);
@@ -124,6 +139,13 @@ void VER_DestruirVertice(VER_tpVertice **pVertice);
 *
 *  $ED Descrição da função
 *     Libera espaço de memória do vértice recebido, porém não o anula.
+*
+*  $AE Assertivas de Entrada
+*     O ponteiro pVertice recebido aponta um vértice já criado e ainda não liberado.
+*
+*  $AS Assertivas de Saída
+*     O vértice foi liberado e a área apontada pelo ponteiro recebido 
+*     não é mais de controle do programa.
 *
 ***********************************************************************/
 
@@ -144,6 +166,13 @@ void VER_LiberarVertice(VER_tpVertice *pVertice);
 *     VER_CondRetOK
 *     VER_CondRetVerticeNaoExiste
 *
+*  $AE Assertivas de Entrada
+*     O ponteiro pVertice recebido aponta um vértice já criado.
+*
+*  $AS Assertivas de Saída
+*     O ponteiro conteudo recebido por referência agora aponta o 
+*     conteúdo do vértice recebido.
+*
 ***********************************************************************/
 
 VER_tpCondRet VER_ObterConteudoVertice(VER_tpVertice *pVertice,
@@ -163,6 +192,13 @@ VER_tpCondRet VER_ObterConteudoVertice(VER_tpVertice *pVertice,
 *  $FV Valor retornado
 *     VER_CondRetOK
 *     VER_CondRetVerticeNaoExiste
+*
+*  $AE Assertivas de Entrada
+*     O ponteiro pVertice recebido aponta um vértice já criado.
+*
+*  $AS Assertivas de Saída
+*     O conteúdo antigo do vértice foi excluído, e agora o conteúdo é o 
+*     que foi recebido.
 *
 ***********************************************************************/
 
@@ -186,6 +222,15 @@ VER_tpCondRet VER_AtualizarConteudoVertice(VER_tpVertice *pVertice,
 *  $FV Valor retornado
 *     VER_CondRetOK
 *     VER_CondRetVerticeNaoExiste
+*
+*  $AE Assertivas de Entrada
+*     O ponteiro recebido aponta um vértice já criado.
+*     Os parâmetros antecessores e sucessores são ponteiros para lista 
+*     recebidos por referência, ou NULL.
+*
+*  $AS Assertivas de Saída
+*     O(s) ponteiro(s) para lista recebidos por referência agora apontam
+*     as listas de antecessores ou sucessores.
 *
 ***********************************************************************/
 
