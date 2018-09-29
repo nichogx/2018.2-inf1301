@@ -59,8 +59,8 @@ limpa :
 ### Dependências de módulos objeto a compilar
 
 $(Fobj)\testver.obj :  {$(Pc)}\testver.c \
-    {$(Ph)}generico.h           {$(Ph)}lerparm.h            {$(Ph)}tst_espc.h           \
-    {$(Ph)}vertice.h           
+    {$(Ph)}generico.h           {$(Ph)}lerparm.h            {$(Ph)}lista.h              \
+    {$(Ph)}tst_espc.h           {$(Ph)}vertice.h           
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
 $(Fobj)\vertice.obj :  {$(Pc)}\vertice.c \
