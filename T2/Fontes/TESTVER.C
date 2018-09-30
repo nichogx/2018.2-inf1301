@@ -9,6 +9,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.00   ngx   30/09/2018 Versão de entrega. Adição de mais comandos de teste.
+*                               Atualização da documentação.
 *       0.31   ngx   28/09/2018 Pequena alteração para refletir mudança em vertice.c/.h
 *       0.30   ngx   28/09/2018 Finalização do módulo te teste
 *       0.20   ngx   27/09/2018 Adição de mais comandos de teste
@@ -21,9 +23,14 @@
 *  $EIU Interface com o usuário pessoa
 *     Comandos de teste específicos para testar o módulo vértice:
 *
-*     "=criar"      - chama a função VER_CriarVertice e preenche com ponteiro
-*                     para uma cadeia de caracteres
-*     "=destruir"   - chama a função VER_DestruirVertice
+*     "=criar"            - chama a função VER_CriarVertice e preenche com ponteiro
+*                           para uma cadeia de caracteres
+*     "=destruir"         - chama a função VER_DestruirVertice
+*     "=free"             - chama a função VER_LiberarVertice
+*     "=obter" <int>      - obtém o conteúdo do vértice corrente e compara com a string
+*                           <int> definida
+*     "=atualizar" <int>  - atualiza o conteúdo do vértice corrente com a string <int>
+*     "=obterlistas"      - chama a função que obtém as listas
 *
 ***************************************************************************/
 

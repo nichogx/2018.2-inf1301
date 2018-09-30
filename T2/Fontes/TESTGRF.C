@@ -9,6 +9,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.00   ngx   30/09/2018 Versão de entrega. Adição de mais comandos de teste.
+*                               Atualização da documentação.
 *       0.30   ngx   28/09/2018 Adicionar comandos de teste para as novas
 *                               funções de acesso codificadas.
 *       0.20   ngx   28/09/2018 Adição de mais comandos de teste.
@@ -21,8 +23,20 @@
 *  $EIU Interface com o usuário pessoa
 *     Comandos de teste específicos para testar o módulo grafo:
 *
-*     "=criar"      - chama a função GRF_CriarGrafo( )
-*     "=destruir"   - chama a função GRF_DestruirGrafo( )
+*     "=criar"           - chama a função GRF_CriarGrafo( )
+*     "=destruir"        - chama a função GRF_DestruirGrafo( )
+*     "=obter" <int>     - obtem o conteúdo do corrente e compara com a string <int>
+*     "=alterar" <int>   - altera o conteudo do corrente para a string <int>
+*     "=ir" <int>        - vai para o vértice que tem o conteudo da string <int>
+*     "=inserir" <int>   - insere um vértice com o conteúdo da string <int>
+*     "=remover"         - remove o corrente
+*     "=addorigem" <int> - adiciona um vértice origem com o conteúdo da string <int>
+*     "=addaresta" <char> <int> <int2> - adiciona uma aresta de id <char> indo do vértice
+*                                        com conteúdo <int> para o vértice com conteúdo <int2>
+*     "=andar" <char>    - andar pela aresta <char> do vertice corrente
+*     "=voltar" <char>   - voltar pela aresta < char> do vertice corrente
+*     "=remaresta" <char> - remove a aresta <char>
+*     "=esvaziar"        - esvazia o grafo.
 *
 ***************************************************************************/
 
