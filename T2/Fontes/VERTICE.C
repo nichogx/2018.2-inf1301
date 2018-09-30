@@ -9,6 +9,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.00   ngx   30/09/2018 Versão de entrega.
 *       0.55   ngx   28/09/2018 Separar liberação e destruição do vértice
 *       0.50   ngx   28/09/2018 Módulo funciona como esperado
 *       0.40   ngx   27/09/2018 Continuação da codificação do módulo.
