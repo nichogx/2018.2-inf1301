@@ -12,6 +12,9 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.00   ngx   30/09/2018 Versão de entrega. 
+*                               Atualização da documentação.
+*                               Adicionar assertivas de entrada e saída na documentação.
 *       0.52   ngx   29/09/2018 Atualização da documentação.
 *       0.51   ngx   28/09/2018 Erros corrigidos.
 *                               Atualização da documentação e nomeação de parâmetros.
@@ -98,6 +101,12 @@ typedef struct GRF_tgGrafo GRF_tpGrafo;
 *     GRF_CondRetFaltouMemoria
 *     GRF_CondRetErroAoCriarLista
 *
+*  $AE Assertivas de Entrada
+*     Ainda não existe grafo.
+*
+*  $AS Assertivas de Saída
+*     O grafo foi criado e está vazio.
+*
 ***********************************************************************/
 
 GRF_tpCondRet GRF_CriarGrafo(void);
@@ -112,6 +121,12 @@ GRF_tpCondRet GRF_CriarGrafo(void);
 *  $FV Valor retornado
 *     GRF_CondRetOK
 *     GRF_CondRetGrafoNaoExiste
+*
+*  $AE Assertivas de Entrada
+*     O grafo está criado.
+*
+*  $AS Assertivas de Saída
+*     O grafo foi esvaziado e destruído. Não existe mais grafo.
 *
 ***********************************************************************/
 
@@ -132,6 +147,13 @@ GRF_tpCondRet GRF_DestruirGrafo(void);
 *     GRF_CondRetGrafoNaoExiste
 *     GRF_CondRetGrafoVazio
 *
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*
+*  $AS Assertivas de Saída
+*     O parâmetro recebido por referência agora aponta o conteúdo do
+*     vértice corrente.
+*
 *************************************************************************/
 
 GRF_tpCondRet GRF_ObterValorCorrente(void **conteudo);
@@ -150,6 +172,13 @@ GRF_tpCondRet GRF_ObterValorCorrente(void **conteudo);
 *     GRF_CondRetOK
 *     GRF_CondRetGrafoNaoExiste
 *     GRF_CondRetGrafoVazio
+*
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*
+*  $AS Assertivas de Saída
+*     O parâmetro recebido agora é o novo conteúdo do vértice corrente.
+*     O antigo conteúdo foi liberado.
 *
 *************************************************************************/
 
@@ -171,6 +200,13 @@ GRF_tpCondRet GRF_AlterarValorCorrente(void *novoConteudo);
 *     GRF_CondRetGrafoNaoExiste
 *     GRF_CondRetGrafoVazio
 *     GRF_CondRetVerticeNaoExiste
+*
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*     O conteúdo recebido já foi inserido no grafo em algum momento.
+*
+*  $AS Assertivas de Saída
+*     O vértice que possui o conteúdo recebido agora é o corrente.
 *
 *************************************************************************/
 
@@ -197,6 +233,14 @@ GRF_tpCondRet GRF_IrVertice(void *conteudoBuscado);
 *     GRF_CondRetErroAoCriarLista
 *     GRF_CondRetErroEstrutura
 *
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*     A função recebida libera o valor recebido.
+*
+*  $AS Assertivas de Saída
+*     Um novo vértice foi criado e inserido na lista de vértices
+*     com o valor recebido.
+*
 *************************************************************************/
 
 GRF_tpCondRet GRF_InserirVertice(void *pConteudo,
@@ -213,6 +257,14 @@ GRF_tpCondRet GRF_InserirVertice(void *pConteudo,
 *     GRF_CondRetOK
 *     GRF_CondRetGrafoNaoExiste
 *     GRF_CondRetGrafoVazio
+*
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*
+*  $AS Assertivas de Saída
+*     O vértice corrente foi liberado e não existe mais. O corrente agora
+*     é a primeira origem, ou o grafo ficará vazio se não houverem mais
+*     origens.
 *
 *************************************************************************/
 
@@ -237,6 +289,14 @@ GRF_tpCondRet GRF_RemoverVerticeCorr(void);
 *     GRF_CondRetGrafoNaoExiste
 *     GRF_CondRetFaltouMemoria
 *     GRF_CondRetErroEstrutura
+*
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*     A função recebida libera o valor recebido.
+*
+*  $AS Assertivas de Saída
+*     Um novo vértice foi criado e inserido na lista de vértices
+*     com o valor recebido. Ele também foi inserido na lista de origens.
 *
 *************************************************************************/
 
@@ -268,6 +328,15 @@ GRF_tpCondRet GRF_AdicionarOrigem(void *pConteudo,
 *     GRF_CondRetVerticeNaoExiste
 *     GRF_CondRetErroEstrutura
 *
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*     O conteúdo de origem e o conteúdo de destino recebidos existem em
+*     algum vértice do grafo.
+*
+*  $AS Assertivas de Saída
+*     Aresta com o id recebido foi criada e inserida tanto na lista de 
+*     sucessores do origem quanto na lista de antecessores do destino.
+*
 *************************************************************************/
 
 GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
@@ -295,6 +364,13 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 *     GRF_CondRetArestaNaoExiste
 *     GRF_CondRetErroEstrutura
 *
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*     A aresta recebida existe na lista de sucessores do vértice corrente.
+*
+*  $AS Assertivas de Saída
+*     O vértice corrente agora é o que é apontado pela aresta de id recebido.
+*
 *************************************************************************/
 
 GRF_tpCondRet GRF_Andar(char idAresta);
@@ -320,6 +396,13 @@ GRF_tpCondRet GRF_Andar(char idAresta);
 *     GRF_CondRetGrafoVazio
 *     GRF_CondRetArestaNaoExiste
 *     GRF_CondRetErroEstrutura
+*
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*     A aresta recebida existe na lista de antecessores do vértice corrente.
+*
+*  $AS Assertivas de Saída
+*     O vértice corrente agora é o que é apontado pela aresta de id recebido.
 *
 *************************************************************************/
 
@@ -362,6 +445,12 @@ GRF_tpCondRet GRF_RemoverAresta(char nomeAresta);
 *     GRF_CondRetOK
 *     GRF_CondRetGrafoVazio
 *     GRF_CondRetGrafoNaoExiste
+*
+*  $AE Assertivas de Entrada
+*     Existe um grafo e este não é vazio.
+*
+*  $AS Assertivas de Saída
+*     O grafo agora está vazio.
 *
 *************************************************************************/
 

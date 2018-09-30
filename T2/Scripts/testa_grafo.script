@@ -100,3 +100,15 @@
 =inserir 3 0
 =addaresta '\t' 1 3 0
 =destruir 0
+
+== Testar remoção manual dos vértices
+=criar 0
+=inserir 1 0
+=remover 0
+=remover 2
+=addorigem 1 0
+=inserir 2 0
+=remover 0
+=remover 0
+=remover 2
+=destruir 0

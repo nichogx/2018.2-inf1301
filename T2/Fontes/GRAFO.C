@@ -10,6 +10,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.00   ngx   30/09/2018 Versão de entrega.
+*                               Fix de bugs e atualização da documentação.
 *       0.60   ngx   29/09/2018 Corrigir funções remover aresta e esvaziar grafo.
 *       0.51   ngx   28/09/2018 Erros corrigidos.
 *       0.50   ngx   28/09/2018 Novas funções de acesso para caminhar sobre as arestas.
@@ -307,10 +309,6 @@ GRF_tpCondRet GRF_RemoverVerticeCorr(void)
 		VER_ObterListasAntSuc(aresta->vertAp, NULL, &ListaAux);
 		IrInicioLista(ListaAux);
 		while (((GRF_tpAresta *)LIS_ObterValor(ListaAux))->vertAp != pGrafo->pVerCorr) {
-			/*if (LIS_ObterValor(ListaAux) == NULL)
-				return GRF_CondRetErroEstrutura;
-
-			LIS_AvancarElementoCorrente(ListaAux, 1);*/
 			if (LIS_AvancarElementoCorrente(ListaAux, 1) != GRF_CondRetOK) {
 				return GRF_CondRetErroEstrutura;
 			}
@@ -331,10 +329,9 @@ GRF_tpCondRet GRF_RemoverVerticeCorr(void)
 		LIS_AvancarElementoCorrente(ListaSuc, 1);
 	}
 
-	VER_LiberarVertice(pGrafo->pVerCorr);
 	VER_DestruirVertice(&pGrafo->pVerCorr);
 	IrInicioLista(pGrafo->pListaOr);
-	if (LIS_ObterValor(pGrafo->pListaOr) != NULL) { /* lista vazia */
+	if (LIS_ObterValor(pGrafo->pListaOr) != NULL) { /* lista não vazia */
 		pGrafo->pVerCorr = LIS_ObterValor(pGrafo->pListaOr);
 	}
 
