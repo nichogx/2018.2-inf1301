@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI MÃ³dulo de implementaÃ§Ã£o: MÃ³dulo VÃ¡rtice
+*  $MCI Módulo de implementação: Módulo Vártice
 *
 *  Arquivo:                 VERTICE.C
 *  Letras identificadoras:  VER
@@ -7,14 +7,15 @@
 *  Projeto: Disciplina INF1301
 *  Autores: ngx - Nicholas Godoy
 *
-*  $HA HistÃ³rico de evoluÃ§Ã£o:
-*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
-*       1.00   ngx   30/09/2018 VersÃ£o de entrega.
-*       0.55   ngx   28/09/2018 Separar liberaÃ§Ã£o e destruiÃ§Ã£o do vÃ©rtice
-*       0.50   ngx   28/09/2018 MÃ³dulo funciona como esperado
-*       0.40   ngx   27/09/2018 ContinuaÃ§Ã£o da codificaÃ§Ã£o do mÃ³dulo.
-*                               ModificaÃ§Ãµes na estrutura.
-*       0.10   ngx   13/09/2018 InÃ­cio do desenvolvimento
+*  $HA Histórico de evolução:
+*     Versão  Autor    Data     Observações
+*       1.01   ngx   01/10/2018 Comentários.
+*       1.00   ngx   30/09/2018 Versão de entrega.
+*       0.55   ngx   28/09/2018 Separar liberação e destruição do vértice
+*       0.50   ngx   28/09/2018 Módulo funciona como esperado
+*       0.40   ngx   27/09/2018 Continuação da codificação do módulo.
+*                               Modificações na estrutura.
+*       0.10   ngx   13/09/2018 Início do desenvolvimento
 *
 ***************************************************************************/
 
@@ -29,20 +30,20 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: VER Descritor de um vÃ©rtice
+*  $TC Tipo de dados: VER Descritor de um vértice
 *
 *
-*  $ED DescriÃ§Ã£o do tipo
-*     Um vÃ©rtice genÃ©rico que contÃ©m conteÃºdo, lista de antecessores e
+*  $ED Descrição do tipo
+*     Um vértice genérico que contém conteúdo, lista de antecessores e
 *     sucessores.
 *
 ***********************************************************************/
 
 struct VER_tgVertice {
-	/* conteÃºdo do vÃ©rtice */
+	/* conteúdo do vértice */
 	void *pConteudo;
 
-	/* ponteiro para uma funÃ§Ã£o que destÃ³i pConteudo */
+	/* ponteiro para uma função que destói pConteudo */
 	void(*ExcluirValor)(void *pConteudo);
 
 	/* lista de antecessores */
@@ -52,15 +53,15 @@ struct VER_tgVertice {
 	LIS_tppLista pListaSuc;
 };
 
-/*****  Dados encapsulados no mÃ³dulo  *****/
+/*****  Dados encapsulados no módulo  *****/
 
-/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
+/***** Protótipos das funções encapuladas no módulo *****/
 
-/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
+/*****  Código das funções exportadas pelo módulo  *****/
 
 /***************************************************************************
 *
-*  FunÃ§Ã£o: VER Criar vÃ©rtice
+*  Função: VER Criar vértice
 *  ****/
 
 VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
@@ -69,7 +70,7 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
 	(*pDest) = (VER_tpVertice *) malloc(sizeof(VER_tpVertice));
 	if ((*pDest) == NULL) {
 		return VER_CondRetFaltouMemoria;
-	}
+	} /* if */
 
 	(*pDest)->pConteudo = pConteudo;
 	(*pDest)->ExcluirValor = ExcluirValor;
@@ -78,24 +79,24 @@ VER_tpCondRet VER_CriarVertice(VER_tpVertice **pDest, void *pConteudo,
 
 	if ((*pDest)->pListaAnt == NULL || (*pDest)->pListaSuc == NULL) {
 		return VER_CondRetFaltouMemoria;
-	}
+	} /* if */
 
 	return VER_CondRetOK;
-} /* fim funÃ§Ã£o: VER Criar vÃ©rtice */
+} /* fim função: VER Criar vértice */
 
 /***************************************************************************
 *
-*  FunÃ§Ã£o: VER Destruir vÃ©rtice
+*  Função: VER Destruir vértice
 *  ****/
 
 void VER_DestruirVertice(VER_tpVertice **pVertice)
 {
 	(*pVertice) = NULL;
-} /* fim funÃ§Ã£o: VER Destruir vÃ©rtice */
+} /* fim função: VER Destruir vértice */
 
 /***************************************************************************
 *
-*  FunÃ§Ã£o: VER Liberar vÃ©rtice
+*  Função: VER Liberar vértice
 *  ****/
 
 void VER_LiberarVertice(VER_tpVertice *pVertice)
@@ -103,33 +104,33 @@ void VER_LiberarVertice(VER_tpVertice *pVertice)
 	if (pVertice != NULL) {
 		LIS_DestruirLista(pVertice->pListaAnt);
 		LIS_DestruirLista(pVertice->pListaSuc);
-		if (pVertice->ExcluirValor != NULL) {
-			pVertice->ExcluirValor(pVertice->pConteudo);
-		}
+		if (pVertice->ExcluirValor != NULL) { /* foi passada função para destruir valor */
+			pVertice->ExcluirValor(pVertice->pConteudo); /* chamar essa função */
+		} /* if */
 
 		free(pVertice);
 	} /* if */
-} /* fim funÃ§Ã£o: VER Liberar vÃ©rtice */
+} /* fim função: VER Liberar vértice */
 
 /***************************************************************************
 *
-*  FunÃ§Ã£o: VER Obter Conteudo Vertice
+*  Função: VER Obter Conteudo Vertice
 *  ****/
 
 VER_tpCondRet VER_ObterConteudoVertice(VER_tpVertice *pVertice, void **conteudo)
 {
 	if (pVertice == NULL) {
 		return VER_CondRetVerticeNaoExiste;
-	}
+	} /* if */
 
 	*conteudo = pVertice->pConteudo;
 
 	return VER_CondRetOK;
-} /* fim funÃ§Ã£o: VER Obter Conteudo Vertice */
+} /* fim função: VER Obter Conteudo Vertice */
 
 /***************************************************************************
 *
-*  FunÃ§Ã£o: VER Atualizar Conteudo Vertice
+*  Função: VER Atualizar Conteudo Vertice
 *  ****/
 
 VER_tpCondRet VER_AtualizarConteudoVertice(VER_tpVertice *pVertice,
@@ -137,19 +138,19 @@ VER_tpCondRet VER_AtualizarConteudoVertice(VER_tpVertice *pVertice,
 {
 	if (pVertice == NULL) {
 		return VER_CondRetVerticeNaoExiste;
-	}
+	} /* if */
 
-	if (pVertice->ExcluirValor != NULL) {
-		pVertice->ExcluirValor(pVertice->pConteudo);
-	}
+	if (pVertice->ExcluirValor != NULL) { /* foi passada função para destruir valor */
+		pVertice->ExcluirValor(pVertice->pConteudo); /* chamar essa função */
+	} /* if */
 	pVertice->pConteudo = conteudo;
 
 	return VER_CondRetOK;
-} /* fim funÃ§Ã£o: VER Atualizar Conteudo Vertice */
+} /* fim função: VER Atualizar Conteudo Vertice */
 
 /***************************************************************************
 *
-*  FunÃ§Ã£o: VER Obter Antecessores e Sucessores
+*  Função: VER Obter Antecessores e Sucessores
 *  ****/
 
 VER_tpCondRet VER_ObterListasAntSuc(VER_tpVertice *pVertice,
@@ -157,19 +158,19 @@ VER_tpCondRet VER_ObterListasAntSuc(VER_tpVertice *pVertice,
 {
 	if (pVertice == NULL) {
 		return VER_CondRetVerticeNaoExiste;
-	}
+	} /* if */
 
-	if (antecessores != NULL) {
+	if (antecessores != NULL) { /* foi passado um ponteiro para depositar essa lista */
 		*antecessores = pVertice->pListaAnt;
-	}
+	} /* if */
 
-	if (sucessores != NULL) {
+	if (sucessores != NULL) { /* foi passado um ponteiro para depositar essa lista */
 		*sucessores = pVertice->pListaSuc;
-	}
+	} /* if */
 
 	return VER_CondRetOK;
-} /* fim funÃ§Ã£o: VER Obter Antecessores e Sucessores */
+} /* fim função: VER Obter Antecessores e Sucessores */
 
-/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
+/*****  Código das funções encapsuladas no módulo  *****/
 
-/********** Fim do mÃ³dulo de implementaÃ§Ã£o: MÃ³dulo VÃ©rtice **********/
+/********** Fim do módulo de implementação: Módulo Vértice **********/
