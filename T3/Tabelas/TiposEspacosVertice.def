@@ -1,0 +1,23 @@
+#if ! defined( TIPOS_VERTICE_ )
+#define TIPOS_VERTICE_
+/***************************************************************************
+*
+*  $MCD Arquivo de definição: TiposEspacosVertice.def
+*
+*  Projeto: Analisador Léxico
+*  Autores: ngx
+*
+*  $ED Descrição do arquivo
+*     Este arquivo declara os identificadores de tipos dos espaços de dados
+*		utilizados pelo módulo vértice. O módulo obedece o padrão estabelecido
+*     pelo módulo CNTESPAC. Ou seja, contém uma seqüência de declaradores
+*     a serem incluídos em um enum. Cada declarador corresponde a um dos
+*     tipos de espaço de dados.
+*
+***************************************************************************/
+
+      VER_TipoVertice,
+
+/********** Fim do arquivo de definição: TiposEspacosVertice.def  **********/
+
+#endif

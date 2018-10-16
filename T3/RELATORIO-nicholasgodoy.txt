@@ -1,16 +1,1 @@
 Data            Horas Trabalhadas,      Tipo Tarefa,                                        Descrição da Tarefa Realizada
-2018-09-13      2                       Estudar                                             Estudar sobre o funcionamento e implementação de um grafo
-2018-09-13      2.5                     Codificar Módulo                                    Início da codificação do módulo GRAFO, TESTGRF
-2018-09-18      2                       Projetar                                            Projeto inicial dos módulos
-                                        Codificar Módulo                                    Codificação dos módulos GRAFO, TESTGRF, VERTICE, TESTVER
-2018-09-20      2                       Redigir script de teste                             Redigir scripts de teste inicial
-                                        Realizar os testes                                  Testar e encontrar erros
-                                        Codificar Módulo                                    Consertar erros
-2018-09-23      2.5                     Codificar Módulo                                    Continuar codificação do módulo VERTICE
-2018-09-27      6                       Codificar Módulo                                    Recodificação dos módulos, correção de erros de compilação.
-                                        Corrigir os erros encontrados                       Recodificação dos módulos, correção de erros de compilação.
-2018-09-28      4                       Codificar Módulo                                    Continuar recodificação das funções de acesso do módulo grafo,
-                                                                                            atualização da documentação dos módulos grafo e vértice.
-2018-09-28/29   5                       Redigir Scripts de Teste                            Redigir scripts de teste para os módulos grafo e vértice
-                                        Realizar os testes                                  Realizar testes nos dois módulos
-                                        Corrigir os erros encontrados                       Corrigir erros encontrados no módulo grafo

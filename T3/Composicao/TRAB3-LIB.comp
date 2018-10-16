@@ -1,0 +1,27 @@
+# Teste do módulo vértice
+
+[Diretorios]
+
+Nome        =  TRAB3-LIB
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+def         =  ..\Tabelas
+tab         =  ..\Tabelas
+inc         =  ..\Tabelas
+
+[Modulos]
+Grafo
+Vertice
+Lista
+
+[BuildInicio]
+/OUT:..\Objetos\MinhaBiblioteca.lib
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]
