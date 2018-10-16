@@ -1,0 +1,4 @@
+﻿Data            Horas Trabalhadas,      Tipo Tarefa,                                        Descrição da Tarefa Realizada
+2018-09-20	    3			   Estudar						Relembrar implementacao de grafos e ver pseudo codigos
+2018-09-24	    6			   Implementar funcoes vertice				Implementar funcoes no modulo vertice
+2018-09-26          3			   Escrever funcoes para grafo				Estudar e desenvolver funcoes - Nao implementadas

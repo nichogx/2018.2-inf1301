@@ -1,0 +1,14 @@
+Guilherme de Alencastro Pasqualette - 1610596
+
+Data		Horas Trabalhadas	Tipo			 	 Descrição da atividade
+17/08		2 Horas			Estudar			 	 Estudando o arcabouço conforme pedido no enunciado
+20/08		1.5 Horas		Estudar			 	 Avançando nos estudos do arcabouço, analisando os módulos de definição e os de implementação, focando no TESTARV.c
+25/08		1 Hora			Revisar especificações	 	 Revisão do pedido do enunciado em relação ao uso de árvore binária para representar árvore n-ária  
+31/08		2 Horas			Especificar Função	 	 Estruturação da função da representação das árvores n-árias
+02/09		2 Horas			Redigir teste de script		 Tarefa realizada com o grupo. Foi criado o script TestaTudo.script, testando as diversas funções de árvore.
+					Realizar os testes		 Em seguida, foram encontrados alguns erros humanos, rapidamente vistos e corrigidos.
+					Diagnosticar e corrigir os erros
+22/09		2 Horas			Codificar Módulo 		 Codificação das funções InsereAnterior e InsereSucessor no módulo Vertice.c
+23/09		6 Horas			Codificar Módulo		 Diversas codificações e revisões nos módulos Grafo.c e Vertice.c, com ênfase nas funções GRF_AlterarValorCorrente,	
+					Revisar Código do Módulo 	 GRF_IrVertice, GRF_InserirVertice, GRF_RemoverVertice, GRF_AdicionarOrigem, GRF_RemoverOrigem, VER_ObterListaSucessor e VER_ObterListaAntecessor
+25/09		2 Hora			Revisar Código do Módulo	 Revisão das funções de acesso do módulo grafo.

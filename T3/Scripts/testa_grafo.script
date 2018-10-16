@@ -1,0 +1,114 @@
+== Testa criação de grafo
+=criar 0
+=criar 5
+
+== Testa destruir grafo
+=destruir 0
+=destruir 3
+
+== Testa todas com grafo inexistente
+=obter 1 3
+=alterar 1 3
+=ir 1 3
+=inserir 1 3
+=remover 3
+=addorigem 1 3
+=addaresta 'a' 1 2 3
+=andar 'a' 3
+=voltar 'a' 3
+=remaresta 'a' 3
+=esvaziar 3
+
+== Cria grafo e testa todas com grafo vazio (que retornam essa condição de retorno)
+=criar 0
+=obter 1 2
+=alterar 1 2
+=ir 1 2
+=remover 2
+=addaresta 'a' 1 2 2
+=andar 'a' 2
+=voltar 'a' 2
+=remaresta 'a' 2
+=esvaziar 2
+
+== Adiciona uma origem
+=addorigem 1 0
+
+== Verifica conteudo da origem, muda e verifica de novo
+=obter 1 0
+=alterar 2 0
+=obter 1 0 // Não é mais o mesmo
+=recuperar
+=obter 2 0
+=alterar 1 0
+=obter 1 0
+
+== Adiciona mais um vertice
+=inserir 2 0
+=obter 2 0
+
+== Tenta adicionar aresta entre vertices que não existem
+=addaresta 'p' 1 4 6 // 1 existe, 4 não
+=addaresta 'q' 4 3 6 // nenhum existe
+=addaresta 'r' 4 1 6 // 4 Não existe, 1 sim
+
+== Adiciona uma aresta entre os dois vertices existentes
+=addaresta 'a' 1 2 0
+
+== Caminha por essa aresta (volta e depois vai)
+=voltar 'c' 7 // nao existe
+=voltar 'a' 0 // existe
+=obter 1 0
+=voltar 'a' 7 // nao é vértice de volta, é de ida (não existe)
+=andar 'b' 7  // não existe
+=andar 'a' 0  // existe
+=obter 2 0
+
+== Adiciona mais um vértice e uma aresta entre a origem e ele
+=inserir 3 0
+=obter 3 0
+=addaresta 'b' 1 3 0
+
+== Volta para a origem e tenta ir para o novo vértice (e volta)
+=ir 1 0
+=obter 1 0
+=andar 'b' 0
+=obter 3 0
+=voltar 'b' 0
+=obter 1 0
+
+== Testa função Ir
+=ir 3 0 // vertice existe
+=ir 4 6 // vertice não existe
+=ir 1 0 // vertice existe
+
+== Remover uma das arestas adicionadas
+=andar 'b' 0 // verificar existe
+=remaresta 'b' 0
+=voltar 'b' 7 // verificar nao existe mais
+=remaresta 'b' 7 // verificar nao existe mais
+
+== Destroi grafo usado para testar
+=esvaziar 0
+=esvaziar 2
+=destruir 0
+=destruir 3 // verifica destruido
+
+== Cria outro, popula e destroi sem esvaziar
+=criar 0
+=addorigem 1 0
+=inserir 3 0
+=addaresta '\t' 1 3 0
+=destruir 0
+
+== Testar remoção manual dos vértices
+=criar 0
+=inserir 1 0
+=remover 0
+=remover 2
+=addorigem 1 0
+=inserir 2 0
+=remover 0
+=remover 0
+=remover 2
+=destruir 0
