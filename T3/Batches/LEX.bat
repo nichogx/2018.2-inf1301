@@ -1,0 +1,1 @@
+..\produto\TRAB3-1        /s..\scripts\analisador_1    /l..\produto\analisador_1

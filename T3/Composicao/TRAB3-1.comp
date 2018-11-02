@@ -2,26 +2,25 @@
 
 [Diretorios]
 
-Nome        =  TRAB3-LIB
+Nome        =  TRAB3-1
 PathDefault =  ..\Fontes
 err         =  ..\Produto
 obj         =  ..\Objetos
 c           =  ..\Fontes
 h           =  ..\Fontes
-def         =  ..\Tabelas
-tab         =  ..\Tabelas
-inc         =  ..\Tabelas
 
 [Modulos]
+AnalisadorLexico
 Grafo
 Vertice
 Lista
 
 [BuildInicio]
-/OUT:MinhaBiblioteca.lib
+/OUT:..\Produto\TRAB3-1.exe
+/INCREMENTAL:NO
 /MACHINE:IX86
 
 [BuildFim]
-..\Objetos\ArcaboucoTeste.lib
+ArcaboucoTeste.lib
 
 [Fim]
