@@ -212,7 +212,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		NumLidos = LER_LerParametros("iis", &id, &tipo, nome);
 
 		if (tipo == LEX_TipoEstadoFinal && (NumLidos != 3 || strlen(nome) > 50) ||
-			tipo != LEX_TipoEstadoFinal && (NumLidos != 2)) {
+		    tipo != LEX_TipoEstadoFinal && (NumLidos != 2)) {
 			return TST_CondRetParm;
 		} /* if */
 
@@ -276,6 +276,11 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		}
 
 		RetObtido = LEX_Analisar(nomeArq);
+		if (RetObtido == LEX_CondRetErroAbrirArquivo) {
+			return TST_NotificarFalha("Erro ao abrir arquivo. Possivelmente arquivo não existe.");
+		} else if (RetObtido == LEX_CondRetErroSintaxeArquivo) {
+			return TST_NotificarFalha("Erro na sintaxe do arquivo.");
+		}
 
 		return TST_CompararInt(LEX_CondRetOK, RetObtido,
 		                       "Retorno errado ao analisar arquivo.");
