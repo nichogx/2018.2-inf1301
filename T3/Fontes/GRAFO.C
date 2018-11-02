@@ -414,6 +414,7 @@ GRF_tpCondRet GRF_AdicionarAresta(char idAresta, void *contOrigem,
 	} /* if */
 	origem = LIS_ObterValor(pGrafo->pListaVer);
 
+	IrInicioLista(pGrafo->pListaVer);
 	encontrouVer = 0; /* zerar flag */
 	do {
 		void *conteudo;
