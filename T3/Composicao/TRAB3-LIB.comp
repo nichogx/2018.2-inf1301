@@ -17,11 +17,14 @@ Grafo
 Vertice
 Lista
 
+[Link]
+	cd $(Fobj)
+	LIB $(L) @$(NOME).build >> $(Ferr)\$(NOME).err
+
 [BuildInicio]
 /OUT:MinhaBiblioteca.lib
 /MACHINE:IX86
 
 [BuildFim]
-..\Objetos\ArcaboucoTeste.lib
 
 [Fim]
