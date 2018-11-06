@@ -9,6 +9,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.41   ngx   06/11/2018 Pequenas mudanças na documentação.
 *       1.40   ngx   02/11/2018 Primeira versão do analisador léxico.
 *       1.10   ngx   02/11/2018 Início da adaptação do módulo para o analisador léxico.
 *       1.00   ngx   30/09/2018 Versão de entrega. Adição de mais comandos de teste.
@@ -26,8 +27,8 @@
 *
 *     "=criar"                         - cria o grafo para usar no analisador
 *     "=destruir"                      - destroi o grafo usado
-*     "=inserir" <int> <str> <int2>    - insere um estado com id, nome e tipo fornecidos
-*     "=addorigem" <int> <str> <int2>  - adiciona um estado inicial com id, nome e tipo fornecidos
+*     "=inserir" <int> <str> <int2>    - insere um estado com id, tipo e nome fornecidos
+*     "=addorigem" <int> <str> <int2>  - adiciona um estado inicial com id, tipo e nome fornecidos
 *     "=addtrans" <char> <int> <int2>  - adiciona uma transição de rotulo <char> indo do estado
 *                                        com id <int> para o estado com conteúdo <int2>
 *     "=iniciar" <str>                 - inicia a leitura do arquivo texto de nome <str>

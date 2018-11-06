@@ -10,6 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.02   ngx   02/11/2018 Correção de um pequeno erro.
 *       1.01   ngx   01/10/2018 Comentários.
 *       1.00   ngx   30/09/2018 Versão de entrega.
 *                               Fix de bugs e atualização da documentação.

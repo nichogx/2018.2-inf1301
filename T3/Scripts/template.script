@@ -12,49 +12,17 @@
 //        1 intermediario
 //        2 final
 
-// em vez de \l : \a
-// em vez de \d : \x1
-// em vez de \o : \v
-// em vez de \b : \x2
-
 == Cria grafo
 =criar
 
 == Configura os estados do analisador
-=addorigem 0 0
-=inserir 1 2 "identificador"
-=inserir 2 2 "numero inteiro"
-=inserir 3 2 "numero fracionario"
-=inserir 4 1
-=inserir 5 1
-=inserir 6 2 "comentario"
-=inserir 998 2 "erro"
-=inserir 999 2 "fim arquivo"
+// adicione aqui a origem e os estados
 
 == Configura as transições do analisador
-=addtrans '\x2' 0 0
-=addtrans '\a' 0 1
-=addtrans '_'  0 1
-=addtrans '\a' 1 1
-=addtrans '\x1' 1 1
-=addtrans '_'  1 1
-=addtrans '\x1' 0 2
-=addtrans '\x1' 2 2
-=addtrans '.'  2 3
-=addtrans '\x1' 3 3
-=addtrans '/'  0 4
-=addtrans '\v' 4 998
-=addtrans '*'  4 5
-=addtrans '\v' 5 5
-=addtrans '*'  5 6
-=addtrans '\v' 6 5
-=addtrans '*'  6 6
-=addtrans '/'  6 0
-=addtrans '\v' 0 998
-=addtrans '\f' 0 999
+// adicione aqui as transições do analisador
 
 == Inicia análise
-=iniciar "teste.txt"
+// insira aqui seu comando iniciar com o nome do arquivo a ser lido
 
 == Finaliza e destroi grafo
 =finalizar
