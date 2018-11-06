@@ -9,6 +9,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.50   ngx   06/11/2018 Recodificação da parte de análise, ainda não pronta.
 *       1.41   ngx   06/11/2018 Pequenas mudanças na documentação.
 *       1.40   ngx   02/11/2018 Primeira versão do analisador léxico.
 *       1.10   ngx   02/11/2018 Início da adaptação do módulo para o analisador léxico.
@@ -140,6 +141,8 @@ static LEX_tpCondRet LEX_Analisar(char *nomeArq);
 
 static LEX_tpCondRet LEX_MostrarResultado(int linha, int coluna, int id,
                 char *nome);
+
+static int LEX_ConverteConjuntos(int c);
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -276,6 +279,8 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 			return TST_CondRetParm;
 		}
 
+		printf("\n"); /* formatação */
+
 		RetObtido = LEX_Analisar(nomeArq);
 		if (RetObtido == LEX_CondRetErroAbrirArquivo) {
 			return TST_NotificarFalha("Erro ao abrir arquivo. Possivelmente arquivo não existe.");
@@ -310,31 +315,54 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 	int c;
 	int coluna = 1;
 	int linha  = 1;
+	int printado = 1;
+	int comecaCol, comecaLin;
 
 	GRF_tpCondRet GrfRetObtido;
+	LEX_tpEstado *estado;
+
+	/* sempre inserir no final e tirar do início */
+	LIS_tppLista pilha = LIS_CriarLista(free);
+	LIS_tppLista strReconhecida = LIS_CriarLista(free);
 
 	if ((fp = fopen(nomeArq, "r")) == NULL) {
 		return LEX_CondRetErroAbrirArquivo;
 	} /* if */
 
-	while ((c = fgetc(fp)) != EOF) {
-		LEX_tpEstado *estado;
+	if (GRF_IrVertice(&origem) != GRF_CondRetOK) {
+		return LEX_CondRetErroConfiguracao;
+	} /* if */
 
-		/* trata custom eof */
-		if (c == '\f') {
-			break;
+	comecaCol = coluna;
+	comecaLin = linha;
+
+	while ((c = fgetc(fp)) != EOF) {
+		char *cRec = (char *)malloc(sizeof(char));
+		if (cRec == NULL) {
+			return LEX_CondRetFaltouMemoria;
 		}
 
-		/* trata os conjuntos */
-		if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
-			c = '\a';
-		} else if (c >= '0' && c <= '9') {
-			c = '\x1';
-		} else if (c == ' ' || c == '\t' || c == '\n' || c == '\r') {
-			c = '\x2';
-		} /* if */
+		*cRec = c;
 
+		if (c == '\n') {
+			coluna = 1;
+			linha++;
+		} else {
+			coluna++;
+		}
+
+		printado = 0;
+
+		GRF_ObterValorCorrente(&estado);
+		//printf("%c %d col %d estado %d\n", c, c, coluna, estado->id); // TODO tirar
+		c = LEX_ConverteConjuntos(c);
 		GrfRetObtido = GRF_Andar((unsigned char) c);
+
+		GRF_ObterValorCorrente(&estado);
+		if (estado->tipo == LEX_TipoEstadoInicial) {
+			comecaCol = coluna;
+			comecaLin = linha;
+		}
 
 		if (GrfRetObtido == GRF_CondRetErroEstrutura) {
 			return LEX_CondRetErroModuloExt;
@@ -344,42 +372,34 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 		} /* if */
 
 		if (GrfRetObtido != GRF_CondRetOK) {
-			return LEX_CondRetErroSintaxeArquivo;
-		} /* if */
-
-		GrfRetObtido = GRF_ObterValorCorrente(&estado);
-		if (estado->tipo == LEX_TipoEstadoFinal) {
-			int ant = c;
-			c = fgetc(fp);
-			GrfRetObtido = GRF_Andar((unsigned char) c);
-
-			if (GrfRetObtido == GRF_CondRetErroEstrutura) {
-				return LEX_CondRetErroModuloExt;
-			} else if (GrfRetObtido == GRF_CondRetArestaNaoExiste) {
-				c = '\v'; /* tratar caso caractrere 'outros' */
-				GrfRetObtido = GRF_Andar((unsigned char) c);
-				if (GrfRetObtido == GRF_CondRetArestaNaoExiste) {
-					LEX_MostrarResultado(linha, coluna, estado->id, estado->nome);
-					ungetc(ant, fp); /* desfaz o fgetc no início do if
-							 que checava o próximo caractere */
-					if (GRF_IrVertice(&origem) != GRF_CondRetOK) {
-						return LEX_CondRetErroConfiguracao;
-					}
-				} else if (GrfRetObtido != GRF_CondRetOK) {
-					return LEX_CondRetErroSintaxeArquivo;
-				} /* if */
-			} else if (GrfRetObtido != GRF_CondRetOK) {
-				return LEX_CondRetErroSintaxeArquivo;
+			GrfRetObtido = GRF_ObterValorCorrente(&estado);
+			if (GrfRetObtido != GRF_CondRetOK) {
+				return LEX_CondRetErroConfiguracao;
 			} /* if */
+
+			if (estado->tipo == LEX_TipoEstadoFinal) {
+				printado = 1;
+
+				LEX_MostrarResultado(comecaLin, comecaCol, strReconhecida, estado->id,
+				                     estado->nome);
+				GRF_IrVertice(&origem);
+				comecaCol = coluna;
+				comecaLin = linha;
+			} /* if */
+
 		} /* if */
 
-		if (c == '\n') {
-			coluna = 1;
-			linha++;
-		} else {
-			coluna++;
-		} /* if */
+		if (LEX_ConverteConjuntos(*cRec) != '\x2') { /* não é caractere em branco */
+			LIS_InserirElementoApos(strReconhecida, cRec);
+		}
+
 	} /* while */
+
+	if (!printado) {
+		GRF_ObterValorCorrente(&estado);
+		LEX_MostrarResultado(comecaLin, comecaCol, strReconhecida, estado->id,
+		                     estado->nome);
+	}
 
 	return LEX_CondRetOK;
 }
@@ -392,10 +412,45 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 *     Mostra o resultado de um lexema
 *
 ***********************************************************************/
-LEX_tpCondRet LEX_MostrarResultado(int linha, int coluna, int id, char *nome)
+LEX_tpCondRet LEX_MostrarResultado(int linha, int coluna, LIS_tppLista lista,
+                                   int id, char *nome)
 {
-	printf("LINHA: %3d COLUNA: %3d ID: %3d NOME: %s\n", linha, coluna, id, nome);
+	printf("LINHA: %3d COLUNA: %3d ID: % 3d NOME: %20s STRING:\t", linha, coluna,
+	       id, nome);
+
+	IrInicioLista(lista);
+	do {
+		char *c = (char *) LIS_ObterValor(lista);
+		if (c != NULL) {
+			printf("%c", *c);
+		} /* if */
+	} while (LIS_AvancarElementoCorrente(lista, 1) == LIS_CondRetOK);
+	printf("\n");
+
+	LIS_EsvaziarLista(lista);
+
 	return LEX_CondRetOK;
+}
+
+/***********************************************************************
+*
+*  $FC Função: LEX Converte Conjuntos
+*
+*  $ED Descrição da função
+*     Trata os conjuntos de caracteres disponibilizados.
+*
+***********************************************************************/
+int LEX_ConverteConjuntos(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+		return '\a';
+	} else if (c >= '0' && c <= '9') {
+		return '\x1';
+	} else if (c == ' ' || c == '\t' || c == '\n' || c == '\r') {
+		return '\x2';
+	} /* if */
+
+	return c;
 }
 
 /********** Fim do módulo de implementação: Módulo de teste específico **********/

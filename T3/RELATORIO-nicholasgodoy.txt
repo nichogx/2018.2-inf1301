@@ -1,3 +1,4 @@
 Data            Horas Trabalhadas,      Tipo Tarefa,                                        Descrição da Tarefa Realizada
 2018-11-02      1                       Estudar                                             Estudar analisadores lexicos
                 4                       Codificar Modulo                                    Codificar modulo analisador lexico
+2018-11-06      5                       Cofificar Modulo                                    Codificar modulo analisador lexico
