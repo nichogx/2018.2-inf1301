@@ -11,9 +11,6 @@ h           =  ..\Fontes
 
 [Modulos]
 AnalisadorLexico
-Grafo
-Vertice
-Lista
 
 [BuildInicio]
 /OUT:..\Produto\TRAB3-1.exe
@@ -21,6 +18,7 @@ Lista
 /MACHINE:IX86
 
 [BuildFim]
+MinhaBiblioteca.lib
 ArcaboucoTeste.lib
 
 [Fim]
