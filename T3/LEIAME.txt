@@ -8,7 +8,7 @@ ANTES DE MAIS NADA
 COMO EXECUTAR O AUTÔMATO EXEMPLO DO TRAB3
 1 - 
 
-MUDANÇAS E OBSERVAÇÕES EM RELAÇÃO AO ENUNCIADO RECEBIDO
+MUDANÇAS E OBSERVAÇÕES IMPORTANTES EM RELAÇÃO AO ENUNCIADO RECEBIDO
  - Mesmo com a transformação dos módulos grafo, vértice e lista em uma biblioteca estática,
    foram incluídos os arquivos fonte desses módulos na pasta Fonte
  - Em vez de \l para designar o conjunto de todas as letras, foi usado o caractere \a
