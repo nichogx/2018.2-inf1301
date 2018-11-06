@@ -8,7 +8,9 @@ ANTES DE MAIS NADA
 COMO EXECUTAR O AUTÔMATO EXEMPLO DO TRAB3
 1 - 
 
-MUDANÇAS EM RELAÇÃO AO ENUNCIADO RECEBIDO
+MUDANÇAS E OBSERVAÇÕES EM RELAÇÃO AO ENUNCIADO RECEBIDO
+ - Mesmo com a transformação dos módulos grafo, vértice e lista em uma biblioteca estática,
+   foram incluídos os arquivos fonte desses módulos na pasta Fonte
  - Em vez de \l para designar o conjunto de todas as letras, foi usado o caractere \a
  - Em vez de \d para designar o conjunto dos dígitos decimais, foi usado o caractere \x1
  - Em vez de \o para designar o conjunto de todos os caracteres que não estão nos outros 
@@ -39,8 +41,8 @@ O campo string (nome) nos comandos que manipulam estados é necessário apenas s
 
 A estrutura básica de um script:
 1. Todos os scripts montados devem começar com =criar
-2. Deve ser adicionado um estado origem através de =addorigem
-3. Todos os estados intermediários e finais devem ser adicionados através do comando =inserir
+2. Todos os estados intermediários e finais devem ser adicionados através do comando =inserir
+3. Deve ser adicionado um estado origem através de =addorigem
 4. Todas as transições devem ser adicionadas através do comando =addtrans
 5. Inicie o teste através do comando =iniciar
 6. Todos os scripts montados devem terminar com =finalizar e =destruir.

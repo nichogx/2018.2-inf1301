@@ -21,15 +21,15 @@
 =criar
 
 == Configura os estados do analisador
-=addorigem 0 0
 =inserir 1 2 "identificador"
 =inserir 2 2 "numero inteiro"
 =inserir 3 2 "numero fracionario"
 =inserir 4 1
 =inserir 5 1
-=inserir 6 2 "comentario"
+=inserir 6 1
 =inserir 998 2 "erro"
 =inserir 999 2 "fim arquivo"
+=addorigem 0 0
 
 == Configura as transições do analisador
 =addtrans '\x2' 0 0
@@ -54,7 +54,7 @@
 =addtrans '\f' 0 999
 
 == Inicia análise
-=iniciar "teste.txt"
+=iniciar "../Scripts/analisador_1.txt"
 
 == Finaliza e destroi grafo
 =finalizar

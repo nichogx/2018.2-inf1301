@@ -16,7 +16,8 @@
 =criar
 
 == Configura os estados do analisador
-// adicione aqui a origem e os estados
+// adicione aqui os estados intermediários e finais
+// adicione aqui o estado inicial
 
 == Configura as transições do analisador
 // adicione aqui as transições do analisador
