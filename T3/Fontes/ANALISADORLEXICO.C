@@ -9,6 +9,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.51   ngx   07/11/2018 Documentação e comentários.
 *       1.50   ngx   06/11/2018 Recodificação da parte de análise, ainda não pronta.
 *       1.41   ngx   06/11/2018 Pequenas mudanças na documentação.
 *       1.40   ngx   02/11/2018 Primeira versão do analisador léxico.
@@ -21,7 +22,8 @@
 *       0.10   ngx   13/09/2018 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     // TODO
+*     Disponibiliza comandos para a configuração e utilização de um analizador
+*     léxico que analiza arquivos texto.
 *
 *  $EIU Interface com o usuário pessoa
 *     Comandos específicos para utilizar o analisador lexico:
@@ -321,8 +323,10 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 	GRF_tpCondRet GrfRetObtido;
 	LEX_tpEstado *estado;
 
-	/* sempre inserir no final e tirar do início */
+	/* pilha - sempre inserir no início e tirar do início */
 	LIS_tppLista pilha = LIS_CriarLista(free);
+	
+	/* fila - sempre inserir no final e tirar do início */
 	LIS_tppLista strReconhecida = LIS_CriarLista(free);
 
 	if ((fp = fopen(nomeArq, "r")) == NULL) {
@@ -354,7 +358,7 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 		printado = 0;
 
 		GRF_ObterValorCorrente(&estado);
-		//printf("%c %d col %d estado %d\n", c, c, coluna, estado->id); // TODO tirar
+
 		c = LEX_ConverteConjuntos(c);
 		GrfRetObtido = GRF_Andar((unsigned char) c);
 
