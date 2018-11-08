@@ -2,3 +2,10 @@
 3.0
 2.1
 eu sou um abacaxi legal
+isso eh um teste
+aqui_tem_identificador
+identificador_com_numero123123
+123
+1.1
+erro-aqui
+/* comentarios tambem funcionam */ e_sao_ignorados

@@ -9,6 +9,9 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       1.58   ngx   08/11/2018 Continuação da implementação do analisador léxico.
+*       1.52   ngx   08/11/2018 Correção de documentação e protótipo de uma das funções
+*                               encapsuladas.
 *       1.51   ngx   07/11/2018 Documentação e comentários.
 *       1.50   ngx   06/11/2018 Recodificação da parte de análise, ainda não pronta.
 *       1.41   ngx   06/11/2018 Pequenas mudanças na documentação.
@@ -52,7 +55,7 @@
 
 #include    "grafo.h"
 
-/* Tabela dos nomes dos comandos de teste específicos */
+/* Tabela dos nomes dos comandos */
 
 #define     CRIAR_GRF_CMD        "=criar"
 #define     DESTRUIR_GRF_CMD     "=destruir"
@@ -141,8 +144,8 @@ static LIS_tppLista endEstados = NULL;
 
 static LEX_tpCondRet LEX_Analisar(char *nomeArq);
 
-static LEX_tpCondRet LEX_MostrarResultado(int linha, int coluna, int id,
-                char *nome);
+static LEX_tpCondRet LEX_MostrarResultado(int linha, int coluna,
+                LIS_tppLista lista, int id, char *nome);
 
 static int LEX_ConverteConjuntos(int c);
 
@@ -203,7 +206,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		} /* if */
 
 		estado->id = id;
-		estado->tipo = tipo;
+		estado->tipo = (LEX_tpTipoEstado) tipo;
 		if (tipo == LEX_TipoEstadoFinal) {
 			strcpy(estado->nome, nome);
 		}
@@ -223,7 +226,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		} /* if */
 
 		origem.id = id;
-		origem.tipo = tipo;
+		origem.tipo = (LEX_tpTipoEstado) tipo;
 		if (tipo == LEX_TipoEstadoFinal) {
 			strcpy(origem.nome, nome);
 		}
@@ -247,9 +250,9 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 		} else { /* pesquisar na lista de estados */
 			IrInicioLista(endEstados);
 			do {
-				estOrigem = LIS_ObterValor(endEstados);
+				estOrigem = (LEX_tpEstado*) LIS_ObterValor(endEstados);
 				if (estOrigem == NULL) {
-					return LEX_CondRetErroConfiguracao;
+					return TST_CondRetNaoExecutou;
 				}
 			} while (LIS_AvancarElementoCorrente(endEstados, 1) != LIS_CondRetFimLista
 			         && estOrigem->id != idOrigem);
@@ -262,7 +265,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
 			do {
 				estDestino = LIS_ObterValor(endEstados);
 				if (estDestino == NULL) {
-					return LEX_CondRetErroConfiguracao;
+					return TST_CondRetNaoExecutou;
 				}
 			} while (LIS_AvancarElementoCorrente(endEstados, 1) != LIS_CondRetFimLista
 			         && estDestino->id != idDestino);
@@ -318,14 +321,15 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 	int coluna = 1;
 	int linha  = 1;
 	int printado = 1;
+	int deReleitura = 0;
 	int comecaCol, comecaLin;
 
 	GRF_tpCondRet GrfRetObtido;
 	LEX_tpEstado *estado;
 
 	/* pilha - sempre inserir no início e tirar do início */
-	LIS_tppLista pilha = LIS_CriarLista(free);
-	
+	LIS_tppLista pilhaReleit = LIS_CriarLista(NULL);
+
 	/* fila - sempre inserir no final e tirar do início */
 	LIS_tppLista strReconhecida = LIS_CriarLista(free);
 
@@ -340,15 +344,16 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 	comecaCol = coluna;
 	comecaLin = linha;
 
-	while ((c = fgetc(fp)) != EOF) {
-		char *cRec = (char *)malloc(sizeof(char));
+	c = fgetc(fp);
+	while (c != EOF) {
+		int *cRec = (int *)malloc(sizeof(int));
 		if (cRec == NULL) {
 			return LEX_CondRetFaltouMemoria;
 		}
 
 		*cRec = c;
 
-		if (c == '\n') {
+		if (c == '\n' && !deReleitura) {
 			coluna = 1;
 			linha++;
 		} else {
@@ -371,11 +376,17 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 		if (GrfRetObtido == GRF_CondRetErroEstrutura) {
 			return LEX_CondRetErroModuloExt;
 		} else if (GrfRetObtido == GRF_CondRetArestaNaoExiste) {
-			c = '\v'; /* tratar caso caractrere 'outros' */
-			GrfRetObtido = GRF_Andar((unsigned char) c);
+			/* tratar caso caractere 'outros' */
+			GrfRetObtido = GRF_Andar((unsigned char) '\v');
 		} /* if */
 
 		if (GrfRetObtido != GRF_CondRetOK) {
+			/* não pode mais transitar com o caractere
+			   disponível no fluxo */
+
+			IrInicioLista(pilhaReleit);
+			LIS_InserirElementoAntes(pilhaReleit, cRec);
+
 			GrfRetObtido = GRF_ObterValorCorrente(&estado);
 			if (GrfRetObtido != GRF_CondRetOK) {
 				return LEX_CondRetErroConfiguracao;
@@ -393,10 +404,20 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 
 		} /* if */
 
-		if (LEX_ConverteConjuntos(*cRec) != '\x2') { /* não é caractere em branco */
+		if (LEX_ConverteConjuntos(*cRec) != '\x2' && !deReleitura) {
+			/* não é caractere em branco e não é proveniente da pilha */
 			LIS_InserirElementoApos(strReconhecida, cRec);
 		}
 
+		IrInicioLista(pilhaReleit);
+		if (LIS_ObterValor(pilhaReleit) != NULL) {
+			c = *(int *) LIS_ObterValor(pilhaReleit);
+			deReleitura++;
+			LIS_ExcluirElemento(pilhaReleit);
+		} else {
+			deReleitura = 0;
+			c = fgetc(fp);
+		}
 	} /* while */
 
 	if (!printado) {
@@ -404,6 +425,9 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 		LEX_MostrarResultado(comecaLin, comecaCol, strReconhecida, estado->id,
 		                     estado->nome);
 	}
+
+	LIS_DestruirLista(strReconhecida);
+	LIS_DestruirLista(pilhaReleit);
 
 	return LEX_CondRetOK;
 }
@@ -419,7 +443,7 @@ LEX_tpCondRet LEX_Analisar(char *nomeArq)
 LEX_tpCondRet LEX_MostrarResultado(int linha, int coluna, LIS_tppLista lista,
                                    int id, char *nome)
 {
-	printf("LINHA: %3d COLUNA: %3d ID: % 3d NOME: %20s STRING:\t", linha, coluna,
+	printf("LINHA: %3d COLUNA: %3d ID: %3d NOME: %20s STRING:  ", linha, coluna,
 	       id, nome);
 
 	IrInicioLista(lista);
