@@ -6,7 +6,7 @@ ANTES DE MAIS NADA
 3 - Rode o arquivo configurar.bat. Os arquivos serão renomeados conforme necessário
 
 COMO EXECUTAR O AUTÔMATO EXEMPLO DO TRAB3
-1 - 
+1 - Dentro da mesma pasta anterior, rode o arquivo start.bat
 
 MUDANÇAS E OBSERVAÇÕES IMPORTANTES EM RELAÇÃO AO ENUNCIADO RECEBIDO
  - Mesmo com a transformação dos módulos grafo, vértice e lista em uma biblioteca estática,
@@ -42,7 +42,7 @@ O campo string (nome) nos comandos que manipulam estados é necessário apenas s
 A estrutura básica de um script:
 1. Todos os scripts montados devem começar com =criar
 2. Todos os estados intermediários e finais devem ser adicionados através do comando =inserir
-3. Deve ser adicionado um estado origem através de =addorigem
+3. Deve ser adicionado um estado origem através de =addorigem. A origem deve ser o último estado a ser inserido.
 4. Todas as transições devem ser adicionadas através do comando =addtrans
 5. Inicie o teste através do comando =iniciar
 6. Todos os scripts montados devem terminar com =finalizar e =destruir.
