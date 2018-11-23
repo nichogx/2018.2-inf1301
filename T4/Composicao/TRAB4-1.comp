@@ -1,0 +1,22 @@
+[Diretorios]
+
+Nome        =  TRAB4-1
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+
+[Modulos]
+TestLis
+Lista
+
+[BuildInicio]
+/OUT:..\Produto\TRAB4-1.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]
