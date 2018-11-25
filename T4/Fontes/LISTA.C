@@ -10,9 +10,11 @@
 *  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
+*           ngx - Nicholas Godoy
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     4.1     ngx   25/nov/2018 início da transformação em estrutura auto verificadora
 *     4       avs   01/fev/2006 criar linguagem script simbólica
 *     3       avs   08/dez/2004 uniformização dos exemplos
 *     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
