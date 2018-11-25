@@ -27,7 +27,7 @@
 #include   <assert.h>
 
 #ifdef _DEBUG
-#include "CESPDIN.H"
+   #include "CESPDIN.H"
 #endif
 
 #define LISTA_OWN
@@ -42,6 +42,16 @@
 ***********************************************************************/
 
    typedef struct tagElemLista {
+         #ifdef _DEBUG
+         int tamApontado;
+               /* Tamanho do conteúdo apontado, em bytes */
+
+         char tipoApontado[11];
+               /* Cadeia de caracteres que indica o tipo apontado */
+
+         struct LIS_tagLista * pCabeca;
+               /* Ponteiro para a cabeça a qual o elemento pertence */
+         #endif
 
          void * pValor ;
                /* Ponteiro para o valor contido no elemento */
@@ -62,6 +72,10 @@
 ***********************************************************************/
 
    typedef struct LIS_tagLista {
+         #ifdef _DEBUG
+         char tipoApontado[11];
+               /* Cadeia de caracteres que indica o tipo apontado */
+         #endif
 
          tpElemLista * pOrigemLista ;
                /* Ponteiro para a origem da lista */
@@ -98,7 +112,11 @@
 *  ****/
 
    LIS_tppLista LIS_CriarLista(
-             void   ( * ExcluirValor ) ( void * pDado ) )
+             void   ( * ExcluirValor ) ( void * pDado )
+             #ifdef _DEBUG
+             , char *tipo
+             #endif
+   )
    {
 
       LIS_tpLista * pLista = NULL ;
@@ -110,6 +128,10 @@
       } /* if */
 
       LimparCabeca( pLista ) ;
+
+      #ifdef _DEBUG
+         strncpy(pLista->tipoApontado, tipo, 10);
+      #endif
 
       pLista->ExcluirValor = ExcluirValor ;
 
@@ -168,7 +190,12 @@
 *  ****/
 
    LIS_tpCondRet LIS_InserirElementoAntes( LIS_tppLista pLista ,
-                                           void * pValor        )
+                                           void * pValor
+                                           #ifdef _DEBUG
+                                           , int tamBytes,
+                                             char * tipoApontado
+                                           #endif
+    )
    {
 
       tpElemLista * pElem ;
@@ -177,13 +204,19 @@
          assert( pLista != NULL ) ;
       #endif
 
-      /* Criar elemento a inerir antes */
+      /* Criar elemento a inserir antes */
 
          pElem = CriarElemento( pLista , pValor ) ;
          if ( pElem == NULL )
          {
             return LIS_CondRetFaltouMemoria ;
          } /* if */
+
+         #ifdef _DEBUG
+            pElem->tamApontado = tamBytes;
+            strncpy(pElem->tipoApontado, tipoApontado, 10);
+            pElem->pCabeca = pLista;
+         #endif
 
       /* Encadear o elemento antes do elemento corrente */
 
@@ -218,8 +251,12 @@
 *  ****/
 
    LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista pLista ,
-                                          void * pValor        )
-      
+                                          void * pValor
+                                          #ifdef _DEBUG
+                                          , int tamBytes,
+                                            char * tipoApontado
+                                          #endif
+    )  
    {
 
       tpElemLista * pElem ;
@@ -235,6 +272,12 @@
          {
             return LIS_CondRetFaltouMemoria ;
          } /* if */
+
+         #ifdef _DEBUG
+            pElem->tamApontado = tamBytes;
+            strncpy(pElem->tipoApontado, tipoApontado, 10);
+            pElem->pCabeca = pLista;
+         #endif
 
       /* Encadear o elemento após o elemento */
 
@@ -522,7 +565,7 @@
 ***********************************************************************/
 
    tpElemLista * CriarElemento( LIS_tppLista pLista ,
-                                void *       pValor  )
+                                void *       pValor )
    {
 
       tpElemLista * pElem ;

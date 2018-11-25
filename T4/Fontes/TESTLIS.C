@@ -145,7 +145,11 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             vtListas[ inxLista ] =
-                 LIS_CriarLista( DestruirValor ) ;
+                 LIS_CriarLista( DestruirValor 
+                                 #ifdef _DEBUG
+                                 , "string"
+                                 #endif
+                 ) ;
 
             return TST_CompararPonteiroNulo( 1 , vtListas[ inxLista ] ,
                "Erro em ponteiro de nova lista."  ) ;
@@ -216,7 +220,12 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             strcpy( pDado , StringDado ) ;
 
 
-            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] , pDado ) ;
+            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] , pDado 
+                                                #ifdef _DEBUG 
+                                                , strlen( StringDado ) + 1 , 
+                                                  "string" 
+                                                #endif
+            ) ;
 
             if ( CondRet != LIS_CondRetOK )
             {
@@ -251,7 +260,12 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             strcpy( pDado , StringDado ) ;
 
 
-            CondRet = LIS_InserirElementoApos( vtListas[ inxLista ] , pDado ) ;
+            CondRet = LIS_InserirElementoApos( vtListas[ inxLista ] , pDado 
+                                                #ifdef _DEBUG 
+                                                , strlen( StringDado ) + 1 , 
+                                                  "string" 
+                                                #endif
+            ) ;
 
             if ( CondRet != LIS_CondRetOK )
             {
