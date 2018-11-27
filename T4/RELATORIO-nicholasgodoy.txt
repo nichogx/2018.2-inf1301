@@ -2,3 +2,6 @@ Data            Horas Trabalhadas,      Tipo Tarefa,                            
 2018-11-23      1                       Estudar                                             Estudar o módulo CESPDIN.
                 1                       Codificar Módulo                                    Iniciar o desenvolvimento do trabalho.
 2018-11-25      2                       Codificar Módulo                                    Início da transformação da lista em estrutura auto verificadora.
+2018-11-27      1                       Estudar                                             Estudar os módulos CONTA e INTRPCNT.
+                2                       Codificar Módulo                                    Utilização do módulo CONTA no módulo LISTA. 
+                                                                                            Criação de novos casos de teste para LISTA, usando INTRPCNT e INTRPCED.
