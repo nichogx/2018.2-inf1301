@@ -48,6 +48,8 @@ static const char EXC_ELEM_CMD            [ ] = "=excluirelem"    ;
 static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
 static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
 static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
+static const char PROCURAR_VAL_CMD        [ ] = "=procurarval"    ;
+static const char INS_PONT_CONHECIDO_CMD  [ ] = "=insconhecido"   ;
 
 #ifdef _DEBUG
 /* verifica que não há NENHUM espaço ainda alocado */
@@ -64,6 +66,8 @@ static const char VERIFICAR_MEM_CMD       [ ] = "=verificarmemoria" ;
 #define DIM_VALOR     100
 
 LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
+
+static char * ponteiroConhecido = NULL ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
@@ -390,18 +394,81 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
          } /* fim ativa: LIS  &Avançar elemento */
 
-      #ifdef _DEBUG
-      /* verificar espaços alocados */
+      /* LIS  &Procurar elemento contendo valor */
 
-         else if ( strcmp( ComandoTeste , VERIFICAR_MEM_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , PROCURAR_VAL_CMD ) == 0 )
          {
 
-            return TST_CompararInt( 0 , CED_ObterNumeroEspacosAlocados( ) ,
-                      "Ainda existem espaços alocados" ) ;
+            char * aProcurar = ponteiroConhecido ;
 
-         } /* fim ativa: verificar espaços alocados */
-      #endif
+            numLidos = LER_LerParametros( "isi" , &inxLista , StringDado ,
+                                &CondRetEsp ) ;
 
+            if ( ( numLidos != 3 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            if ( strcmp ( StringDado , "conhecido" ) != 0 )
+            {
+               aProcurar = StringDado ;
+               /* não vai encontrar, não é o mesmo endereço */
+            }
+
+            return TST_CompararInt( CondRetEsp ,
+                      LIS_ProcurarValor( vtListas[ inxLista ] , aProcurar ) ,
+                      "Condicao de retorno errada ao procurar valor" ) ;
+
+         } /* fim ativa: LIS  &Procurar elemento contendo valor */
+
+      /* inserir ponteiro conhecido para busca */
+
+         else if ( strcmp( ComandoTeste , INS_PONT_CONHECIDO_CMD ) == 0 )
+         {
+
+            char * aInserir = "um ponteiro conhecido" ;
+
+            numLidos = LER_LerParametros( "ii" , &inxLista ,
+                                &CondRetEsp ) ;
+
+            if ( ( numLidos != 2 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            if ( ponteiroConhecido != NULL )
+            {
+               return TST_NotificarFalha( 
+                         "Esse comando deve ser executado apenas uma vez por script" ) ;
+            }
+
+            ponteiroConhecido = ( char * ) malloc( strlen( aInserir ) + 1 ) ;
+            if ( ponteiroConhecido == NULL )
+            {
+               return TST_CondRetMemoria ;
+            } /* if */
+
+            strcpy( ponteiroConhecido , aInserir ) ;
+
+
+            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] , ponteiroConhecido 
+                                                #ifdef _DEBUG 
+                                                , strlen( StringDado ) + 1 , 
+                                                  "string" 
+                                                #endif
+            ) ;
+
+            if ( CondRet != LIS_CondRetOK )
+            {
+               free( ponteiroConhecido ) ;
+            } /* if */
+
+            return TST_CompararInt( CondRetEsp , CondRet ,
+                     "Condicao de retorno errada ao inserir ponteiro conhecido." ) ;
+
+         } /* fim ativa: inserir ponteiro conhecido para busca */
 
       return TST_CondRetNaoConhec ;
 

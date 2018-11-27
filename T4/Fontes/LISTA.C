@@ -30,6 +30,7 @@
 
 #ifdef _DEBUG
    #include "CESPDIN.H"
+   #include "CONTA.H"
 #endif
 
 #define LISTA_OWN
@@ -106,6 +107,13 @@
 
    static void LimparCabeca( LIS_tppLista pLista ) ;
 
+/*****  Código das funções de deturpação e verificação
+        exportadas pelo módulo                           *****/
+
+#ifdef _DEBUG
+
+#endif
+
 /*****  Código das funções exportadas pelo módulo  *****/
 
 /***************************************************************************
@@ -177,6 +185,9 @@
       pElem = pLista->pOrigemLista ;
       while ( pElem != NULL )
       {
+         #ifdef _DEBUG
+            CNT_CONTAR("LIS_EsvaziarLista pElem_dif_NULL");
+         #endif
          pProx = pElem->pProx ;
          LiberarElemento( pLista , pElem ) ;
          pElem = pProx ;
@@ -224,16 +235,25 @@
 
          if ( pLista->pElemCorr == NULL )
          {
+            #ifdef _DEBUG
+               CNT_CONTAR("LIS_InserirElementoAntes lista_era_vazia");
+            #endif
             pLista->pOrigemLista = pElem ;
             pLista->pFimLista = pElem ;
          } else
          {
             if ( pLista->pElemCorr->pAnt != NULL )
             {
+               #ifdef _DEBUG
+                  CNT_CONTAR("LIS_InserirElementoAntes el_corrente_nao_primeiro");
+               #endif
                pElem->pAnt  = pLista->pElemCorr->pAnt ;
                pLista->pElemCorr->pAnt->pProx = pElem ;
             } else
             {
+               #ifdef _DEBUG
+                  CNT_CONTAR("LIS_InserirElementoAntes el_corrente_primeiro");
+               #endif
                pLista->pOrigemLista = pElem ;
             } /* if */
 
@@ -285,16 +305,25 @@
 
          if ( pLista->pElemCorr == NULL )
          {
+            #ifdef _DEBUG
+               CNT_CONTAR("LIS_InserirElementoApos lista_era_vazia");
+            #endif
             pLista->pOrigemLista = pElem ;
             pLista->pFimLista = pElem ;
          } else
          {
             if ( pLista->pElemCorr->pProx != NULL )
             {
+               #ifdef _DEBUG
+                  CNT_CONTAR("LIS_InserirElementoApos el_corrente_nao_ultimo");
+               #endif
                pElem->pProx  = pLista->pElemCorr->pProx ;
                pLista->pElemCorr->pProx->pAnt = pElem ;
             } else
             {
+               #ifdef _DEBUG
+                  CNT_CONTAR("LIS_InserirElementoApos el_corrente_ultimo");
+               #endif
                pLista->pFimLista = pElem ;
             } /* if */
 
@@ -325,6 +354,9 @@
 
       if ( pLista->pElemCorr == NULL )
       {
+         #ifdef _DEBUG
+            CNT_CONTAR("LIS_ExcluirElemento lista_era_vazia");
+         #endif
          return LIS_CondRetListaVazia ;
       } /* if */
 
@@ -334,9 +366,15 @@
 
          if ( pElem->pAnt != NULL )
          {
+            #ifdef _DEBUG
+               CNT_CONTAR("LIS_ExcluirElemento nao_era_primeiro");
+            #endif
             pElem->pAnt->pProx   = pElem->pProx ;
             pLista->pElemCorr    = pElem->pAnt ;
          } else {
+            #ifdef _DEBUG
+               CNT_CONTAR("LIS_ExcluirElemento era_primeiro");
+            #endif
             pLista->pElemCorr    = pElem->pProx ;
             pLista->pOrigemLista = pLista->pElemCorr ;
          } /* if */
@@ -345,9 +383,15 @@
 
          if ( pElem->pProx != NULL )
          {
+            #ifdef _DEBUG
+               CNT_CONTAR("LIS_ExcluirElemento nao_era_ultimo");
+            #endif
             pElem->pProx->pAnt = pElem->pAnt ;
          } else
          {
+            #ifdef _DEBUG
+               CNT_CONTAR("LIS_ExcluirElemento era_ultimo");
+            #endif
             pLista->pFimLista = pElem->pAnt ;
          } /* if */
 
@@ -371,6 +415,9 @@
 
       if ( pLista->pElemCorr == NULL )
       {
+         #ifdef _DEBUG
+            CNT_CONTAR("LIS_ObterValor nao_tem_corrente");
+         #endif
         return NULL ;
       } /* if */
 
@@ -431,6 +478,9 @@
 
          if ( pLista->pElemCorr == NULL )
          {
+            #ifdef _DEBUG
+               CNT_CONTAR("LIS_AvancarElementoCorrente lista_era_vazia");
+            #endif
 
             return LIS_CondRetListaVazia ;
 
@@ -440,12 +490,14 @@
 
          if ( numElem > 0 )
          {
-
             pElem = pLista->pElemCorr ;
             for( i = numElem ; i > 0 ; i-- )
             {
                if ( pElem == NULL )
                {
+                  #ifdef _DEBUG
+                     CNT_CONTAR("LIS_AvancarElementoCorrente maior_zero_pElem_virou_NULL");
+                  #endif
                   break ;
                } /* if */
                pElem    = pElem->pProx ;
@@ -453,6 +505,9 @@
 
             if ( pElem != NULL )
             {
+               #ifdef _DEBUG
+                  CNT_CONTAR("LIS_AvancarElementoCorrente maior_zero_pElem_nao_NULL");
+               #endif
                pLista->pElemCorr = pElem ;
                return LIS_CondRetOK ;
             } /* if */
@@ -472,6 +527,9 @@
             {
                if ( pElem == NULL )
                {
+                  #ifdef _DEBUG
+                     CNT_CONTAR("LIS_AvancarElementoCorrente menor_zero_pElem_virou_NULL");
+                  #endif
                   break ;
                } /* if */
                pElem    = pElem->pAnt ;
@@ -479,6 +537,9 @@
 
             if ( pElem != NULL )
             {
+               #ifdef _DEBUG
+                  CNT_CONTAR("LIS_AvancarElementoCorrente menor_zero_pElem_nao_NULL");
+               #endif
                pLista->pElemCorr = pElem ;
                return LIS_CondRetOK ;
             } /* if */
@@ -511,6 +572,9 @@
 
       if ( pLista->pElemCorr == NULL )
       {
+         #ifdef _DEBUG
+            CNT_CONTAR("LIS_ProcurarValor lista_era_vazia");
+         #endif
          return LIS_CondRetListaVazia ;
       } /* if */
 
@@ -520,6 +584,9 @@
       {
          if ( pElem->pValor == pValor )
          {
+            #ifdef _DEBUG
+               CNT_CONTAR("LIS_ProcurarValor achou");
+            #endif
             pLista->pElemCorr = pElem ;
             return LIS_CondRetOK ;
          } /* if */
@@ -550,6 +617,9 @@
       if ( ( pLista->ExcluirValor != NULL )
         && ( pElem->pValor != NULL        ))
       {
+         #ifdef _DEBUG
+            CNT_CONTAR("LiberarElemento if");
+         #endif
          pLista->ExcluirValor( pElem->pValor ) ;
       } /* if */
 
