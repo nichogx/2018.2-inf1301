@@ -1,0 +1,55 @@
+////////////////////////////////////////////////
+//
+// Declaração de contadores para teste
+// do módulo lista
+//
+///////////////////////////////////////////////
+
+// FUNÇÃO: LIS_CriarLista
+// não existem contadores
+
+// FUNÇÃO: LIS_DestruirLista
+// não existem contadores
+
+// FUNÇÃO: LIS_EsvaziarLista
+   LIS_EsvaziarLista pElem_dif_NULL\=0
+
+// FUNÇÃO: LIS_InserirElementoAntes
+   LIS_InserirElementoAntes lista_era_vazia\=0
+   LIS_InserirElementoAntes el_corrente_nao_primeiro\=0
+   LIS_InserirElementoAntes el_corrente_primeiro\=0
+
+// FUNÇÃO: LIS_InserirElementoApos
+   LIS_InserirElementoApos lista_era_vazia\=0
+   LIS_InserirElementoApos el_corrente_nao_ultimo\=0
+   LIS_InserirElementoApos el_corrente_ultimo\=0
+
+// FUNÇÃO: LIS_ExcluirElemento
+   LIS_ExcluirElemento lista_era_vazia\=0
+   LIS_ExcluirElemento nao_era_primeiro\=0
+   LIS_ExcluirElemento era_primeiro\=0
+   LIS_ExcluirElemento nao_era_ultimo\=0
+   LIS_ExcluirElemento era_ultimo\=0
+
+// FUNÇÃO: LIS_ObterValor
+   LIS_ObterValor nao_tem_corrente\=0
+
+// FUNÇÃO: IrInicioLista
+// não existem contadores
+
+// FUNÇÃO: IrFinalLista
+// não existem contadores
+
+// FUNÇÃO: LIS_AvancarElementoCorrente
+   LIS_AvancarElementoCorrente lista_era_vazia\=0
+   LIS_AvancarElementoCorrente maior_zero_pElem_virou_NULL\=0
+   LIS_AvancarElementoCorrente maior_zero_pElem_nao_NULL\=0
+   LIS_AvancarElementoCorrente menor_zero_pElem_virou_NULL\=0
+   LIS_AvancarElementoCorrente menor_zero_pElem_nao_NULL\=0
+
+// FUNÇÃO: LIS_ProcurarValor
+   LIS_ProcurarValor lista_era_vazia\=0
+   LIS_ProcurarValor achou\=0
+
+// OUTROS
+   LiberarElemento if\=0
