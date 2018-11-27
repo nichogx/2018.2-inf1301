@@ -14,7 +14,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     4.1     ngx   25/nov/2018 início da transformação em estrutura auto verificadora
+*     4.30    ngx   27/nov/2018 utilização do módulo conta, novos casos de teste
+*     4.10    ngx   25/nov/2018 início da transformação em estrutura auto verificadora
 *     4       avs   01/fev/2006 criar linguagem script simbólica
 *     3       avs   08/dez/2004 uniformização dos exemplos
 *     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
