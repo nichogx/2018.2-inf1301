@@ -139,7 +139,7 @@
 =criarlista      lista2
 
 == Procurar valor em lista vazia
-=procurarval     lista2   "conhecido"  ListaVazia
+=procurarval     lista2   1  ListaVazia
 
 == Inserir antes em lista vazia
 =inselemantes    lista2   str0   OK
@@ -153,11 +153,11 @@
 =irfinal         lista2
 
 == Procurar valor conhecido na lista
-=insconhecido    lista2                OK
-=procurarval     lista2   "conhecido"  OK
+=insconhecido    lista2   1  OK
+=procurarval     lista2   1  OK
 
 == Procurar valor inexistente na lista
-=procurarval     lista2   str2   NaoAchou
+=procurarval     lista2   3   NaoAchou
 
 == Destruir a lista
 =destruirlista   lista2

@@ -70,8 +70,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
 #ifdef _DEBUG
 
-   static char * ponteiroConhecido[3] = { "pont conhecido 0", "pont conhecido 1"
-                                          "pont conhecido 2" } ;
+   static char * ponteiroConhecido[3] = { NULL, NULL, NULL } ;
 
 #endif
 
@@ -406,8 +405,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
          else if ( strcmp( ComandoTeste , PROCURAR_VAL_CMD ) == 0 )
          {
 
-            int numPont = 0;
-            char * aProcurar = NULL;
+            int numPont = 0 ;
+            char * aProcurar = NULL ;
 
             numLidos = LER_LerParametros( "iii" , &inxLista , &numPont ,
                                 &CondRetEsp ) ;
@@ -419,7 +418,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            if ( numPont != 4 )
+            if ( numPont != 3 )
             {
                aProcurar = ponteiroConhecido[numPont] ;
             }
@@ -435,17 +434,24 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
          else if ( strcmp( ComandoTeste , INS_PONT_CONHECIDO_CMD ) == 0 )
          {
 
-            int numPont = 0;
+            int numPont = 0 ;
+			char * msg = "string de ponteiro conhecido" ;
 
             numLidos = LER_LerParametros( "iii" , &inxLista , &numPont ,
                                 &CondRetEsp ) ;
 
-            if ( ( numLidos != 2 )
+            if ( ( numLidos != 3 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO ))
               || ( numPont < 0 ) || ( numPont > 2 ) )
             {
                return TST_CondRetParm ;
             } /* if */
+
+            ponteiroConhecido[numPont] = malloc( strlen ( msg ) + 1 ) ;
+            if ( ponteiroConhecido[numPont] == NULL )
+            {
+               return TST_CondRetMemoria ;
+            }
 
             CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] ,
                                                 ponteiroConhecido[numPont]
