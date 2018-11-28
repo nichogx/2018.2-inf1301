@@ -437,7 +437,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             int numPont = 0;
 
-            numLidos = LER_LerParametros( "iii" , &inxLista , &numPont
+            numLidos = LER_LerParametros( "iii" , &inxLista , &numPont ,
                                 &CondRetEsp ) ;
 
             if ( ( numLidos != 2 )
@@ -459,11 +459,11 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                      "Condicao de retorno errada ao inserir ponteiro conhecido." ) ;
 
          } /* fim ativa: inserir ponteiro conhecido para busca */
+      #endif
 
       return TST_CondRetNaoConhec ;
 
    } /* Fim função: TLIS &Testar lista */
-   #endif
 
 
 /*****  Código das funções encapsuladas no módulo  *****/
