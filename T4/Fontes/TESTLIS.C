@@ -68,7 +68,12 @@ static const char VERIFICAR_MEM_CMD       [ ] = "=verificarmemoria" ;
 
 LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
-static char * ponteiroConhecido = NULL ;
+#ifdef _DEBUG
+
+   static char * ponteiroConhecido[3] = { "pont conhecido 0", "pont conhecido 1"
+                                          "pont conhecido 2" } ;
+
+#endif
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
@@ -395,26 +400,28 @@ static char * ponteiroConhecido = NULL ;
 
          } /* fim ativa: LIS  &Avançar elemento */
 
+      #ifdef _DEBUG
       /* LIS  &Procurar elemento contendo valor */
 
          else if ( strcmp( ComandoTeste , PROCURAR_VAL_CMD ) == 0 )
          {
 
-            char * aProcurar = ponteiroConhecido ;
+            int numPont = 0;
+            char * aProcurar = NULL;
 
-            numLidos = LER_LerParametros( "isi" , &inxLista , StringDado ,
+            numLidos = LER_LerParametros( "iii" , &inxLista , &numPont ,
                                 &CondRetEsp ) ;
 
             if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO ))
+              || ( numPont < 0 ) || ( numPont > 3 ) )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            if ( strcmp ( StringDado , "conhecido" ) != 0 )
+            if ( numPont != 4 )
             {
-               aProcurar = StringDado ;
-               /* não vai encontrar, não é o mesmo endereço */
+               aProcurar = ponteiroConhecido[numPont] ;
             }
 
             return TST_CompararInt( CondRetEsp ,
@@ -428,43 +435,25 @@ static char * ponteiroConhecido = NULL ;
          else if ( strcmp( ComandoTeste , INS_PONT_CONHECIDO_CMD ) == 0 )
          {
 
-            char * aInserir = "um ponteiro conhecido" ;
+            int numPont = 0;
 
-            numLidos = LER_LerParametros( "ii" , &inxLista ,
+            numLidos = LER_LerParametros( "iii" , &inxLista , &numPont
                                 &CondRetEsp ) ;
 
             if ( ( numLidos != 2 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO ))
+              || ( numPont < 0 ) || ( numPont > 2 ) )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            if ( ponteiroConhecido != NULL )
-            {
-               return TST_NotificarFalha( 
-                         "Esse comando deve ser executado apenas uma vez por script" ) ;
-            }
-
-            ponteiroConhecido = ( char * ) malloc( strlen( aInserir ) + 1 ) ;
-            if ( ponteiroConhecido == NULL )
-            {
-               return TST_CondRetMemoria ;
-            } /* if */
-
-            strcpy( ponteiroConhecido , aInserir ) ;
-
-
-            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] , ponteiroConhecido 
+            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] ,
+                                                ponteiroConhecido[numPont]
                                                 #ifdef _DEBUG 
                                                 , strlen( StringDado ) + 1 , 
                                                   "string" 
                                                 #endif
             ) ;
-
-            if ( CondRet != LIS_CondRetOK )
-            {
-               free( ponteiroConhecido ) ;
-            } /* if */
 
             return TST_CompararInt( CondRetEsp , CondRet ,
                      "Condicao de retorno errada ao inserir ponteiro conhecido." ) ;
@@ -474,6 +463,7 @@ static char * ponteiroConhecido = NULL ;
       return TST_CondRetNaoConhec ;
 
    } /* Fim função: TLIS &Testar lista */
+   #endif
 
 
 /*****  Código das funções encapsuladas no módulo  *****/

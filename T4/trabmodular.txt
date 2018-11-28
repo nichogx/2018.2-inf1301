@@ -1,0 +1,13 @@
+Passo 1: transformar em auto-verificável
+
+Passo 2: incluir os campos na estrutura auto-verificável
+
+Passo 3: criar o verificador
+	- faz a verificação completa da estrutura ( o que está apontando, encadeamento ... )
+
+Passo 4: criar o deturpador
+
+Passo 5: fazer as complementações ao verificador (pedido no enunciado) (para acusar as deturpações)
+
+Passo 6: criar controlador de cobertura, criar script
+
