@@ -17,7 +17,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     4.1     ngx   25/nov/2018 início da transformação em estrutura auto verificadora
+*     4.40    ngx   29/nov/2018 adicionada função de deturpação e modos de deturpação
+*     4.10    ngx   25/nov/2018 início da transformação em estrutura auto verificadora
 *     4       avs   01/fev/2006 criar linguagem script simbólica
 *     3       avs   08/dez/2004 uniformização dos exemplos
 *     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
@@ -65,6 +66,80 @@
 
 typedef struct LIS_tagLista * LIS_tppLista ;
 
+#ifdef _DEBUG
+
+/***********************************************************************
+*
+*  $TC Tipo de dados: LIS Modos de deturpar
+*
+*
+***********************************************************************/
+
+   typedef enum {
+
+         DeturpaElimCorrente = 1 ,
+               /* elimina o elemento corrente da lista */
+
+         DeturpaProxNULL = 2 ,
+               /* atribui NULL ao ponteiro para o próximo nó */
+
+         DeturpaAntNULL = 3 ,
+               /* atribui NULL ao ponteiro para o nó anterior */
+
+         DeturpaProxLixo = 4 ,
+               /* atribui lixo ao ponteiro para o próximo nó */
+
+         DeturpaAntLixo = 5 ,
+               /* atribui lixo ao ponteiro para o nó anterior */
+
+         DeturpaConteudoNULL = 6 ,
+               /* atribui NULL ao ponteiro para o conteúdo do nó */
+
+         DeturpaTipoNo = 7 ,
+               /* altera o tipo de estrutura apontado no nó */
+
+         DeturpaTiraSemLiberar = 8 ,
+               /* desencadeia nó sem liberá-lo com free */
+
+         DeturpaCorrenteNULL = 9 ,
+               /* atribui NULL ao ponteiro corrente */
+
+         DeturpaOrigemNULL = 10 ,
+               /* atribui NULL ao ponteiro de origem */
+
+         DeturpaFinalNULL = 11 ,
+               /* atribui NULL ao ponteiro de fim da lista */
+
+         DeturpaTipoCabeca = 12 ,
+               /* modifica o tipo de estrutura na cabeça */
+
+         DeturpaCabecaNULL = 13 ,
+               /* atribui NULL ao ponteiro cabeça */
+
+         DeturpaCabecaLixo = 14 ,
+               /* atribui lixo ao ponteiro cabeça */
+
+         DeturpaTamanho = 15 ,
+               /* modifica o tamanho do conteúdo apontado no corrente para um a mais */
+
+         DeturpaNumElem = 16 ,
+               /* modifica o inteiro que guarda número de elementos para um a mais */
+
+         DeturpaFuncNULL = 17 ,
+               /* atribui NULL ao ponteiro de função que libera o conteúdo */
+
+         DeturpaCorrenteLixo = 18 ,
+               /* atribui lico ao ponteiro corrente */
+
+         DeturpaOrigemLixo = 19 ,
+               /* atribui lixo ao ponteiro de origem */
+
+         DeturpaFinalLixo = 20 ,
+               /* atribui lixo ao ponteiro de fim da lista */
+
+   } LIS_tpModosDeturpacao ;
+
+#endif
 
 /***********************************************************************
 *
@@ -352,6 +427,34 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
    LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista pLista ,
                                     void * pValor        ) ;
+
+#ifdef _DEBUG
+
+/***********************************************************************
+*
+*  $FC Função: LIS  &Deturpar lista
+*
+*  $ED Descrição da função
+*     Função da interface de teste.
+*     Corrompe elementos específicos da estrutura da lista.
+*     Essa função destina-se a preparar os cenários de teste dos
+*     casos de teste utilizados ao testar os verificadores estruturais
+*     da lista.
+*     Esta função não tem proteção contra erros de uso, consequentemente
+*     poderá levar o programa a ser cancelado pelo sistema operacional.
+*
+*  $EP Parâmetros
+*     pLista       - ponteiro para a lista a ser deturpada
+*     ModoDeturpar - identifica como deve ser feita a deturpação
+*                    LIS_tpModosDeturpacao identifica os modos de
+*                    deturpação conhecidos
+*
+***********************************************************************/
+
+   void LIS_Deturpar( LIS_tppLista pLista ,
+                      LIS_tpModosDeturpacao ModoDeturpar ) ;
+
+#endif
 
 #undef LISTA_EXT
 

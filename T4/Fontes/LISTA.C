@@ -14,6 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     4.40    ngx   29/nov/2018 adicionada função de deturpação e modos de deturpação
 *     4.30    ngx   27/nov/2018 utilização do módulo conta, novos casos de teste
 *     4.10    ngx   25/nov/2018 início da transformação em estrutura auto verificadora
 *     4       avs   01/fev/2006 criar linguagem script simbólica
@@ -98,7 +99,7 @@
 
    } LIS_tpLista ;
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/*****  Protótipos das funções encapuladas no módulo  *****/
 
    static void LiberarElemento( LIS_tppLista   pLista ,
                                 tpElemLista  * pElem   ) ;
@@ -108,12 +109,15 @@
 
    static void LimparCabeca( LIS_tppLista pLista ) ;
 
-/*****  Código das funções de deturpação e verificação
-        exportadas pelo módulo                           *****/
+/*****  Dados encapsulados no módulo  *****/
 
-#ifdef _DEBUG
+   #ifdef _DEBUG
 
-#endif
+   static char EspacoLixo[ 256 ] =
+          "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" ;
+         /* Espaço de dados lixo usado ao testar */
+
+   #endif
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -596,6 +600,315 @@
       return LIS_CondRetNaoAchou ;
 
    } /* Fim função: LIS  &Procurar elemento contendo valor */
+
+#ifdef _DEBUG
+
+/***************************************************************************
+*
+*  Função: LIS  &Deturpar lista
+*  ****/
+
+   void LIS_Deturpar( LIS_tppLista pLista ,
+                      LIS_tpModosDeturpacao ModoDeturpar )
+   {
+
+      tpElemLista * pElem ;
+
+      if ( pLista == NULL )
+      {
+         return ;
+      } /* if */
+
+      switch ( ModoDeturpar ) {
+
+      /* elimina o elemento corrente da lista */
+
+         case DeturpaElimCorrente :
+         {
+
+            if ( pLista->pElemCorr == NULL )
+            {
+               return ;
+            } /* if */
+
+            pElem = pLista->pElemCorr ;
+
+            /* Desencadeia à esquerda */
+
+               if ( pElem->pAnt != NULL )
+               {
+                  pElem->pAnt->pProx   = pElem->pProx ;
+               } else {
+                  pLista->pOrigemLista = pLista->pElemCorr ;
+               } /* if */
+
+            /* Desencadeia à direita */
+
+               if ( pElem->pProx != NULL )
+               {
+                  pElem->pProx->pAnt = pElem->pAnt ;
+               } else
+               {
+                  pLista->pFimLista = pElem->pAnt ;
+               } /* if */
+
+            break ;
+
+         } /* fim ativa: elimina o elemento corrente da lista */
+
+      /* desencadeia nó sem liberá-lo com free */
+
+         case DeturpaTiraSemLiberar :
+         {
+
+            if ( pLista->pElemCorr == NULL )
+            {
+               return ;
+            } /* if */
+
+            pElem = pLista->pElemCorr ;
+
+            /* Desencadeia à esquerda */
+
+               if ( pElem->pAnt != NULL )
+               {
+                  pElem->pAnt->pProx   = pElem->pProx ;
+                  pLista->pElemCorr    = pElem->pAnt ;
+               } else {
+                  pLista->pElemCorr    = pElem->pProx ;
+                  pLista->pOrigemLista = pLista->pElemCorr ;
+               } /* if */
+
+            /* Desencadeia à direita */
+
+               if ( pElem->pProx != NULL )
+               {
+                  pElem->pProx->pAnt = pElem->pAnt ;
+               } else
+               {
+                  pLista->pFimLista = pElem->pAnt ;
+               } /* if */
+
+            break ;
+
+         } /* fim ativa: desencadeia nó sem liberá-lo com free */
+
+      /* atribui NULL ao ponteiro corrente */
+
+         case DeturpaCorrenteNULL :
+         {
+
+            pLista->pElemCorr = NULL ;
+
+            break ;
+
+         } /* fim ativa: atribui NULL ao ponteiro corrente */
+
+      /* atribui NULL ao ponteiro de origem */
+
+         case DeturpaOrigemNULL :
+         {
+
+            pLista->pOrigemLista = NULL ;
+
+            break ;
+
+         } /* fim ativa: atribui NULL ao ponteiro de origem */
+
+      /* atribui NULL ao ponteiro de fim da lista */
+
+         case DeturpaFinalNULL :
+         {
+
+            pLista->pFimLista = NULL ;
+
+            break ;
+
+         } /* fim ativa: atribui NULL ao ponteiro de fim da lista */
+
+      /* atribui lixo ao ponteiro corrente */
+
+         case DeturpaCorrenteLixo :
+         {
+
+            pLista->pElemCorr = ( tpElemLista * ) ( EspacoLixo ) ;
+
+            break ;
+
+         } /* fim ativa: atribui lixo ao ponteiro corrente */
+
+      /* atribui lixo ao ponteiro de origem */
+
+         case DeturpaOrigemLixo :
+         {
+
+            pLista->pOrigemLista = ( tpElemLista * ) ( EspacoLixo ) ;
+
+            break ;
+
+         } /* fim ativa: atribui lixo ao ponteiro de origem */
+
+      /* atribui lixo ao ponteiro de fim da lista */
+
+         case DeturpaFinalLixo :
+         {
+
+            pLista->pFimLista = ( tpElemLista * ) ( EspacoLixo ) ;
+
+            break ;
+
+         } /* fim ativa: atribui lixo ao ponteiro de fim da lista */
+
+      /* modifica o tipo de estrutura na cabeça */
+
+         case DeturpaTipoCabeca :
+         {
+
+            strncpy( pLista->tipoApontado , "inteiro" , 10 ) ;
+
+            break ;
+
+         } /* fim ativa: modifica o tipo de estrutura na cabeça */
+
+      /* modifica o inteiro que guarda número de elementos para um a mais */
+
+         case DeturpaNumElem :
+         {
+
+            pLista->numElem = pLista->numElem + 1 ;
+
+            break ;
+
+         } /* fim ativa: modifica o inteiro que guarda número de elementos para um a mais */
+
+      /* atribui NULL ao ponteiro de função que libera o conteúdo */
+
+         case DeturpaFuncNULL :
+         {
+
+            pLista->ExcluirValor = NULL ;
+
+            break ;
+
+         } /* fim ativa: atribui NULL ao ponteiro de função que libera o conteúdo */
+
+      /* Deturpa nó */
+
+         default :
+
+         if ( pLista->pElemCorr != NULL )
+         {
+
+            switch ( ModoDeturpar ) {
+
+            /* atribui NULL ao ponteiro para o próximo nó */
+
+               case DeturpaProxNULL :
+               {
+
+                  pLista->pElemCorr->pProx = NULL ;
+
+                  break ;
+
+               } /* fim ativa: atribui NULL ao ponteiro para o próximo nó */
+
+            /* atribui NULL ao ponteiro para o nó anterior */
+
+               case DeturpaAntNULL :
+               {
+
+                  pLista->pElemCorr->pAnt = NULL ;
+
+                  break ;
+
+               } /* fim ativa: atribui NULL ao ponteiro para o nó anterior */
+
+            /* atribui lixo ao ponteiro para o próximo nó */
+
+               case DeturpaProxLixo :
+               {
+
+                  pLista->pElemCorr->pProx = ( tpElemLista * ) ( EspacoLixo ) ;
+
+                  break ;
+
+               } /* fim ativa: atribui lixo ao ponteiro para o próximo nó */
+
+            /* atribui lixo ao ponteiro para o nó anterior */
+
+               case DeturpaAntLixo :
+               {
+
+                  pLista->pElemCorr->pAnt = ( tpElemLista * ) ( EspacoLixo ) ;
+
+                  break ;
+
+               } /* fim ativa: atribui lixo ao ponteiro para o nó anterior */
+
+            /* atribui NULL ao ponteiro para o conteúdo do nó */
+
+               case DeturpaConteudoNULL :
+               {
+
+                  pLista->pElemCorr->pValor = NULL ;
+
+                  break ;
+
+               } /* fim ativa: atribui NULL ao ponteiro para o conteúdo do nó */
+
+            /* altera o tipo de estrutura apontado no nó */
+
+               case DeturpaTipoNo :
+               {
+
+                  strncpy( pLista->pElemCorr->tipoApontado , "inteiro" , 10 ) ;
+
+                  break ;
+
+               } /* fim ativa: altera o tipo de estrutura apontado no nó */
+
+            /* atribui NULL ao ponteiro cabeça */
+
+               case DeturpaCabecaNULL :
+               {
+
+                  pLista->pElemCorr->pCabeca = NULL ;
+
+                  break ;
+
+               } /* fim ativa: atribui NULL ao ponteiro cabeça */
+
+            /* atribui lixo ao ponteiro cabeça */
+
+               case DeturpaCabecaLixo :
+               {
+
+                  pLista->pElemCorr->pCabeca = ( LIS_tpLista * ) ( EspacoLixo ) ;
+
+                  break ;
+
+               } /* fim ativa: atribui lixo ao ponteiro cabeça */
+
+            /* modifica o tamanho do conteúdo apontado no corrente para um a mais */
+
+               case DeturpaTamanho :
+               {
+
+                  pLista->pElemCorr->tamApontado = pLista->pElemCorr->tamApontado + 1 ;
+
+                  break ;
+
+               } /* fim ativa: modifica o tamanho do conteúdo apontado no corrente para um a mais */
+
+            } /* switch */
+
+          } /* if */
+
+      } /* switch */
+
+   } /* Fim função: LIS  &Deturpar lista */
+
+#endif
 
 
 /*****  Código das funções encapsuladas no módulo  *****/

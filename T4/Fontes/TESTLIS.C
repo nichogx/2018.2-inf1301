@@ -14,6 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     4.40    ngx   29/nov/2018 adicionada função de deturpação e modos de deturpação
 *     4.30    ngx   27/nov/2018 utilização do módulo conta, novos casos de teste
 *     4.10    ngx   25/nov/2018 início da transformação em estrutura auto verificadora
 *     4       avs   01/fev/2006 criar linguagem script simbólica
@@ -53,8 +54,7 @@ static const char PROCURAR_VAL_CMD        [ ] = "=procurarval"    ;
 static const char INS_PONT_CONHECIDO_CMD  [ ] = "=insconhecido"   ;
 
 #ifdef _DEBUG
-/* verifica que não há NENHUM espaço ainda alocado */
-static const char VERIFICAR_MEM_CMD       [ ] = "=verificarmemoria" ;
+static const char DETURPAR_CMD            [ ] = "=deturparlista"  ;
 #endif
 
 #define TRUE  1
@@ -400,6 +400,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
          } /* fim ativa: LIS  &Avançar elemento */
 
       #ifdef _DEBUG
+
       /* LIS  &Procurar elemento contendo valor */
 
          else if ( strcmp( ComandoTeste , PROCURAR_VAL_CMD ) == 0 )
@@ -428,6 +429,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                       "Condicao de retorno errada ao procurar valor" ) ;
 
          } /* fim ativa: LIS  &Procurar elemento contendo valor */
+
+      #endif
+      #ifdef _DEBUG
 
       /* inserir ponteiro conhecido para busca */
 
@@ -469,6 +473,33 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                      "Condicao de retorno errada ao inserir ponteiro conhecido." ) ;
 
          } /* fim ativa: inserir ponteiro conhecido para busca */
+
+      #endif
+      #ifdef _DEBUG
+
+      /* LIS  &Deturpar lista */
+
+         else if ( strcmp( ComandoTeste , DETURPAR_CMD ) == 0 )
+         {
+
+            LIS_tpModosDeturpacao modoDeturpar = 0 ;
+
+            numLidos = LER_LerParametros( "ii" , &inxLista ,
+                                &modoDeturpar ) ;
+
+            if ( ( numLidos != 2 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO ))
+              || ( modoDeturpar < 1 ) || ( modoDeturpar > 20 ) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            LIS_Deturpar( vtListas[ inxLista ] , modoDeturpar );
+
+            return TST_CondRetOK ;
+
+         } /* fim ativa: LIS  &Deturpar lista */
+
       #endif
 
       return TST_CondRetNaoConhec ;
