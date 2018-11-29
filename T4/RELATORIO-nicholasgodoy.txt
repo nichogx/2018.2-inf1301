@@ -5,3 +5,4 @@ Data            Horas Trabalhadas,      Tipo Tarefa,                            
 2018-11-27      1                       Estudar                                             Estudar os módulos CONTA e INTRPCNT.
                 2                       Codificar Módulo                                    Utilização do módulo CONTA no módulo LISTA. 
                                                                                             Criação de novos casos de teste para LISTA, usando INTRPCNT e INTRPCED.
+2018-11-28      1                       Codificar Módulo                                    Teste de buscas em lista.

@@ -436,6 +436,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             int numPont = 0 ;
 			char * msg = "string de ponteiro conhecido" ;
+            char * aInserir = NULL;
 
             numLidos = LER_LerParametros( "iii" , &inxLista , &numPont ,
                                 &CondRetEsp ) ;
@@ -447,16 +448,19 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            ponteiroConhecido[numPont] = malloc( strlen ( msg ) + 1 ) ;
-            if ( ponteiroConhecido[numPont] == NULL )
+            aInserir = malloc( strlen ( msg ) + 1 ) ;
+            if ( aInserir == NULL )
             {
                return TST_CondRetMemoria ;
-            }
+            } /* if */
 
-            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] ,
-                                                ponteiroConhecido[numPont]
+            strcpy( aInserir , msg ) ;
+            ponteiroConhecido[numPont] = aInserir ;
+
+            CondRet = LIS_InserirElementoApos( vtListas[ inxLista ] ,
+                                                aInserir
                                                 #ifdef _DEBUG 
-                                                , strlen( StringDado ) + 1 , 
+                                                , strlen( msg ) + 1 , 
                                                   "string" 
                                                 #endif
             ) ;
