@@ -33,6 +33,7 @@
 #ifdef _DEBUG
    #include "CESPDIN.H"
    #include "CONTA.H"
+   #include "..\\tabelas\\IdTiposEspaco.def"
 #endif
 
 #define LISTA_OWN
@@ -145,7 +146,8 @@
       LimparCabeca( pLista ) ;
 
       #ifdef _DEBUG
-         strncpy(pLista->tipoApontado, tipo, 10);
+         strncpy(pLista->tipoApontado, tipo, 10) ;
+         CED_DefinirTipoEspaco ( pLista , LIS_TipoEspacoCabeca ) ;
       #endif
 
       pLista->ExcluirValor = ExcluirValor ;
@@ -910,7 +912,6 @@
 
 #endif
 
-
 /*****  Código das funções encapsuladas no módulo  *****/
 
 
@@ -965,6 +966,10 @@
       pElem->pValor = pValor ;
       pElem->pAnt   = NULL  ;
       pElem->pProx  = NULL  ;
+
+      #ifdef _DEBUG
+         CED_DefinirTipoEspaco( pElem , LIS_TipoEspacoElemento ) ;
+      #endif
 
       pLista->numElem ++ ;
 
