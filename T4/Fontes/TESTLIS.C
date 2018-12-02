@@ -14,6 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     5.01    ngx   02/dez/2018 coisa que era para estar dentro de #ifdef estava fora.
 *     5.00    ngx   01/dez/2018 adiconado verificador. A princípio, é a versão de entrega.
 *     4.40    ngx   29/nov/2018 adicionada função de deturpação e modos de deturpação
 *     4.30    ngx   27/nov/2018 utilização do módulo conta, novos casos de teste
@@ -51,10 +52,10 @@ static const char EXC_ELEM_CMD            [ ] = "=excluirelem"    ;
 static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
 static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
 static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
-static const char PROCURAR_VAL_CMD        [ ] = "=procurarval"    ;
-static const char INS_PONT_CONHECIDO_CMD  [ ] = "=insconhecido"   ;
 
 #ifdef _DEBUG
+static const char PROCURAR_VAL_CMD        [ ] = "=procurarval"    ;
+static const char INS_PONT_CONHECIDO_CMD  [ ] = "=insconhecido"   ;
 static const char DETURPAR_CMD            [ ] = "=deturparlista"  ;
 static const char VERIFICAR_CMD           [ ] = "=verificar"      ;
 static const char VER_TODOSATIVOS_CMD     [ ] = "=todosativos"    ;
