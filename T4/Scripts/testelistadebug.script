@@ -5,7 +5,7 @@
 //
 
 == Inicializar contadores
-=inicializarcontadores "..\\scripts\\testelistadebug_acum.cont"
+=inicializarcontadores "..\\scripts\\todos_acum.cont"
 =lercontadores "..\\scripts\\testelistadebug_init.cont"
 =iniciarcontagem
 
@@ -76,9 +76,11 @@
 == Ver se a lista ficou vazia
 =obtervalorelem  lista0   "???"     pNULL
 
-== Destruir a lista
+== Verificar e destruir
+=desativa
+=verificar       lista0   0
+=todosativos 0
 =destruirlista   lista0
-=obternumeroespacosalocados 0
 
 == Criar uma lista com dois elementos
 =criarlista      lista1 
@@ -91,9 +93,11 @@
 =obtervalorelem  lista1   "???"     pNULL
 =obternumeroespacosalocados 1
 
-== Destruir a lista
+== Verificar e destruir
+=desativa
+=verificar       lista1   0
+=todosativos 0
 =destruirlista   lista1
-=obternumeroespacosalocados 0
 
 == Criar uma lista com quatro elementos
 =criarlista      lista2 
@@ -132,7 +136,10 @@
 =avancarelem     lista2   10     FimLista
 =obtervalorelem  lista2   str3   pNaoNULL
 
-== Destruir a lista
+== Verificar e destruir
+=desativa
+=verificar       lista2   0
+=todosativos 0
 =destruirlista   lista2
 
 == Criar novamente
@@ -149,7 +156,10 @@
 =inselemapos     lista2   str2   OK
 =irfinal         lista2
 
-== Destruir a lista
+== Verificar e destruir
+=desativa
+=verificar       lista2   0
+=todosativos 0
 =destruirlista   lista2
 
 == Criar lista para testar busca
@@ -172,7 +182,19 @@
 =procurarval     lista2   2   OK
 =procurarval     lista2   3   NaoAchou
 
-== Destruir
+== Testar verificação com mais de uma lista
+=criarlista      lista1
+=inselemantes    lista1   str2  OK
+=criarlista      lista0
+=desativa
+=verificar       lista2   0
+=verificar       lista1   0
+=verificar       lista0   0
+=todosativos 0
+
+== destruir
+=destruirlista   lista0
+=destruirlista   lista1
 =destruirlista   lista2
 
 == Verificar espaços alocados foram liberados

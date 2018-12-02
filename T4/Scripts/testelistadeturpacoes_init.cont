@@ -1,0 +1,30 @@
+////////////////////////////////////////////////
+//
+// Declaração de contadores do verificador
+// do módulo lista
+//
+///////////////////////////////////////////////
+
+// FUNÇÃO: VerificarCabeca
+   VerificarCabeca pLista_NULL\=0
+   VerificarCabeca cabeca_tipo_errado\=0
+   VerificarCabeca origem_null\=0
+   VerificarCabeca origem_lixo\=0
+   VerificarCabeca fim_null\=0
+   VerificarCabeca fim_lixo\=0
+   VerificarCabeca corrente_null\=0
+   VerificarCabeca corrente_lixo\=0
+
+// FUNÇÃO: VerificarElementos
+   VerificarElementos falha_encadeamento_direita\=0
+   VerificarElementos falha_encadeamento_esquerda\=0
+   VerificarElementos proximo_lixo\=0
+   VerificarElementos anterior_lixo\=0
+   VerificarElementos acusouLixo\=0
+   VerificarElementos pCabeca_nao_cabeca\=0
+   VerificarElementos tipo_errado\=0
+   VerificarElementos conteudo_null\=0
+   VerificarElementos tamanho_errado\=0
+   VerificarElementos anterior_null_nao_primeiro\=0
+   VerificarElementos proximo_null_nao_primeiro\=0
+   VerificarElementos falha_encadeamento_direita_2\=0

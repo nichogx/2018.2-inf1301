@@ -1,0 +1,309 @@
+// Script:    TesteLista.script
+// Autor:     Nicholas Godoy (modificação)
+// Data:      Dezembro de 2018
+// Propósito: Testar o verificador do módulo lista genérica duplamente encadeada sem deturpações
+//
+
+== Inicializar contadores
+=inicializarcontadores "..\\scripts\\todos_acum.cont"
+=iniciarcontagem
+
+== Zerar os do verificador
+=zerarcontador "VerificarCabeca cabeca_tipo_errado"
+=zerarcontador "VerificarCabeca corrente_lixo"
+=zerarcontador "VerificarCabeca corrente_null"
+=zerarcontador "VerificarCabeca fim_lixo"
+=zerarcontador "VerificarCabeca fim_null"
+=zerarcontador "VerificarCabeca origem_lixo"
+=zerarcontador "VerificarCabeca origem_null"
+=zerarcontador "VerificarCabeca pLista_NULL"
+=zerarcontador "VerificarElementos acusouLixo"
+=zerarcontador "VerificarElementos anterior_lixo"
+=zerarcontador "VerificarElementos anterior_null_nao_primeiro"
+=zerarcontador "VerificarElementos conteudo_null"
+=zerarcontador "VerificarElementos falha_encadeamento_direita"
+=zerarcontador "VerificarElementos falha_encadeamento_direita_2"
+=zerarcontador "VerificarElementos falha_encadeamento_esquerda"
+=zerarcontador "VerificarElementos pCabeca_nao_cabeca"
+=zerarcontador "VerificarElementos proximo_lixo"
+=zerarcontador "VerificarElementos proximo_null_nao_primeiro"
+=zerarcontador "VerificarElementos tamanho_errado"
+=zerarcontador "VerificarElementos tipo_errado"
+
+== Inicializar valores
+=declararparm   lista0  int 0
+=declararparm   lista1  int 1
+=declararparm   lista2  int 2
+
+=declararparm   str0    string  "abcdefg"
+=declararparm   str1    string  "qwerty"
+=declararparm   str2    string  "xxx"
+=declararparm   str3    string  "xpto"
+
+=declararparm   OK             int  0
+=declararparm   ListaVazia     int  1
+=declararparm   FimLista       int  2
+=declararparm   NaoAchou       int  3
+=declararparm   FaltouMemoria  int  4
+
+=declararparm   pNULL          int  0
+=declararparm   pNaoNULL       int  1
+
+=declararparm   ElimCorrente   int  1
+=declararparm   ProxNULL       int  2
+=declararparm   AntNULL        int  3
+=declararparm   ProxLixo       int  4
+=declararparm   AntLixo        int  5
+=declararparm   ConteudoNULL   int  6
+=declararparm   TipoNo         int  7
+=declararparm   TiraSemLiberar int  8
+=declararparm   CorrenteNULL   int  9
+=declararparm   OrigemNULL     int 10
+=declararparm   FinalNULL      int 11
+=declararparm   TipoCabeca     int 12
+=declararparm   CabecaNULL     int 13
+=declararparm   CabecaLixo     int 14
+=declararparm   Tamanho        int 15
+=declararparm   CorrenteLixo   int 16
+=declararparm   OrigemLixo     int 17
+=declararparm   FinalLixo      int 18
+
+== Criar as listas
+=criarlista      lista0
+=criarlista      lista1
+=criarlista      lista2
+
+== Preencher as listas e setar o do meio como corrente
+=inselemapos     lista0   str0   OK
+=inselemapos     lista0   str1   OK
+=inselemapos     lista0   str2   OK
+=avancarelem     lista0   -1     OK
+
+=inselemapos     lista1   str0   OK
+=inselemapos     lista1   str1   OK
+=inselemapos     lista1   str2   OK
+=avancarelem     lista1   -1     OK
+
+=inselemapos     lista2   str0   OK
+=inselemapos     lista2   str1   OK
+=inselemapos     lista2   str2   OK
+=avancarelem     lista2   -1     OK
+
+== Verifica memória antes de deturpar
+=desativa
+=verificar       lista0   0
+=verificar       lista1   0
+=verificar       lista2   0
+=todosativos 0
+
+== Deturpa tira sem liberar
+=deturparlista   lista2   TiraSemLiberar
+
+== Verifica tirado sem liberar
+=desativa
+=verificar       lista0   0
+=verificar       lista1   0
+=verificar       lista2   0
+=todosativos 2
+
+== Volta para o do meio como corrente
+=avancarelem     lista0   -1     OK
+=avancarelem     lista1   -1     OK
+
+== Reiniciar lista 2
+=destruirlista   lista2
+=criarlista      lista2
+=inselemapos     lista2   str0   OK
+=inselemapos     lista2   str1   OK
+=inselemapos     lista2   str2   OK
+=avancarelem     lista2   -1     OK
+
+== Deturpações próximo e anterior nulos
+=deturparlista   lista0   ProxNULL
+=deturparlista   lista0   AntNULL
+
+== Verificar deturpações próximo e anterior nulos
+=verificar       lista0   -1
+=AceitaFalhasAcumuladas   3
+
+== Reiniciar lista 0
+=destruirlista   lista0
+=criarlista      lista0
+=inselemapos     lista0   str0   OK
+=inselemapos     lista0   str1   OK
+=inselemapos     lista0   str2   OK
+=avancarelem     lista0   -1     OK
+
+== Deturpação próximo e anterior lixo
+=deturparlista   lista0   ProxLixo
+=deturparlista   lista0   AntLixo
+
+== Verificar próximo e anterior lixo
+=verificar       lista0   -1
+=AceitaFalhasAcumuladas   5
+
+== Reiniciar lista 0
+=deturparlista   lista0   ProxNULL // nulo para não voar em destruirlista
+=deturparlista   lista0   AntNULL  // nulo para não voar em destruirlista
+=destruirlista   lista0
+=criarlista      lista0
+=inselemapos     lista0   str0   OK
+=inselemapos     lista0   str1   OK
+=inselemapos     lista0   str2   OK
+=avancarelem     lista0   -1     OK
+
+== Deturpação corrente lixo
+=deturparlista   lista0   CorrenteLixo
+
+== Verificar corrente lixo
+=verificar       lista0   1
+=AceitaFalhasAcumuladas   1
+
+== Deturpação corrente nulo
+=deturparlista   lista0   CorrenteNULL
+
+== Verificar corrente nulo
+=verificar       lista0   1
+=AceitaFalhasAcumuladas   1
+
+== Deturpação origem nula
+=deturparlista   lista0   OrigemNULL
+
+== Verificar origem nula
+=verificar       lista0   1
+=AceitaFalhasAcumuladas   1
+
+== Reiniciar lista 0
+=destruirlista   lista0
+=criarlista      lista0
+=inselemapos     lista0   str0   OK
+=inselemapos     lista0   str1   OK
+=inselemapos     lista0   str2   OK
+=avancarelem     lista0   -1     OK
+
+== Deturpação final nulo
+=deturparlista   lista0   FinalNULL
+
+== Verificar final nulo
+=verificar       lista0   1
+=AceitaFalhasAcumuladas   1
+
+== Reiniciar lista 0
+=destruirlista   lista0
+=criarlista      lista0
+=inselemapos     lista0   str0   OK
+=inselemapos     lista0   str1   OK
+=inselemapos     lista0   str2   OK
+=avancarelem     lista0   -1     OK
+
+== Deturpação cabeça lixo
+=deturparlista   lista0   CabecaLixo
+
+== Verificar cabeça lixo
+=verificar       lista0   1
+=AceitaFalhasAcumuladas   1
+
+== Deturpação cabeça NULL
+=avancarelem     lista0   -1     OK // voltar para o do meio
+=deturparlista   lista0   CabecaNULL
+
+== Verificar cabeça NULL
+=verificar       lista0   1
+=AceitaFalhasAcumuladas   1
+
+== Reiniciar lista 0
+=destruirlista   lista0
+=criarlista      lista0
+=inselemapos     lista0   str0   OK
+=inselemapos     lista0   str1   OK
+=inselemapos     lista0   str2   OK
+=avancarelem     lista0   -1     OK
+
+== Deturpação tipo do nó
+=deturparlista   lista0   TipoNo
+
+== Verificar tipo do nó
+=verificar       lista0   1
+=AceitaFalhasAcumuladas   1
+
+== Deturpação tipo da cabeça
+=deturparlista   lista0   TipoCabeca
+
+== Verificar tipo da cabeça
+=verificar       lista0   3
+=AceitaFalhasAcumuladas   3
+
+== Reiniciar lista 0
+=destruirlista   lista0
+=criarlista      lista0
+=inselemapos     lista0   str0   OK
+=inselemapos     lista0   str1   OK
+=inselemapos     lista0   str2   OK
+=avancarelem     lista0   -1     OK
+
+== Deturpa origem e final lixo
+=deturparlista   lista0   OrigemLixo
+=deturparlista   lista0   FinalLixo
+
+== Verificar origem e final lixo
+=verificar       lista0   2
+=AceitaFalhasAcumuladas   2
+
+== Reiniciar lista 0
+=deturparlista   lista0   OrigemNULL // nulo para não voar em destruirlista
+=destruirlista   lista0
+=criarlista      lista0
+=inselemapos     lista0   str0   OK
+=inselemapos     lista0   str1   OK
+=inselemapos     lista0   str2   OK
+=avancarelem     lista0   -1     OK
+
+== Deturpa tamanho do apontado
+=deturparlista   lista0   Tamanho
+
+== Verificar tamanho do apontado
+=verificar       lista0   1
+=AceitaFalhasAcumuladas   1
+
+== Deturpa conteudo NULL
+=deturparlista   lista0   ConteudoNULL
+
+== Verificar conteudo NULL
+=verificar       lista0   3
+=AceitaFalhasAcumuladas   3
+
+== Reiniciar lista 0
+=destruirlista   lista0
+=criarlista      lista0
+=inselemapos     lista0   str0   OK
+=inselemapos     lista0   str1   OK
+=inselemapos     lista0   str2   OK
+=avancarelem     lista0   -1     OK
+
+== Deturpa eliminar o corrente da lista
+=deturparlista   lista0   ElimCorrente
+
+== Verificar eliminar o corrente da lista
+=verificar       lista0   2
+=AceitaFalhasAcumuladas   2
+
+== Destruir as listas
+=destruirlista   lista0
+=destruirlista   lista1
+=destruirlista   lista2
+
+== Verificar com cabeça NULL e tipo errado
+=verificarcnull
+=AceitaFalhasAcumuladas 2
+
+== Liberar todos os espaços que não foram liberados devido às deturpações
+=liberatudo
+
+== Verificar espaços alocados foram liberados
+=obternumeroespacosalocados 0
+
+== Terminar contadores
+=verificarcontagens 0
+=terminarcontadores 0
+
+// fim
