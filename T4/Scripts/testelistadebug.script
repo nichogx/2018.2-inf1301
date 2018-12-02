@@ -8,6 +8,7 @@
 =inicializarcontadores "..\\scripts\\todos_acum.cont"
 =lercontadores "..\\scripts\\testelistadebug_init.cont"
 =iniciarcontagem
+=zerartodoscontadores
 
 == Inicializar valores
 =declararparm   lista0  int 0
@@ -201,7 +202,6 @@
 =obternumeroespacosalocados 0
 
 == Terminar contadores
-=verificarcontagens 0
 =terminarcontadores 0
 
 // fim
