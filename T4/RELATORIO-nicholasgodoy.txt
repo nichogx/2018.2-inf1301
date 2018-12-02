@@ -7,3 +7,6 @@ Data            Horas Trabalhadas,      Tipo Tarefa,                            
                                                                                             Criação de novos casos de teste para LISTA, usando INTRPCNT e INTRPCED.
 2018-11-28      1                       Codificar Módulo                                    Teste de buscas em lista.
 2018-11-29      1.5                     Codificar Módulo                                    Adicionar deturpador no módulo LISTA.
+2018-12-01      3                       Codificar Módulo                                    Adicionar verificador no módulo LISTA.
+2018-12-01      2                       Redigir scripts de teste                            Redigindo os scripts que testam o deturpador e o verificador.
+2018-12-02      1                       Redigir scripts de teste                            Mais algumas mudanças nos scripts.
