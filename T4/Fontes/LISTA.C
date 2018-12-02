@@ -14,6 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     5.00    ngx   01/dez/2018 adiconado verificador. A princípio, é a versão de entrega.
 *     4.40    ngx   29/nov/2018 adicionada função de deturpação e modos de deturpação
 *     4.30    ngx   27/nov/2018 utilização do módulo conta, novos casos de teste
 *     4.10    ngx   25/nov/2018 início da transformação em estrutura auto verificadora
@@ -31,6 +32,7 @@
 #include   <assert.h>
 
 #ifdef _DEBUG
+   #include "GENERICO.H"
    #include "CESPDIN.H"
    #include "CONTA.H"
    #include "..\\tabelas\\IdTiposEspaco.def"
@@ -110,13 +112,21 @@
 
    static void LimparCabeca( LIS_tppLista pLista ) ;
 
+   #ifdef _DEBUG
+
+      static int VerificarCabeca( LIS_tppLista pLista ) ;
+
+      static int VerificarElementos( LIS_tppLista pLista ) ;
+
+   #endif
+
 /*****  Dados encapsulados no módulo  *****/
 
    #ifdef _DEBUG
 
-   static char EspacoLixo[ 256 ] =
-          "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" ;
-         /* Espaço de dados lixo usado ao testar */
+      static char EspacoLixo[ 256 ] =
+             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" ;
+            /* Espaço de dados lixo usado ao testar */
 
    #endif
 
@@ -641,7 +651,7 @@
                {
                   pElem->pAnt->pProx   = pElem->pProx ;
                } else {
-                  pLista->pOrigemLista = pLista->pElemCorr ;
+                  pLista->pOrigemLista = pElem->pProx ;
                } /* if */
 
             /* Desencadeia à direita */
@@ -766,33 +776,11 @@
          case DeturpaTipoCabeca :
          {
 
-            strncpy( pLista->tipoApontado , "inteiro" , 10 ) ;
+            strncpy( pLista->tipoApontado , "xxxxxxxxxx" , 10 ) ;
 
             break ;
 
          } /* fim ativa: modifica o tipo de estrutura na cabeça */
-
-      /* modifica o inteiro que guarda número de elementos para um a mais */
-
-         case DeturpaNumElem :
-         {
-
-            pLista->numElem = pLista->numElem + 1 ;
-
-            break ;
-
-         } /* fim ativa: modifica o inteiro que guarda número de elementos para um a mais */
-
-      /* atribui NULL ao ponteiro de função que libera o conteúdo */
-
-         case DeturpaFuncNULL :
-         {
-
-            pLista->ExcluirValor = NULL ;
-
-            break ;
-
-         } /* fim ativa: atribui NULL ao ponteiro de função que libera o conteúdo */
 
       /* Deturpa nó */
 
@@ -863,7 +851,7 @@
                case DeturpaTipoNo :
                {
 
-                  strncpy( pLista->pElemCorr->tipoApontado , "inteiro" , 10 ) ;
+                  strncpy( pLista->pElemCorr->tipoApontado , "xxxxxxxxxx" , 10 ) ;
 
                   break ;
 
@@ -909,6 +897,32 @@
       } /* switch */
 
    } /* Fim função: LIS  &Deturpar lista */
+
+#endif
+
+#ifdef _DEBUG
+
+/***************************************************************************
+*
+*  Função: LIS  &Verificar lista
+*  ****/
+
+   int LIS_VerificarLista( LIS_tppLista pLista )
+   {
+
+      int falhas = 0 ;
+      falhas += VerificarCabeca( pLista ) ;
+
+      CED_MarcarEspacoAtivo( pLista ) ;
+
+      if ( falhas == 0 )
+      {
+         falhas += VerificarElementos( pLista ) ;
+      }
+
+      return falhas ;
+
+   } /* Fim função: LIS  &Verificar lista */
 
 #endif
 
@@ -993,6 +1007,238 @@
       pLista->numElem   = 0 ;
 
    } /* Fim função: LIS  -Limpar a cabeça da lista */
+
+#ifdef _DEBUG
+
+/***********************************************************************
+*
+*  $FC Função: LIS  -Verificar a cabeça da lista
+*
+***********************************************************************/
+
+   int VerificarCabeca( LIS_tppLista pLista )
+   {
+
+      int falhas = 0 ;
+
+      /* Verifica o tipo do espaço */
+
+         if ( pLista == NULL )
+         {
+            CNT_CONTAR( "VerificarCabeca pLista_NULL" ) ;
+            TST_NotificarFalha( "Tentou verificar cabeça inexistente." ) ;
+            falhas ++ ;
+            return falhas ;
+         } /* if */
+
+         if ( LIS_TipoEspacoCabeca != CED_ObterTipoEspaco( pLista )
+              || ! CED_VerificarEspaco( pLista , NULL ) )
+         {
+            CNT_CONTAR( "VerificarCabeca cabeca_tipo_errado" ) ;
+            TST_NotificarFalha( "cabeça não é cabeça de lista." ) ;
+            falhas ++ ;
+            return falhas ;
+         } /* if */
+
+      /* Verifica origem */
+
+         if ( pLista->pOrigemLista == NULL )
+         {
+            if ( pLista->pFimLista != NULL || pLista->pElemCorr != NULL 
+                 || pLista->numElem != 0 )
+            {
+               CNT_CONTAR( "VerificarCabeca origem_null" ) ;
+               TST_NotificarFalha( "Origem é nula mas lista não é vazia." ) ;
+               falhas ++ ;
+            } /* if */
+            return falhas ;
+         } /* if */
+
+            if ( CED_ObterTipoEspaco( pLista->pOrigemLista ) != LIS_TipoEspacoElemento
+                 || ! CED_VerificarEspaco( pLista->pOrigemLista , NULL ) )
+            {
+               CNT_CONTAR( "VerificarCabeca origem_lixo" ) ;
+               TST_NotificarFalha( "origem da lista não é um nó." ) ;
+               falhas ++ ;
+            } /* if */
+
+      /* Verifica final */
+
+         if ( pLista->pFimLista == NULL )
+         {
+            if ( pLista->pElemCorr != NULL || pLista->pOrigemLista != NULL 
+                 || pLista->numElem != 0 )
+            {
+               CNT_CONTAR( "VerificarCabeca fim_null" ) ;
+               TST_NotificarFalha( "Fim é nulo mas lista não é vazia." ) ;
+               falhas ++ ;
+            } /* if */
+            return falhas ;
+         } /* if */
+
+            if ( CED_ObterTipoEspaco( pLista->pFimLista ) != LIS_TipoEspacoElemento
+                 || ! CED_VerificarEspaco( pLista->pFimLista , NULL ) )
+            {
+               CNT_CONTAR( "VerificarCabeca fim_lixo" ) ;
+               TST_NotificarFalha( "fim da lista não é um nó." ) ;
+               falhas ++ ;
+            } /* if */
+
+      /* Verifica corrente */
+
+         if ( pLista->pElemCorr == NULL )
+         {
+            if ( pLista->pFimLista != NULL || pLista->pOrigemLista != NULL 
+                 || pLista->numElem != 0 )
+            {
+               CNT_CONTAR( "VerificarCabeca corrente_null" ) ;
+               TST_NotificarFalha( "Corrente é nulo mas lista não é vazia." ) ;
+               falhas ++ ;
+            } /* if */
+            return falhas ;
+         } /* if */
+
+            if ( CED_ObterTipoEspaco( pLista->pElemCorr ) != LIS_TipoEspacoElemento
+                 || ! CED_VerificarEspaco( pLista->pElemCorr , NULL ) )
+            {
+               CNT_CONTAR( "VerificarCabeca corrente_lixo" ) ;
+               TST_NotificarFalha( "elemento corrente não é um nó." ) ;
+               falhas ++ ;
+            } /* if */
+
+      return falhas ;
+
+   } /* Fim função: LIS  -Verificar a cabeça da lista */
+
+#endif
+
+#ifdef _DEBUG
+
+/***********************************************************************
+*
+*  $FC Função: LIS  -Verificar elementos da lista
+*
+***********************************************************************/
+
+   int VerificarElementos( LIS_tppLista pLista )
+   {
+
+      int falhas = 0 ;
+
+      /* Verifica elementos da lista */
+
+         if ( pLista->pElemCorr != NULL )
+         {
+            if ( pLista->pElemCorr->pProx != NULL 
+                 && pLista->pElemCorr->pProx->pAnt != pLista->pElemCorr )
+            {
+               CNT_CONTAR( "VerificarElementos falha_encadeamento_direita" ) ;
+               TST_NotificarFalha( "falha no encadeamento (direita)." ) ;
+               falhas ++ ;
+            } /* if */
+
+            if ( pLista->pElemCorr->pAnt != NULL 
+                 && pLista->pElemCorr->pAnt->pProx != pLista->pElemCorr )
+            {
+               CNT_CONTAR( "VerificarElementos falha_encadeamento_esquerda" ) ;
+               TST_NotificarFalha( "falha no encadeamento (esquerda)." ) ;
+               falhas ++ ;
+            } /* if */
+         }
+
+         IrInicioLista( pLista ) ;
+         if ( pLista->pElemCorr != NULL ) 
+         do 
+         {
+            int acusouLixo = 0 ;
+
+            if ( pLista->pElemCorr->pProx != NULL && 
+                 CED_ObterTipoEspaco( pLista->pElemCorr->pProx ) != LIS_TipoEspacoElemento
+                 || ! CED_VerificarEspaco( pLista->pElemCorr->pProx , NULL ) )
+            {
+               CNT_CONTAR( "VerificarElementos proximo_lixo" ) ;
+               TST_NotificarFalha( "elemento próximo não é um nó." ) ;
+               falhas ++ ;
+               acusouLixo = 1 ;
+            } /* if */
+
+            if ( pLista->pElemCorr->pAnt != NULL && 
+                 CED_ObterTipoEspaco( pLista->pElemCorr->pAnt ) != LIS_TipoEspacoElemento
+                 || ! CED_VerificarEspaco( pLista->pElemCorr->pAnt , NULL ) )
+            {
+               CNT_CONTAR( "VerificarElementos anterior_lixo" ) ;
+               TST_NotificarFalha( "elemento anterior não é um nó." ) ;
+               falhas ++ ;
+               acusouLixo = 1 ;
+            } /* if */
+
+            /* para o programa não voar */
+            if ( acusouLixo )
+            {
+               CNT_CONTAR( "VerificarElementos acusouLixo" ) ;
+               return falhas ;
+            }
+
+            CED_MarcarEspacoAtivo( pLista->pElemCorr ) ;
+            CED_MarcarEspacoAtivo( pLista->pElemCorr->pValor ) ;
+
+            if ( pLista->pElemCorr->pCabeca != pLista )
+            {
+               CNT_CONTAR( "VerificarElementos pCabeca_nao_cabeca" ) ;
+               TST_NotificarFalha( "pCabeca no elemento não aponta para a cabeça da lista." ) ;
+               falhas ++ ;
+            } /* if */
+
+            if ( strcmp( pLista->tipoApontado , pLista->pElemCorr->tipoApontado ) != 0 )
+            {
+               CNT_CONTAR( "VerificarElementos tipo_errado" ) ;
+               TST_NotificarFalha( "tipo do elemento não é mesmo tipo da lista." ) ;
+               falhas ++ ;
+            } /* if */
+
+            if ( pLista->pElemCorr->pValor == NULL )
+            {
+               CNT_CONTAR( "VerificarElementos conteudo_null" ) ;
+               TST_NotificarFalha( "conteúdo do elemento é nulo." ) ;
+               falhas ++ ;
+            } /* if */
+
+            if ( CED_ObterTamanhoValor( pLista->pElemCorr->pValor ) != pLista->pElemCorr->tamApontado )
+            {
+               CNT_CONTAR( "VerificarElementos tamanho_errado" ) ;
+               TST_NotificarFalha( "tamanho do apontado não é o tamanho real." ) ;
+               falhas ++ ;
+            } /* if */
+
+            if ( pLista->pElemCorr->pAnt == NULL && pLista->pElemCorr != pLista->pOrigemLista )
+            {
+               CNT_CONTAR( "VerificarElementos anterior_null_nao_primeiro" ) ;
+               TST_NotificarFalha( "anterior é nulo em elemento não primeiro." ) ;
+               falhas ++ ;
+            } /* if */
+
+            if ( pLista->pElemCorr->pProx == NULL && pLista->pElemCorr != pLista->pFimLista )
+            {
+               CNT_CONTAR( "VerificarElementos proximo_null_nao_primeiro" ) ;
+               TST_NotificarFalha( "próximo é nulo em elemento não último." ) ;
+               falhas ++ ;
+            } /* if */
+
+            if ( pLista->pElemCorr->pProx != NULL 
+                 && pLista->pElemCorr->pProx->pAnt != pLista->pElemCorr )
+            {
+               CNT_CONTAR( "VerificarElementos falha_encadeamento_direita_2" ) ;
+               TST_NotificarFalha( "falha no encadeamento." ) ;
+               falhas ++ ;
+            } /* if */
+
+         } while ( LIS_AvancarElementoCorrente( pLista , 1 ) == LIS_CondRetOK ) ;
+
+         return falhas ;
+
+   } /* Fim função: LIS  -Verificar elementos da lista */
+
+#endif
 
 /********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/
 

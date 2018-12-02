@@ -14,6 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     5.00    ngx   01/dez/2018 adiconado verificador. A princípio, é a versão de entrega.
 *     4.40    ngx   29/nov/2018 adicionada função de deturpação e modos de deturpação
 *     4.30    ngx   27/nov/2018 utilização do módulo conta, novos casos de teste
 *     4.10    ngx   25/nov/2018 início da transformação em estrutura auto verificadora
@@ -55,6 +56,11 @@ static const char INS_PONT_CONHECIDO_CMD  [ ] = "=insconhecido"   ;
 
 #ifdef _DEBUG
 static const char DETURPAR_CMD            [ ] = "=deturparlista"  ;
+static const char VERIFICAR_CMD           [ ] = "=verificar"      ;
+static const char VER_TODOSATIVOS_CMD     [ ] = "=todosativos"    ;
+static const char DESATIVA_CMD            [ ] = "=desativa"       ;
+static const char LIBERA_TUDO_CMD         [ ] = "=liberatudo"     ;
+static const char VERF_CABECA_NULL_CMD    [ ] = "=verificarcnull" ;
 #endif
 
 #define TRUE  1
@@ -494,11 +500,118 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            LIS_Deturpar( vtListas[ inxLista ] , modoDeturpar );
+            LIS_Deturpar( vtListas[ inxLista ] , modoDeturpar ) ;
 
             return TST_CondRetOK ;
 
          } /* fim ativa: LIS  &Deturpar lista */
+
+      #endif
+      #ifdef _DEBUG
+
+      /* LIS  &Verificar lista */
+
+         else if ( strcmp( ComandoTeste , VERIFICAR_CMD ) == 0 )
+         {
+
+            int falhasEsperadas = 0 ;
+            int falhas = 0 ;
+
+            numLidos = LER_LerParametros( "ii" , &inxLista ,
+                                &falhasEsperadas ) ;
+
+            if ( ( numLidos != 2 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            falhas = LIS_VerificarLista( vtListas[ inxLista ] ) ;
+
+            if ( falhasEsperadas == -1 && falhas != 0 )
+            {
+               return TST_CondRetOK ;
+            }
+
+            return TST_CompararInt( falhasEsperadas , falhas ,
+                     "Falhas verificadas diferentes do esperado." ) ; ;
+
+         } /* fim ativa: LIS  &Verificar lista */
+
+      #endif
+      #ifdef _DEBUG
+
+      /* Verifica todos os inativos foram liberados */
+
+         else if ( strcmp( ComandoTeste , VER_TODOSATIVOS_CMD ) == 0 )
+         {
+
+            int numAlocadosEsperado = 0 ;
+
+            numLidos = LER_LerParametros( "ii" , &numAlocadosEsperado ) ;
+
+            if ( ( numLidos != 1 ) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            return TST_CompararInt( numAlocadosEsperado , 
+                     CED_ObterNumeroEspacos( CED_ExibirInativos ) , 
+                     "existem espaços inativos ainda alocados." ) ;
+
+         } /* fim ativa: Verifica todos os inativos foram liberados */
+
+      #endif
+      #ifdef _DEBUG
+
+      /* Desativa todos os espaços alocados */
+
+         else if ( strcmp( ComandoTeste , DESATIVA_CMD ) == 0 )
+         {
+
+            CED_MarcarTodosEspacosInativos( ) ;
+
+            return TST_CondRetOK ;
+
+         } /* fim ativa: Desativa todos os espaços alocados */
+
+      #endif
+      #ifdef _DEBUG
+
+      /* Libera todos os espaços alocados */
+
+         else if ( strcmp( ComandoTeste , LIBERA_TUDO_CMD ) == 0 )
+         {
+
+            void * corrente = NULL ;
+
+            CED_MarcarTodosEspacosInativos( ) ;
+            CED_InicializarIteradorEspacos( ) ;
+            do
+            {
+               corrente = CED_ObterPonteiroEspacoCorrente( ) ;
+               free(corrente) ;
+            } while ( CED_AvancarProximoEspaco( ) != 0 ) ;
+            CED_TerminarIteradorEspacos( ) ;
+
+            return TST_CondRetOK ;
+         } /* fim ativa: Libera todos os espaços alocados */
+
+      #endif
+      #ifdef _DEBUG
+
+      /* Verifica com cabeça NULL e de outro tipo */
+
+         else if ( strcmp( ComandoTeste , VERF_CABECA_NULL_CMD ) == 0 )
+         {
+            int varTeste ;
+
+            LIS_VerificarLista( NULL ) ;
+            LIS_VerificarLista( ( LIS_tppLista ) &varTeste ) ;
+
+            return TST_CondRetOK ;
+
+         } /* fim ativa: Verifica com cabeça NULL e de outro tipo */
 
       #endif
 

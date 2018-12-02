@@ -17,6 +17,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     5.00    ngx   01/dez/2018 adiconado verificador. A princípio, é a versão de entrega.
 *     4.40    ngx   29/nov/2018 adicionada função de deturpação e modos de deturpação
 *     4.10    ngx   25/nov/2018 início da transformação em estrutura auto verificadora
 *     4       avs   01/fev/2006 criar linguagem script simbólica
@@ -122,19 +123,13 @@ typedef struct LIS_tagLista * LIS_tppLista ;
          DeturpaTamanho = 15 ,
                /* modifica o tamanho do conteúdo apontado no corrente para um a mais */
 
-         DeturpaNumElem = 16 ,
-               /* modifica o inteiro que guarda número de elementos para um a mais */
-
-         DeturpaFuncNULL = 17 ,
-               /* atribui NULL ao ponteiro de função que libera o conteúdo */
-
-         DeturpaCorrenteLixo = 18 ,
+         DeturpaCorrenteLixo = 16 ,
                /* atribui lico ao ponteiro corrente */
 
-         DeturpaOrigemLixo = 19 ,
+         DeturpaOrigemLixo = 17 ,
                /* atribui lixo ao ponteiro de origem */
 
-         DeturpaFinalLixo = 20 ,
+         DeturpaFinalLixo = 18 ,
                /* atribui lixo ao ponteiro de fim da lista */
 
    } LIS_tpModosDeturpacao ;
@@ -453,6 +448,37 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
    void LIS_Deturpar( LIS_tppLista pLista ,
                       LIS_tpModosDeturpacao ModoDeturpar ) ;
+
+#endif
+
+#ifdef _DEBUG
+
+/***********************************************************************
+*
+*  $FC Função: LIS  &Verificar lista
+*
+*  $ED Descrição da função
+*     Função da interface de teste.
+*     Verifica completamente uma determinada lista.
+*     Também marca ativo todos os espaços por ela ocupados.
+*
+*     Se a quantidade de falhas verificadas for zero,
+*     não houveram falhas e a quantidade é confiável. Caso a quantidade
+*     seja maior do que zero, esta não é totalmente confiável pois algumas
+*     falhas podem impedir a verificação de outras, sabe-se somente
+*     que houveram uma ou mais falhas.
+*     Se houverem falhas na cabeça, estas serão acusadas, e não será
+*     percorrido o resto da lista.
+*
+*  $EP Parâmetros
+*     pLista       - ponteiro para a lista a ser verificada
+*
+*  $FV Valor retornado
+*     Quantidade de falhas verificadas.
+*
+***********************************************************************/
+
+   int LIS_VerificarLista( LIS_tppLista pLista ) ;
 
 #endif
 
