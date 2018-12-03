@@ -1,0 +1,31 @@
+DOCUMENTAÇÃO DE TESTE DO VERIFICADOR
+
+COMANDOS DO ARCABOUÇO:
+=procurarval <lista> <numPont> <condRetEsperada>  -> procura na lista o ponteiro de número numPont
+=insconhecido <lista> <numPont> <condRetEsperada> -> insere na lista o ponteiro conhecido de número numPont para ser pesquisado depois
+=deturparlista <lista> <modo>                     -> deturpa a lista segundo o modo de deturpação (veja mais abaixo)
+=verificar <lista> <falhasEsperadas>              -> verifica a lista e compara as falhas obtidas com as falhas esperadas
+=todosativos <numEsperado>                        -> compara o número de espaços inativos com numEsperado
+=desativa                                         -> marca como inativo todos os espaços alocados
+=liberatudo                                       -> libera todos os espaços alocados usando a lista de espaços alocados
+=verificarcnull                                   -> chama verificar com cabeça NULL e de tipo não cabeça
+
+MODOS DE DETURPAÇÃO DISPONÍVEIS:
+DeturpaElimCorrente    -> elimina o elemento corrente da lista
+DeturpaProxNULL        -> atribui NULL ao ponteiro para o próximo nó
+DeturpaAntNULL         -> atribui NULL ao ponteiro para o nó anterior
+DeturpaProxLixo        -> atribui lixo ao ponteiro para o próximo nó
+DeturpaAntLixo         -> atribui lixo ao ponteiro para o nó anterior
+DeturpaConteudoNULL    -> atribui NULL ao ponteiro para o conteúdo do nó
+DeturpaTipoNo          -> altera o tipo de estrutura apontado no nó
+DeturpaTiraSemLiberar  -> desencadeia nó sem liberá-lo com free
+DeturpaCorrenteNULL    -> atribui NULL ao ponteiro corrente
+DeturpaOrigemNULL      -> atribui NULL ao ponteiro de origem
+DeturpaFinalNULL       -> atribui NULL ao ponteiro de fim da lista
+DeturpaTipoCabeca      -> modifica o tipo de estrutura na cabeça
+DeturpaCabecaNULL      -> atribui NULL ao ponteiro cabeça
+DeturpaCabecaLixo      -> atribui lixo ao ponteiro cabeça
+DeturpaTamanho         -> modifica o tamanho do conteúdo apontado no corrente para um a mais
+DeturpaCorrenteLixo    -> atribui lico ao ponteiro corrente
+DeturpaOrigemLixo      -> atribui lixo ao ponteiro de origem
+DeturpaFinalLixo       -> atribui lixo ao ponteiro de fim da lista
