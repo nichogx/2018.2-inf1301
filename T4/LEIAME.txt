@@ -1,8 +1,8 @@
 COMO EXECUTAR O TRABALHO 4
 1 - Extraia o .zip para uma pasta utilizando uma ferramenta como 7zip, winrar ou a 
     própria ferramenta do Windows.
-2 - Dentro dessa pasta, renomeie o arquivo start.bat.txt para start.bat
-    (não é necessário renomear nenhum outro arquivo).
+2 - Dentro dessa pasta acesse a pasta Batchese renomeie o arquivo start.bat.txt para 
+    start.bat (não é necessário renomear nenhum outro arquivo).
 3 - Rode o arquivo start.bat. Os arquivos serão renomeados conforme necessário e os
     testes serão rodados. 
 
