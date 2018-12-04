@@ -1,0 +1,49 @@
+//////////////////////////////////////////////////////////////////////
+// Contadores acumulados, gerado: 2018/12/03-20:30:35
+//////////////////////////////////////////////////////////////////////
+
+LIS_AvancarElementoCorrente lista_era_vazia\=3
+LIS_AvancarElementoCorrente maior_zero_pElem_nao_NULL\=36
+LIS_AvancarElementoCorrente maior_zero_pElem_virou_NULL\=1
+LIS_AvancarElementoCorrente menor_zero_pElem_nao_NULL\=18
+LIS_AvancarElementoCorrente menor_zero_pElem_virou_NULL\=1
+LIS_EsvaziarLista pElem_dif_NULL\=39
+LIS_ExcluirElemento era_primeiro\=2
+LIS_ExcluirElemento era_ultimo\=1
+LIS_ExcluirElemento lista_era_vazia\=1
+LIS_ExcluirElemento nao_era_primeiro\=1
+LIS_ExcluirElemento nao_era_ultimo\=2
+LIS_InserirElementoAntes el_corrente_nao_primeiro\=1
+LIS_InserirElementoAntes el_corrente_primeiro\=1
+LIS_InserirElementoAntes lista_era_vazia\=3
+LIS_InserirElementoApos el_corrente_nao_ultimo\=1
+LIS_InserirElementoApos el_corrente_ultimo\=31
+LIS_InserirElementoApos lista_era_vazia\=15
+LIS_ObterValor nao_tem_corrente\=3
+LIS_ProcurarValor achou\=4
+LIS_ProcurarValor lista_era_vazia\=1
+LiberarElemento if\=41
+VerificarCabeca cabeca_tipo_errado\=1
+VerificarCabeca corrente_lixo\=1
+VerificarCabeca corrente_null\=1
+VerificarCabeca fim_lixo\=1
+VerificarCabeca fim_null\=1
+VerificarCabeca origem_lixo\=1
+VerificarCabeca origem_null\=1
+VerificarCabeca pLista_NULL\=1
+VerificarElementos acusouLixo\=1
+VerificarElementos anterior_lixo\=1
+VerificarElementos anterior_null_nao_primeiro\=1
+VerificarElementos conteudo_null\=1
+VerificarElementos falha_encadeamento_direita\=2
+VerificarElementos falha_encadeamento_direita_2\=2
+VerificarElementos falha_encadeamento_esquerda\=2
+VerificarElementos pCabeca_nao_cabeca\=2
+VerificarElementos proximo_lixo\=1
+VerificarElementos proximo_null_nao_primeiro\=1
+VerificarElementos tamanho_errado\=3
+VerificarElementos tipo_errado\=4
+
+//////////////////////////////////////////////////////////////////////
+// Fim arquivo de contadores acumulados
+//////////////////////////////////////////////////////////////////////
