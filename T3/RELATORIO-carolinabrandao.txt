@@ -1,1 +1,6 @@
 ﻿Data            Horas Trabalhadas,      Tipo Tarefa,                                        Descrição da Tarefa Realizada
+07/11			2			Estudar						Entendendo o enunciado e objetivo do trabalho
+08/11			6			Estudar						Preparação para implementação do analisador
+09/11			4			Escrever codigo					Começo da implementação do analisador
+11/11			4			Escrever codigo 				Continuação da implementação
+12/11			4			Revisar o codigo				Revisão do codigo, procurar melhoras 

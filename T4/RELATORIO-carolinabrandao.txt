@@ -1,1 +1,4 @@
 ﻿Data            Horas Trabalhadas,      Tipo Tarefa,                                        Descrição da Tarefa Realizada
+2018-11-28		1		Estudar							Vendo como implementar modulo
+2018-11-30		7		Estudar/Começar a escrever codigo			Tentativa de implementar verificador
+2018-12-2		4.5		Estudar/Codigo						Revisão do codigo
